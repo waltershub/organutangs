@@ -49,8 +49,8 @@ var socketInstance = function(io){
                   gmaps.generateMidpoint(userLocation.coordinates, friendLocation.coordinates)
                     .then((midpoint) => {
                       console.log('Midpoint generated:', midpoint);
-
-                      yelp.yelpRequest(midpoint)
+                      const query = doc.query || 'food';
+                      yelp.yelpRequest(midpoint, query)
                         .then((yelpLocations) => {
                           // Re-render client
 
@@ -62,7 +62,7 @@ var socketInstance = function(io){
                           io.sockets.emit('user locations', {
                             location1: { lat: userLocation.coordinates[0], lng: userLocation.coordinates[1] },
                             location2: { lat: friendLocation.coordinates[0], lng: friendLocation.coordinates[1] }
-                          })
+                          });
                         });
                     });
                 });

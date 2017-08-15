@@ -10,6 +10,7 @@ var MeetingSchema = schema({
   userId: { type: String, unique: true },
   userLocation: { address: String, coordinates: [ Number, Number ] },
   friendId: String,
+  query: {type: String , default:'food'},
   updated: { type: Date, default: Date.now }
 });
 
