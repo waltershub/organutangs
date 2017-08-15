@@ -55,7 +55,7 @@ var routerInstance = function(io) {
                 console.log('Midpoint generated:', midpoint);
                 // Put midpoint in Forecast API
                 forecast.forecastRequest(midpoint, (err, weather) => {
-                  io.sockets.emit('forecast', weather);
+                  io.sockets.emit('weather', weather);
                 })
 
                 // Put midpoint in Yelp API
