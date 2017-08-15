@@ -24,7 +24,7 @@ var routerInstance = function(io) {
   });
 
   router.post('/two-locations', function(req, res) {
-    const { userId, location1, location2 } = req.body;
+    const { userId, location1, location2, mode } = req.body;
     var APIKEY = config.google.APIKEY;
 
     var address1 = encodeURIComponent((location1.address).trim()); // Replaces spaces in path with %20
@@ -49,7 +49,7 @@ var routerInstance = function(io) {
             console.log('coordinates2', coordinates2);
 
             // get midpoint
-            gmaps.generateMidpoint(coordinates1, coordinates2)
+            gmaps.generateMidpoint(coordinates1, coordinates2, mode)
               .then((midpoint) => {
                 console.log('Midpoint generated:', midpoint);
                 // Put midpoint in Yelp API

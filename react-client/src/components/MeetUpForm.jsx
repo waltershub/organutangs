@@ -11,7 +11,8 @@ class MeetUpForm extends React.Component {
     this.state = {
       friendId: "",
       userLocationAddress: '',
-      status: ''
+      status: '',
+      mode: 'walking',
     };
 
     this.handleUserChange = this.handleUserChange.bind(this);
@@ -19,6 +20,7 @@ class MeetUpForm extends React.Component {
     this.handleAddressChange = this.handleAddressChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmitFriendOrAddress = this.handleSubmitFriendOrAddress.bind(this);
+    this.handleMode = this.handleMode.bind(this);
   }
 
   componentDidMount() {
@@ -52,10 +54,12 @@ class MeetUpForm extends React.Component {
       var userId = this.props.userId;
       var location1 = { "address" : this.state.userLocationAddress, "coordinates": [0,0] };
       var location2 = { "address": this.state.friendId, "coordinates": [0,0] };
+      const mode = this.state.mode;
       axios.post('/two-locations', {
         userId,
         location1,
-        location2
+        location2,
+        mode
       }).then((res) => {
         // do something with the res
         this.setState({ status : 'Results found.' });
@@ -68,6 +72,10 @@ class MeetUpForm extends React.Component {
       console.log(2);
       this.handleSubmit(e);
     }
+  }
+
+  handleMode({ target }) {
+    this.setState({mode: target.value});
   }
 
   handleSubmit(e) {
@@ -103,38 +111,39 @@ class MeetUpForm extends React.Component {
   render(){
     return (
       <div>
-        <table>
-          <tbody>
-          <tr>
-            <div id="search">
-              <p>Your name</p>
-              <input type="text" value={ this.props.userId }/>
-            </div>
-          </tr>
-          <tr>
-            <div id="search">
-              <p>Enter your location</p>
-              <Autocomplete
-                onPlaceSelected={ (place) => {
-                  this.setState({ userLocationAddress: place.formatted_address })
-                } }
-                types={['address']}
-                onChange={ this.handleAddressChange }
-              />
-            </div>
-          </tr>
-          <tr>
-            <div id="search">
-              <p>Your friend's name or address</p>
-              <input type="text" value={ this.state.friendId } onChange={ this.handleFriendChange } />
-            </div>
-          </tr>
-          <tr>
-            <button className="submit" onClick={this.handleSubmitFriendOrAddress}>Join</button>
-          </tr>
-          <p className="messageText">{ this.state.status }</p>
-          </tbody>
-        </table>
+        <div className="search">
+          <p>Your name</p>
+          <p>{this.props.userId}</p>
+        </div>
+        <form
+          onSubmit={this.handleSubmitFriendOrAddress}
+        >
+          <div className="search">
+            <p>Enter your location</p>
+            <select
+              name="mode"
+              onChange={this.handleMode}
+            >
+              <option value="walking">Walk</option>
+              <option value="driving&avoid=highways">Drive</option>
+              <option value="transit">Public Transit</option>
+              <option value="bicycling">Bike</option>
+            </select>
+            <Autocomplete
+              onPlaceSelected={ (place) => {
+                this.setState({ userLocationAddress: place.formatted_address })
+              } }
+              types={['address']}
+              onChange={ this.handleAddressChange }
+            />
+          </div>
+          <div className="search">
+            <p>Your friend's name or address</p>
+            <input type="text" value={ this.state.friendId } onChange={ this.handleFriendChange } />
+          </div>
+          <button className="submit" type="submit">Join</button>
+        </form>
+        <p className="messageText">{ this.state.status }</p>
       </div>
     );
   }
