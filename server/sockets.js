@@ -30,6 +30,7 @@ var socketInstance = function(io){
               console.log('socket.rooms', socket.rooms);
               socket.emit('match status', 'Your match was found!');
               socket.to(room).emit('match status', 'Your match was found!');
+              socket.to(room).emit('mode', meeting.mode);
 
               var newMatch = new Match({
                 userId1: meeting.userId,
@@ -46,7 +47,7 @@ var socketInstance = function(io){
                 .exec(function (err, doc) {
                   var userLocation = doc.userLocation;
 
-                  gmaps.generateMidpoint(userLocation.coordinates, friendLocation.coordinates)
+                  gmaps.generateMidpoint(userLocation.coordinates, friendLocation.coordinates, meeting.mode)
                     .then((midpoint) => {
                       console.log('Midpoint generated:', midpoint);
                       const query = doc.query || 'food';

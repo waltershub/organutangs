@@ -29,6 +29,20 @@ class MeetUpForm extends React.Component {
     socket.on('match status', (data) => {
       this.setState({ status : data });
     });
+
+    socket.on('mode', (mode) => {
+      const modes = {
+        walking: 'Walk',
+        'driving&avoid=highways': 'Drive',
+        transit: 'take Public Transit',
+        bicycling: 'Bike',
+      };
+      if (mode !== this.state.mode) {
+        const goodMode = confirm(`Your friend wants to ${modes[mode]}, is that ok?`);
+        if (goodMode) this.setState({ mode });
+        else this.handleSubmitFriendOrAddress();
+      }
+    });
   }
 
   handleUserChange(event) {
@@ -48,8 +62,10 @@ class MeetUpForm extends React.Component {
   }
 
   handleSubmitFriendOrAddress(e) {
-    e.preventDefault();
-    e.stopPropagation();
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
 
     // If the user entered an address (identified by a space)
     if (this.state.friendId.includes(' ')) {
@@ -87,8 +103,10 @@ class MeetUpForm extends React.Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
-    e.stopPropagation();
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     var userId = this.props.userId;
     var friendId = this.state.friendId;
     var userLocation = {
@@ -96,6 +114,7 @@ class MeetUpForm extends React.Component {
       "coordinates": [0,0]
     };
     const query = this.state.query;
+    const mode = this.state.mode;
     // this.setState({ status: 'Looking for your friend...'});
 
     axios.post('/meetings', {
@@ -109,7 +128,8 @@ class MeetUpForm extends React.Component {
           {
             userId,
             friendId,
-            userLocation
+            userLocation,
+            mode,
           });
       })
       .catch(function (error) {
@@ -132,6 +152,7 @@ class MeetUpForm extends React.Component {
             <select
               name="mode"
               onChange={this.handleMode}
+              value={this.state.mode}
             >
               <option value="walking">Walk</option>
               <option value="driving&avoid=highways">Drive</option>
