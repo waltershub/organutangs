@@ -33,5 +33,10 @@ var yelpRequest = (location, term = 'food', dist = 500) => {
 
 // var newYork = {latitude: 40.751094, longitude: -73.987597};
 // yelpRequest(newYork);
-
+const yelpAutoComplete = (text) =>{
+  return yelp.autoComplete( {text: text} )
+    .then((results)=>{
+      return results;
+    });
+};
 module.exports.yelpRequest = yelpRequest;
