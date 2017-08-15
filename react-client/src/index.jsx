@@ -10,6 +10,7 @@ import sampleData from './sampleData.js';
 import LogoutButton from './components/LogoutButton.jsx';
 import Login from './components/Login.jsx';
 import Register from './components/Register.jsx';
+import Weather from './components/Weather.jsx';
 const io = require('socket.io-client');
 const socket = io();
 
@@ -24,7 +25,16 @@ class App extends React.Component {
       midpoint: { "lat": 40.751094, "lng": -73.987597 },
       center: { "lat": 40.751094, "lng": -73.987597 },
       userLocation: {},
+<<<<<<< HEAD
       startPoint: {},
+=======
+      weather: {
+        currently: {
+          summary: '',
+          temperature: ''   
+        }
+      }
+>>>>>>> forecast
     };
 
     this.setAuth = this.setAuth.bind(this);
@@ -68,12 +78,13 @@ class App extends React.Component {
     });
 
     socket.on('midpoint', (data) => {
-      console.log('midpoint listener data', data);
+      //console.log('midpoint listener data', data);
       this.setState({ midpoint: data, center: data });
     });
 
     socket.on('weather', (data) => {
       console.log('the weather data is ', data);
+      this.setState({ weather: data});
     })
 
     //chetan - grab users location
@@ -96,9 +107,10 @@ class App extends React.Component {
             <Title />
             <LogoutButton setuserId={this.setuserId} setAuth={this.setAuth}/>
           </div>
-          <MeetUpForm
-            userId={this.state.userId}
-          />
+          <div className="formWeather">
+            <MeetUpForm userId={this.state.userId}/>
+            <Weather summary={this.state.weather.currently.summary} temp={this.state.weather.currently.temperature} icon={this.state.weather.currently.icon}/>
+          </div>
           <div className="resultsContainer">
             <div className= "mapBox" >
               <div className="subMapBox">
