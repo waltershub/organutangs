@@ -24,7 +24,8 @@ var routerInstance = function(io) {
   });
 
   router.post('/two-locations', function(req, res) {
-    const { userId, location1, location2 } = req.body;
+    const { userId, location1, location2 , query} = req.body;
+    const catergory = query || 'food';
     var APIKEY = config.google.APIKEY;
 
     var address1 = encodeURIComponent((location1.address).trim()); // Replaces spaces in path with %20
@@ -53,7 +54,7 @@ var routerInstance = function(io) {
               .then((midpoint) => {
                 console.log('Midpoint generated:', midpoint);
                 // Put midpoint in Yelp API
-                yelp.yelpRequest(midpoint)
+                yelp.yelpRequest(midpoint,catergory)
                   .then((yelpLocations) => {
                     // Re-render client
                     io.sockets.emit('midpoint', { lat: midpoint.latitude, lng: midpoint.longitude });
@@ -63,7 +64,7 @@ var routerInstance = function(io) {
                     io.sockets.emit('user locations', {
                       location1: { lat: coordinates1[0], lng: coordinates1[1] },
                       location2: { lat: coordinates2[0], lng: coordinates2[1] }
-                    })
+                    });
                   });
               });
 
