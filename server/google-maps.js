@@ -15,6 +15,7 @@ module.exports.generateMidpoint = (coord1, coord2, mode = 'walking') => {
 
   const directionsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${dest}&key=${APIKEY}&mode=${mode}`;
 
+
   return axios.get(directionsUrl)
     .then((res) => {
       // Get the line from point A to point B

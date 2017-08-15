@@ -22,12 +22,21 @@ class App extends React.Component {
       // meetingLocations: [],
       meetingLocations: sampleData.sampleData,
       midpoint: { "lat": 40.751094, "lng": -73.987597 },
-      center: { "lat": 40.751094, "lng": -73.987597 }
+      center: { "lat": 40.751094, "lng": -73.987597 },
+      userLocation: {}
     };
 
     this.setAuth = this.setAuth.bind(this);
     this.setuserId = this.setuserId.bind(this);
     // this.handleClick = this.handleClick.bind(this);
+    this.getLocation = this.getLocation.bind(this);
+  }
+
+  getLocation() {
+    navigator.geolocation.getCurrentPosition((loc) => {
+      console.log('THE CURRENT LOCATION IS ', loc.coords.latitude, ' ', loc.coords.longitude);
+      this.setState({userLocatoin: { lat: loc.coords.latitude, lng: loc.coords.longitude }});
+    })
   }
 
   setuserId(input) {
@@ -61,6 +70,13 @@ class App extends React.Component {
       console.log('midpoint listener data', data);
       this.setState({ midpoint: data, center: data });
     });
+
+    socket.on('weather', (data) => {
+      console.log('the weather data is ', data);
+    })
+
+    //chetan - grab users location
+    this.getLocation();
   }
 
 //this render method renders title,meetup,map if you're logged in, else it renders login/register components
