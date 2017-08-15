@@ -7,9 +7,11 @@ const ListItem = (props) => (
 	          <img className="listing-object" src={props.item.image_url} alt="" />
 	         </div>
 	        <div className="listing-body">
+          <a href={`http://maps.google.com/?daddr=${props.item.name} ${props.item.location.address1} ${props.item.location.city}&saddr=${props.startPoint.lat || ''},${props.startPoint.lng || ''}`}>
 	          <div className="yelp-list-entry-name" >
               {props.listKey+1 + '. ' + props.item.name}
             </div>
+          </a>
 
 	          <div className="yelp-list-entry-rating">{props.item.rating}/5</div>
             <div className="yelp-list-entry-price">{props.item.price}</div>
