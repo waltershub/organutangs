@@ -25,16 +25,13 @@ class App extends React.Component {
       midpoint: { "lat": 40.751094, "lng": -73.987597 },
       center: { "lat": 40.751094, "lng": -73.987597 },
       userLocation: {},
-<<<<<<< HEAD
       startPoint: {},
-=======
       weather: {
         currently: {
           summary: '',
           temperature: ''   
         }
       }
->>>>>>> forecast
     };
 
     this.setAuth = this.setAuth.bind(this);
