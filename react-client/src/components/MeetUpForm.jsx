@@ -95,13 +95,14 @@ class MeetUpForm extends React.Component {
       "address" : this.state.userLocationAddress,
       "coordinates": [0,0]
     };
-
+    const query = this.state.query;
     // this.setState({ status: 'Looking for your friend...'});
 
     axios.post('/meetings', {
       userId,
       friendId,
-      userLocation
+      userLocation,
+      query,
     })
       .then(function (response) {
         socket.emit('user looking for friend',
