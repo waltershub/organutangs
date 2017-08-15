@@ -28,6 +28,13 @@ class App extends React.Component {
     this.setAuth = this.setAuth.bind(this);
     this.setuserId = this.setuserId.bind(this);
     // this.handleClick = this.handleClick.bind(this);
+    this.getLocation = this.getLocation.bind(this);
+  }
+
+  getLocation() {
+    navigator.geolocation.getCurrentPosition((loc) => {
+      console.log('THE CURRENT LOCATION IS ', loc.coords.latitude, ' ', loc.coords.longitude);
+    })
   }
 
   setuserId(input) {
@@ -61,6 +68,9 @@ class App extends React.Component {
       console.log('midpoint listener data', data);
       this.setState({ midpoint: data, center: data });
     });
+
+    //chetan - grab users location
+    this.getLocation();
   }
 
 //this render method renders title,meetup,map if you're logged in, else it renders login/register components

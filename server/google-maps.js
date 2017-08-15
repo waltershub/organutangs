@@ -12,7 +12,6 @@ module.exports.generateMidpoint = (coord1, coord2) => {
   const origin = `${coord1[0]},${coord1[1]}`;
   const dest = `${coord2[0]},${coord2[1]}`;
   const APIKEY = config.google.APIKEY;
-
   const directionsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${dest}&key=${APIKEY}&mode=walking`;
 
   return axios.get(directionsUrl)
