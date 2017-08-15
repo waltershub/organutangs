@@ -48,13 +48,13 @@ var routerInstance = function(io) {
             var lng2 = geocode2.data.results[0].geometry.location.lng;
             var coordinates2 = [ lat2, lng2 ];
 
-            console.log('coordinates1', coordinates1);
-            console.log('coordinates2', coordinates2);
+            // console.log('coordinates1', coordinates1);
+            // console.log('coordinates2', coordinates2);
 
             // get midpoint
             gmaps.generateMidpoint(coordinates1, coordinates2, mode)
               .then((midpoint) => {
-                console.log('Midpoint generated:', midpoint);
+                //console.log('Midpoint generated:', midpoint);
                 // Put midpoint in Forecast API
                 forecast.forecastRequest(midpoint, (err, weather) => {
                   io.sockets.emit('weather', weather);
