@@ -13,6 +13,7 @@ class MeetUpForm extends React.Component {
       userLocationAddress: '',
       status: '',
       mode: 'walking',
+      query: '',
     };
 
     this.handleUserChange = this.handleUserChange.bind(this);
@@ -21,6 +22,7 @@ class MeetUpForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmitFriendOrAddress = this.handleSubmitFriendOrAddress.bind(this);
     this.handleMode = this.handleMode.bind(this);
+    this.handleQueryChange = this.handleQueryChange.bind(this);
   }
 
   componentDidMount() {
@@ -41,6 +43,10 @@ class MeetUpForm extends React.Component {
     this.setState({ userLocationAddress: event.target.value });
   }
 
+  handleQueryChange(event) {
+    this.setState({query: event.target.value});
+  }
+
   handleSubmitFriendOrAddress(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -55,11 +61,13 @@ class MeetUpForm extends React.Component {
       var location1 = { "address" : this.state.userLocationAddress, "coordinates": [0,0] };
       var location2 = { "address": this.state.friendId, "coordinates": [0,0] };
       const mode = this.state.mode;
+      const query = this.state.query;
       axios.post('/two-locations', {
         userId,
         location1,
         location2,
-        mode
+        mode,
+        query,
       }).then((res) => {
         // do something with the res
         this.setState({ status : 'Results found.' });
@@ -131,7 +139,7 @@ class MeetUpForm extends React.Component {
             </select>
             <Autocomplete
               onPlaceSelected={ (place) => {
-                this.setState({ userLocationAddress: place.formatted_address })
+                this.setState({ userLocationAddress: place.formatted_address });
               } }
               types={['address']}
               onChange={ this.handleAddressChange }
@@ -140,6 +148,10 @@ class MeetUpForm extends React.Component {
           <div className="search">
             <p>Your friend's name or address</p>
             <input type="text" value={ this.state.friendId } onChange={ this.handleFriendChange } />
+          </div>
+          <div className="search">
+            <p>What would you like to do </p>
+            <input type="text" placeholder='what would you like to do' value={ this.state.query }  onChange={ this.handleQueryChange }/>
           </div>
           <button className="submit" type="submit">Join</button>
         </form>
