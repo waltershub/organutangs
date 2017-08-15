@@ -27,6 +27,7 @@
     "express": "^4.15.3",
     "express-session": "^1.15.4",
     "express-validator": "^3.2.1",
+    "forecast": "^0.3.2",
     "http": "0.0.0",
     "jquery": "^3.1.1",
     "mongoose": "^4.8.6",

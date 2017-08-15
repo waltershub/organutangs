@@ -3,6 +3,7 @@ var Meeting = require('../database-mongo/models/meeting.js');
 const router = express.Router();
 const config = require('./config.js');
 var axios = require('axios');
+const forecast = require('./weather.js')
 
 // APIs
 const gmaps = require('./google-maps.js');
@@ -52,6 +53,11 @@ var routerInstance = function(io) {
             gmaps.generateMidpoint(coordinates1, coordinates2)
               .then((midpoint) => {
                 console.log('Midpoint generated:', midpoint);
+                // Put midpoint in Forecast API
+                forecast.forecastRequest(midpoint, (err, weather) => {
+                  io.sockets.emit('forecast', weather);
+                })
+
                 // Put midpoint in Yelp API
                 yelp.yelpRequest(midpoint)
                   .then((yelpLocations) => {
