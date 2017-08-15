@@ -24,9 +24,6 @@ var routerInstance = function(io) {
   });
 
   router.post('/two-locations', function(req, res) {
-
-    
-
     const { userId, location1, location2, mode, query} = req.body;
     const catergory = query || 'food';
 
