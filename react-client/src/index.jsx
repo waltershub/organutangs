@@ -24,6 +24,7 @@ class App extends React.Component {
       midpoint: { "lat": 40.751094, "lng": -73.987597 },
       center: { "lat": 40.751094, "lng": -73.987597 },
       userLocation: {}
+      startPoint: {},
     };
 
     this.setAuth = this.setAuth.bind(this);
@@ -71,12 +72,20 @@ class App extends React.Component {
       this.setState({ midpoint: data, center: data });
     });
 
+<<<<<<< HEAD
     socket.on('weather', (data) => {
       console.log('the weather data is ', data);
     })
 
     //chetan - grab users location
     this.getLocation();
+=======
+    socket.on('user locations', (data) => {
+      this.setState({
+        startPoint: data.location1
+      });
+    });
+>>>>>>> click
   }
 
 //this render method renders title,meetup,map if you're logged in, else it renders login/register components
@@ -89,7 +98,9 @@ class App extends React.Component {
             <Title />
             <LogoutButton setuserId={this.setuserId} setAuth={this.setAuth}/>
           </div>
-          <MeetUpForm userId={this.state.userId}/>
+          <MeetUpForm
+            userId={this.state.userId}
+          />
           <div className="resultsContainer">
             <div className= "mapBox" >
               <div className="subMapBox">
@@ -104,7 +115,11 @@ class App extends React.Component {
               </div>
             </div>
             <div className="listContainer">
-              <List handleClick={this.handleListClick.bind(this)} items={this.state.meetingLocations}/>
+              <List
+                handleClick={this.handleListClick.bind(this)}
+                items={this.state.meetingLocations}
+                startPoint={this.state.startPoint}
+              />
             </div>
           </div>
         </div>
