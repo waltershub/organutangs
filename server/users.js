@@ -79,7 +79,7 @@ passport.deserializeUser(function(id, done) {
 router.post('/login',
   passport.authenticate('local'),
   function(req, res) {
-    res.status(201).send([req.user.username, req.isAuthenticated()]);
+    req.isAuthenticated();
     res.redirect('/');
   });
 
