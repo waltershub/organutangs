@@ -97,7 +97,7 @@ class MeetUpForm extends React.Component {
   }
 
   getSuggestionValue(suggestion){
-    console.log('SUGEST', suggestion); 
+    console.log('SUGEST', suggestion);
     return suggestion;
   }
 
@@ -238,6 +238,7 @@ class MeetUpForm extends React.Component {
             } }
             types={['address']}
             onChange={ this.handleAddressChange }
+            placeholder="Ex. 369 Lexintgon, New York, NY"
           />
 
 
@@ -252,12 +253,11 @@ class MeetUpForm extends React.Component {
             getSuggestionValue = { this.getSuggestionValue}
             renderSuggestion={this.renderSuggestion}
             inputProps = {{
-              placeholder:"what do you want to do",
+              placeholder:'Ex. Sake Bar',
               value: this.state.query,
               onChange: this.onChange
             }}
             highlightFirstSuggestion = {false}
-
           />
         </div>
         <button className="submit" type="submit">Join</button>
