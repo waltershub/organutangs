@@ -79,9 +79,20 @@ passport.deserializeUser(function(id, done) {
 router.post('/login',
   passport.authenticate('local'),
   function(req, res) {
-    res.status(201).send([req.user.username, req.isAuthenticated()]);
-    res.redirect('/');
-  });
+    req.session.regenerate((err) => {
+      req.session.user = req.user.username;
+      res.send([req.user.username, req.isAuthenticated()]);
+    });
+  }
+);
+
+router.get('/loggedin', (req, res) => {
+  if (req.session.user) {
+    res.send(true);
+  } else {
+    res.send(false);
+  }
+});
 
 router.get('/logout', function(req, res){
   req.logout();
