@@ -10,7 +10,8 @@
       "fog" : "../images/weather/fog.png",
       "cloudy" : "../images/weather/cloudy.png",
       "partly-cloudy-day" : "../images/weather/partly-cloudy-day.png",
-      "partly-cloudy-night" : "../images/weather/partly-cloudy-night.png"
+      "partly-cloudy-night" : "../images/weather/partly-cloudy-night.png",
+      "loading" : "../images/weather/loading.png"
     };
     var result = translationTable[forecastIOIcon];
     if (result == undefined)
