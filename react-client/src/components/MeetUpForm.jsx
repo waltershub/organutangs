@@ -28,12 +28,12 @@ class MeetUpForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmitFriendOrAddress = this.handleSubmitFriendOrAddress.bind(this);
     this.handleMode = this.handleMode.bind(this);
-    this.handleQueryChange = this.handleQueryChange.bind(this);
     this.recalculateSuggestions = this.recalculateSuggestions.bind(this);
     this.clearSuggestions = this.clearSuggestions.bind(this);
     this.getSuggestionValue = this.getSuggestionValue.bind(this);
     this.renderSuggestion = this.renderSuggestion.bind(this);
     this.getSuggestions =this.getSuggestions.bind(this);
+    this.onChange = this.onChange.bind(this);
 
   }
 
@@ -73,9 +73,6 @@ class MeetUpForm extends React.Component {
     this.setState({ userLocationAddress: event.target.value });
   }
 
-  handleQueryChange(event) {
-    this.setState({query: event.target.value});
-  }
 
   getSuggestions(value){
     return axios.post('autoComplete',{ text: this.state.query })
@@ -100,16 +97,27 @@ class MeetUpForm extends React.Component {
   }
 
   getSuggestionValue(suggestion){
+<<<<<<< HEAD
     this.setState({query:suggestion}).bind(this);
+=======
+    console.log('SUGEST', suggestion);
+    this.setState({query:suggestion});
+>>>>>>> polishAuto
     return suggestion;
+  }
+
+  onChange  (event, { newValue })  {
+    this.setState({
+      query: newValue
+    });
   }
 
   renderSuggestion(suggestion){
   return(
-
-    <strong >
+    <strong>
       {suggestion}
-    </strong>);
+  </strong>);
+
   }
 
 
@@ -251,9 +259,9 @@ class MeetUpForm extends React.Component {
             inputProps = {{
               placeholder:"what do you want to do",
               value: this.state.query,
-              onChange: this.handleQueryChange
+              onChange: this.onChange
             }}
-            highlightFirstSuggestion = {true}
+            highlightFirstSuggestion = {false}
 
           />
         </div>
