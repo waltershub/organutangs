@@ -74,19 +74,14 @@ class MeetUpForm extends React.Component {
   getSuggestions(value){
     return axios.post('autoComplete',{ text: this.state.query })
      .then((res) => {
-       console.log('data!!!!!!!',res.data);
        return res.data;
      })
      .catch((err) => console.error('error fetching suggestions: ', err));
   }
   recalculateSuggestions({value}){
-    console.log('value is', value);
+
       this.getSuggestions(value)
-      .then(suggestions =>{
-        console.log("sugest", suggestions);
-        this.setState({autoCompleteArray: suggestions} ,()=>{
-          console.log("dam");
-          console.log("autoComplete" ,this.state.autoCompleteArray);
+      .then(suggestions =>{        this.setState({autoCompleteArray: suggestions} ,()=>{
         });
       });
 
@@ -99,7 +94,6 @@ class MeetUpForm extends React.Component {
   }
 
   getSuggestionValue(suggestion){
-    console.log('SUGEST', suggestion);
     this.setState({query:suggestion}).bind(this);
     return suggestion;
   }
@@ -122,7 +116,6 @@ class MeetUpForm extends React.Component {
 
     // If the user entered an address (identified by a space)
     if (this.state.friendId.includes(' ')) {
-      console.log(1);
       // socket.emit('match status', 'Searching...');
       this.setState({ status : 'Searching...' });
       socket.emit('match status', 'Searching...');
@@ -146,7 +139,6 @@ class MeetUpForm extends React.Component {
 
     // Else the user entered a friend
     else {
-      console.log(2);
       this.handleSubmit(e);
     }
   }
@@ -274,7 +266,6 @@ class MeetUpForm extends React.Component {
             </p>
           </div>
           {this.displayPopUp.bind(this)()}
-
           <p className="messageText">{ this.state.status }</p>
         </div>
       </div>
