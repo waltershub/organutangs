@@ -47,7 +47,7 @@ class Map extends React.Component {
         <Marker
           key="midpoint"
           position={ this.props.midpoint }
-          label="1/2"
+          label=""
           icon={{ url: "./images/midPointIcon.png" }}
           />
         <Marker
