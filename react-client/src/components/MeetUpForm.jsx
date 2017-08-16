@@ -4,7 +4,7 @@ import Title from './Title.jsx';
 const io = require('socket.io-client');
 const socket = io();
 import Autocomplete from 'react-google-autocomplete';
-import YelpAutoComplete from 'react-autocomplete-component';
+import Autosuggest from 'react-autosuggest';
 
 class MeetUpForm extends React.Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class MeetUpForm extends React.Component {
       status: '',
       mode: 'walking',
       query: '',
-      autoCompleteArray: ['ball','bag'],
+      autoCompleteArray: ['ball','bag']
     };
 
     this.handleUserChange = this.handleUserChange.bind(this);
@@ -25,6 +25,11 @@ class MeetUpForm extends React.Component {
     this.handleSubmitFriendOrAddress = this.handleSubmitFriendOrAddress.bind(this);
     this.handleMode = this.handleMode.bind(this);
     this.handleQueryChange = this.handleQueryChange.bind(this);
+    this.recalculateSuggestions = this.recalculateSuggestions.bind(this);
+    this.clearSuggestions = this.clearSuggestions.bind(this);
+    this.getSuggestionValue = this.getSuggestionValue.bind(this);
+    this.renderSuggestion = this.renderSuggestion.bind(this);
+    this.getSuggestions =this.getSuggestions.bind(this);
   }
 
   componentDidMount() {
@@ -61,11 +66,51 @@ class MeetUpForm extends React.Component {
 
   handleQueryChange(event) {
     this.setState({query: event.target.value});
-    axios.post('autoComplete',{ text:event.target.value })
+  }
+
+  getSuggestions(value){
+    return axios.post('autoComplete',{ text: this.state.query })
      .then((res) => {
        console.log('data!!!!!!!',res.data);
-       this.setState({autoCompleteArray: res.data});
-     });
+       return res.data;
+     })
+     .catch((err) => console.error('error fetching suggestions: ', err));
+  }
+  recalculateSuggestions({value}){
+    console.log('value is', value);
+    // axios.post('autoComplete',{ text: this.state.query })
+    //  .then((res) => {
+    //    console.log('data!!!!!!!',res.data);
+    //    this.setState({autoCompleteArray: res.data});
+    //  })
+    //  .catch((err) => console.error('error fetching suggestions: ', err));
+      this.getSuggestions(value)
+      .then(suggestions =>{
+        console.log("sugest", suggestions);
+        this.setState({autoCompleteArray: suggestions} ,()=>{
+          console.log("dam");
+          console.log("autoComplete" ,this.state.autoCompleteArray);
+        });
+      });
+
+  }
+
+  clearSuggestions(){
+    if (this.state.query === ''){
+      this.setState({autoCompleteArray : []});
+    }
+  }
+
+  getSuggestionValue(suggestion){
+    console.log('SUGEST', suggestion);
+    return suggestion;
+  }
+
+  renderSuggestion(suggestion){
+  return(
+    <span>
+      {suggestion}
+    </span>);
   }
 
   handleSubmitFriendOrAddress(e) {
@@ -180,7 +225,18 @@ class MeetUpForm extends React.Component {
           </div>
           <div className="search">
             <p>What would you like to do </p>
-            <input type="text" options ={this.state.autoCompleteArray} value={ this.state.query }  onChange={ this.handleQueryChange }/>
+            <Autosuggest
+              suggestions={ this.state.autoCompleteArray }
+              onSuggestionsFetchRequested={ this.recalculateSuggestions }
+              onSuggestionsClearRequested = { this.clearSuggestions }
+              getSuggestionValue = { this.getSuggestionValue}
+              renderSuggestion={this.renderSuggestion}
+              inputProps = {{
+                value: this.state.query,
+                onChange: this.handleQueryChange
+              }}
+
+              />
           </div>
           <button className="submit" type="submit">Join</button>
         </form>
