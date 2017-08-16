@@ -20,7 +20,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      auth: false,
+      auth: 'none',
       userId:'',
       // meetingLocations: [],
       meetingLocations: [],
@@ -136,7 +136,8 @@ class App extends React.Component {
   render () {
     return (
       <div>
-      {this.state.auth ? (
+      {this.state.auth === 'none' ? null :
+      this.state.auth ? (
         <div>
           <div className="top">
             <Title />
