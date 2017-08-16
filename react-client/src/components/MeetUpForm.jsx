@@ -14,7 +14,7 @@ class MeetUpForm extends React.Component {
       userLocationAddress: '',
       status: '',
       mode: 'walking',
-      query: 'food',
+      query: '',
       autoCompleteArray: ['ball','bag'],
     };
 
@@ -30,6 +30,7 @@ class MeetUpForm extends React.Component {
     this.getSuggestionValue = this.getSuggestionValue.bind(this);
     this.renderSuggestion = this.renderSuggestion.bind(this);
     this.getSuggestions =this.getSuggestions.bind(this);
+
   }
 
   componentDidMount() {
@@ -78,12 +79,6 @@ class MeetUpForm extends React.Component {
   }
   recalculateSuggestions({value}){
     console.log('value is', value);
-    // axios.post('autoComplete',{ text: this.state.query })
-    //  .then((res) => {
-    //    console.log('data!!!!!!!',res.data);
-    //    this.setState({autoCompleteArray: res.data});
-    //  })
-    //  .catch((err) => console.error('error fetching suggestions: ', err));
       this.getSuggestions(value)
       .then(suggestions =>{
         console.log("sugest", suggestions);
@@ -103,15 +98,19 @@ class MeetUpForm extends React.Component {
 
   getSuggestionValue(suggestion){
     console.log('SUGEST', suggestion);
+    this.setState({query:suggestion}).bind(this);
     return suggestion;
   }
 
   renderSuggestion(suggestion){
   return(
-    <span>
+
+    <strong >
       {suggestion}
-    </span>);
+    </strong>);
   }
+
+
 
   handleSubmitFriendOrAddress(e) {
     if (e) {
@@ -228,6 +227,7 @@ class MeetUpForm extends React.Component {
             <input type="text" value={ this.state.friendId } onChange={ this.handleFriendChange } />
           <div className="search">
             <p className="inputLable2">What would you like to do </p>
+
             <Autosuggest
               suggestions={ this.state.autoCompleteArray }
               onSuggestionsFetchRequested={ this.recalculateSuggestions }
@@ -235,11 +235,14 @@ class MeetUpForm extends React.Component {
               getSuggestionValue = { this.getSuggestionValue}
               renderSuggestion={this.renderSuggestion}
               inputProps = {{
+                placeholder:"what do you want to do",
                 value: this.state.query,
                 onChange: this.handleQueryChange
               }}
+              highlightFirstSuggestion = {true}
 
               />
+
           </div>
           <button className="submit" type="submit">Join</button>
         </form>
