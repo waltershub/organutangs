@@ -261,6 +261,17 @@ img.listing-object {
 
 .mode {
     margin-bottom: 10px;
+    font-size: 15px;
+    padding: 2px 2px 2px 3px;
+    outline: none;
+    background-color: #FFFFFF;
+    border: 0.1px solid #cccccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 8px lightgrey;
+}
+
+.mode:focus {
+    box-shadow: none;
 }
 
 .signInContainer {

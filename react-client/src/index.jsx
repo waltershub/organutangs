@@ -175,7 +175,9 @@ class App extends React.Component {
             </div>
             <div className="regCard">
               <p className="title">Sign Up</p>
-              <Register/>
+              <Register
+                setAuth={this.setAuth}
+              />
             </div>
           </div>
         </div>

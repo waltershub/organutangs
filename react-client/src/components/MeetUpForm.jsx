@@ -170,6 +170,7 @@ class MeetUpForm extends React.Component {
               <option value="bicycling">Bike</option>
             </select>
             <Autocomplete
+              autoFocus
               onPlaceSelected={ (place) => {
                 this.setState({ userLocationAddress: place.formatted_address });
               } }

@@ -44,7 +44,13 @@ class Login extends React.Component {
     return (
     <form className="loginForm" onSubmit={(event)=>{this.loggingIn(event, this.state.userName, this.state.password)}}>
       <p className="inputLable">Username:</p>
-      <input className="username" type="text" value={this.state.userName} onChange={this.handleChangeName}/>
+      <input
+        autoFocus
+        className="username"
+        type="text"
+        value={this.state.userName}
+        onChange={this.handleChangeName}
+      />
       <p className="inputLable">Password:</p>
       <input className="password" type="password" value={this.state.password} onChange={this.handleChangePassword}/>
       <button type="submit">Submit</button>
