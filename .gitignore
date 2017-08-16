@@ -5,4 +5,4 @@ node_modules
 config.js
 server/config.js
 react-client/dist/bundle.js
-
+package-lock.json
