@@ -5,6 +5,7 @@ const io = require('socket.io-client');
 const socket = io();
 import Autocomplete from 'react-google-autocomplete';
 import Autosuggest from 'react-autosuggest';
+import PopUp from './PopUp.jsx';
 
 class MeetUpForm extends React.Component {
   constructor(props) {
@@ -16,6 +17,9 @@ class MeetUpForm extends React.Component {
       mode: 'walking',
       query: 'food',
       autoCompleteArray: ['ball','bag'],
+      displayPopUp: false,
+      popUpResult: null,
+      modeMessage: 'none',
     };
 
     this.handleUserChange = this.handleUserChange.bind(this);
@@ -45,9 +49,7 @@ class MeetUpForm extends React.Component {
         bicycling: 'Bike',
       };
       if (mode !== this.state.mode) {
-        const goodMode = confirm(`Your friend wants to ${modes[mode]}, is that ok?`);
-        if (goodMode) this.setState({ mode });
-        else this.handleSubmitFriendOrAddress();
+        this.setState({ displayPopUp: true, modeMessage: modes[mode] });
       }
     });
   }
@@ -189,61 +191,90 @@ class MeetUpForm extends React.Component {
       });
   }
 
+  togglePopUp() {
+    this.setState({ displayPopUp: !this.state.displayPopUp })
+  }
+
+  setPopUpResult(bool, mode) {
+    const modes = {
+      Walk: 'walking',
+      Drive: 'driving&avoid=highways',
+      'take Public Transit': 'transit',
+      'Bike': 'bicycling',
+    };
+    if (bool) this.setState({ mode: modes[this.state.modeMessage] });
+    else this.handleSubmitFriendOrAddress();
+  }
+
+  displayPopUp() {
+    return this.state.displayPopUp ? (
+      <PopUp
+        display={this.togglePopUp.bind(this)}
+        cb={this.setPopUpResult.bind(this)}
+        getMode={() => this.state.modeMessage}
+      />
+    ) : (
+      <form
+        className="loginForm"
+        onSubmit={this.handleSubmitFriendOrAddress}
+      >
+
+          <p className="inputLable">Enter your location</p>
+          <select
+            className="mode"
+            name="mode"
+            onChange={this.handleMode}
+            value={this.state.mode}
+          >
+            <option value="walking">Walk</option>
+            <option value="driving&avoid=highways">Drive</option>
+            <option value="transit">Public Transit</option>
+            <option value="bicycling">Bike</option>
+          </select>
+          <Autocomplete
+            autoFocus
+            onPlaceSelected={ (place) => {
+              this.setState({ userLocationAddress: place.formatted_address });
+            } }
+            types={['address']}
+            onChange={ this.handleAddressChange }
+          />
+
+
+          <p className="inputLable2">Your friend's name or address</p>
+          <input type="text" value={ this.state.friendId } onChange={ this.handleFriendChange } />
+        <div className="search">
+          <p className="inputLable2">What would you like to do </p>
+          <Autosuggest
+            suggestions={ this.state.autoCompleteArray }
+            onSuggestionsFetchRequested={ this.recalculateSuggestions }
+            onSuggestionsClearRequested = { this.clearSuggestions }
+            getSuggestionValue = { this.getSuggestionValue}
+            renderSuggestion={this.renderSuggestion}
+            inputProps = {{
+              value: this.state.query,
+              onChange: this.handleQueryChange
+            }}
+          />
+        </div>
+        <button className="submit" type="submit">Join</button>
+      </form>
+    );
+  }
+
   render(){
     return (
-      <div className="meetCard">
-        <div className="flex-row-center">
-          <p className="meet-card-header">Logged in as:
-            <span className="bold">{` ${this.props.userId}`}</span>
-          </p>
-        </div>
-        <form
-          className="loginForm"
-          onSubmit={this.handleSubmitFriendOrAddress}
-        >
-
-            <p className="inputLable">Enter your location</p>
-            <select
-              className="mode"
-              name="mode"
-              onChange={this.handleMode}
-              value={this.state.mode}
-            >
-              <option value="walking">Walk</option>
-              <option value="driving&avoid=highways">Drive</option>
-              <option value="transit">Public Transit</option>
-              <option value="bicycling">Bike</option>
-            </select>
-            <Autocomplete
-              autoFocus
-              onPlaceSelected={ (place) => {
-                this.setState({ userLocationAddress: place.formatted_address });
-              } }
-              types={['address']}
-              onChange={ this.handleAddressChange }
-            />
-
-
-            <p className="inputLable2">Your friend's name or address</p>
-            <input type="text" value={ this.state.friendId } onChange={ this.handleFriendChange } />
-          <div className="search">
-            <p className="inputLable2">What would you like to do </p>
-            <Autosuggest
-              suggestions={ this.state.autoCompleteArray }
-              onSuggestionsFetchRequested={ this.recalculateSuggestions }
-              onSuggestionsClearRequested = { this.clearSuggestions }
-              getSuggestionValue = { this.getSuggestionValue}
-              renderSuggestion={this.renderSuggestion}
-              inputProps = {{
-                value: this.state.query,
-                onChange: this.handleQueryChange
-              }}
-
-              />
+      <div>
+        <div className="meetCard">
+          <div className="flex-row-center">
+            <p className="meet-card-header">Logged in as:
+              <span className="bold">{` ${this.props.userId}`}</span>
+            </p>
           </div>
-          <button className="submit" type="submit">Join</button>
-        </form>
-        <p className="messageText">{ this.state.status }</p>
+          {this.displayPopUp()}
+
+          <p className="messageText">{ this.state.status }</p>
+        </div>
       </div>
     );
   }

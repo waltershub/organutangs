@@ -24,7 +24,7 @@ var socketInstance = function(io){
       var room = sortedPair.join('');
 
       socket.join(room, function() {
-        console.log('room', room);
+        // console.log('room', room);
         socket.emit('match status', 'Looking for your friend...');
         socket.to(room).emit('match status', 'Looking for your friend...');
 
@@ -35,7 +35,7 @@ var socketInstance = function(io){
               // Match found! Insert match into the db.
               // socket.broadcast.emit('match status', 'found');
               console.log('Found a match');
-              console.log('socket.rooms', socket.rooms);
+              // console.log('socket.rooms', socket.rooms);
               socket.emit('match status', 'Your match was found!');
               socket.to(room).emit('match status', 'Your match was found!');
               socket.to(room).emit('mode', meeting.mode);
@@ -57,7 +57,7 @@ var socketInstance = function(io){
 
                   gmaps.generateMidpoint(userLocation.coordinates, friendLocation.coordinates, meeting.mode)
                     .then((midpoint) => {
-                      console.log('Midpoint generated:', midpoint);
+                      // console.log('Midpoint generated:', midpoint);
                       const query = doc.query || 'food';
                       yelp.yelpRequest(midpoint, query)
                         .then((yelpLocations) => {
@@ -77,9 +77,9 @@ var socketInstance = function(io){
                 });
 
             } else {
-              console.log(`User ${meeting.friendId} and Friend ${meeting.userId} match not found in db.`);
+              // console.log(`User ${meeting.friendId} and Friend ${meeting.userId} match not found in db.`);
               // TODO somehow print "Looking for your friend"
-              console.log('room', room);
+              // console.log('room', room);
               socket.to(room).emit('match status', 'Looking for your friend.');
             }
           }); // End meeting.findOne
