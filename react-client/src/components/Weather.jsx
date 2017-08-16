@@ -20,7 +20,7 @@ class Weather extends React.Component {
   //   }
   //   return display
   // }
-  
+
   handleWeather() {
     console.log("The state is ", this.state.currentTemp)
     // this.setState({currentTemp: this.props.initTemp})
@@ -34,11 +34,13 @@ class Weather extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>WEATHER DATA</h1>
-        <div>hi{this.props.temp}</div>
-        <div>hi{this.props.summary}</div>
-        <div>hi{this.props.icon}</div>
+      <div className="weatherBox">
+        <h1 className="sub-title">WEATHER DATA</h1>
+        <div className="weatherData">
+          <div>{this.props.temp}</div>
+          <div>{this.props.summary}</div>
+          <div>{this.props.icon}</div>
+        </div>
       </div>
     );
   }

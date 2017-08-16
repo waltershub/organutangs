@@ -10,7 +10,6 @@ body {
     background-image: url(images/map.png);
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
     /*background-image: url(https://static.pexels.com/photos/5166/city-road-street-italy.jpg);*/
 }
 
@@ -39,6 +38,24 @@ button:focus {
     background-color: #F0ECEA;
 }
 
+.weatherBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px dotted black;
+    background-color: rgba(245, 248, 255, .85);
+    padding: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 8px grey;
+}
+
+.weatherData {
+    font-size: 23px;
+}
+
 .title{
     margin: 0;
     padding: 0;
@@ -46,12 +63,26 @@ button:focus {
 
     font-size: 35px;
     font-family: Raleway;
+    display: flex;
+    align-items: center;
 }
 
-.search > p {
-    display: block;
-    font-size: 15px;
-    margin: 12px 0 4px 7px;
+.sub-title{
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    margin-bottom: 10px;
+    font-size: 30px;
+    font-family: Raleway;
+    font-weight: 300;
+    border-bottom: 1px solid black;
+}
+
+.flex-row-center {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid black;
 }
 
 input{
@@ -69,6 +100,19 @@ input:focus {
     box-shadow: none;
 }
 
+.bold {
+    margin: 0;
+    border: 0;
+    font-weight: bold;
+}
+
+.searchBox {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+
 img.listing-object {
     height: 90px;
     width: 90px;
@@ -78,7 +122,7 @@ img.listing-object {
 .yelp-list {
     /*padding-top: 3px;*/
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-around;
     flex-direction: row-reverse;
     flex-wrap: wrap;
 }
@@ -113,7 +157,7 @@ img.listing-object {
 .yelp-list-entry-container {
     display: inline-flex;
     margin: 3px 3px 3px 5px;
-    width: 95%;
+    width: 300px;
     padding: 5px;
     border: 1px solid #eee;
     border-radius: 5px;
@@ -134,14 +178,6 @@ img.listing-object {
     -webkit-transition: background-color .25s ease-in-out;
 }
 
-.subMapBox {
-    width: 765px;
-    height: 500px;
-    background-color: #eee;
-    /*border: 1px solid black;*/
-    border-radius: 5px;
-}
-
 .messageText{
     margin: 3px 0px 0px 0px;
     padding: 0;
@@ -153,7 +189,7 @@ img.listing-object {
 
 .resultsContainer {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-around;
     flex-direction: row-reverse;
 }
 
@@ -162,26 +198,15 @@ img.listing-object {
 }
 
 .listContainer {
-    width: 444px;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
     height: 500px;
     /*border: 1px solid black;*/
     overflow: auto;
     border-radius: 5px;
     /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
     /*margin: 2px;*/
-}
-
-.mapElement {
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-    border-radius: 5px;
-}
-
-.mapBox {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin: 2px;
-    border-radius: 5px;
 }
 
 .yelp-list-entry-address {
@@ -194,14 +219,23 @@ img.listing-object {
     justify-content: space-around;
     flex-direction: column;
 }
+
 .registerForm {
     display: flex;
     justify-content: space-around;
     flex-direction: column;
 }
 
+.logout {
+    margin: 0;
+}
+
 .mapBox {
-    padding-top: 66px;
+    width: 765px;
+    height: 450px;
+    background-color: #eee;
+    border-radius: 50px;
+    box-shadow: 0px 0px 8px grey;
 }
 
 .signInForms {
@@ -212,13 +246,21 @@ img.listing-object {
     height: 100%;
 }
 
+.logo{
+    height: 45px;
+    width: 45px;
+    margin-left: 10px;
+}
+
 .top {
     display: flex;
     justify-content: space-between;
+    align-items: start;
+    margin-top: 20px;
 }
 
-#app > div > div > div.resultsContainer > div.mapBox > div > div > div:nth-child(1) {
-    border-radius: 5px;
+.mode {
+    margin-bottom: 10px;
 }
 
 .signInContainer {
@@ -254,6 +296,20 @@ img.listing-object {
     box-shadow: 0px 0px 8px grey;
 }
 
+.meetCard {
+    border-radius: 5px;
+    background-color: rgba(245, 248, 255, .85);
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 30px;
+    padding-right: 30px;
+    box-shadow: 0px 0px 8px grey;
+}
+
 .formWeather {
     display: flex;
     justify-content: space-between;
@@ -267,6 +323,26 @@ img.listing-object {
     margin-top: 10px;
     margin-bottom: 5px;
     font-size: 23px;
+}
+
+.inputLable2 {
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    margin-top: 20px;
+    margin-bottom: 5px;
+    font-size: 23px;
+}
+
+.meet-card-header {
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    padding-bottom: 3px;
+    font-size: 23px;
+    font-family: Raleway;
 }
 
 //F5F8FF

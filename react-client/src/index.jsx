@@ -34,7 +34,7 @@ class App extends React.Component {
         }
       },
       displayWeather: {
-        currently: {        
+        currently: {
           summary: 'Summary loading',
           temperature: 'Temperature loading',
           icon: 'Icon loading'
@@ -44,7 +44,7 @@ class App extends React.Component {
         currently: {
           summary: '',
           temperature: '',
-          icon: '' 
+          icon: ''
         }
       }
     };
@@ -131,28 +131,27 @@ class App extends React.Component {
         <div>
           <div className="top">
             <Title />
-            <LogoutButton setuserId={this.setuserId} setAuth={this.setAuth}/>
-          </div>
-          <div className="formWeather">
-            <MeetUpForm userId={this.state.userId}/>
-            <Weather 
+            <Weather
               summary={this.state.displayWeather.currently.summary}
               temp={this.state.displayWeather.currently.temperature}
-              icon={this.state.displayWeather.currently.icon} />
+              icon={this.state.displayWeather.currently.icon}
+            />
+            <LogoutButton setuserId={this.setuserId} setAuth={this.setAuth}/>
+          </div>
+          <div className="searchBox">
+            <MeetUpForm userId={this.state.userId}/>
+            <div className= "mapBox" >
+              <Map
+                markers={ this.state.meetingLocations }
+                midpoint={ this.state.midpoint }
+                center={ this.state.center }
+                containerElement={<div style={{height:100+'%'}} />}
+                mapElement={<div style={{height:100+'%'}} />}
+                handleMarkerClick={this.handleMarkerClick.bind(this)}
+              />
+            </div>
           </div>
           <div className="resultsContainer">
-            <div className= "mapBox" >
-              <div className="subMapBox">
-                <Map
-                  markers={ this.state.meetingLocations }
-                  midpoint={ this.state.midpoint }
-                  center={ this.state.center }
-                  containerElement={<div style={{height:100+'%'}} />}
-                  mapElement={<div style={{height:100+'%'}} />}
-                  handleMarkerClick={this.handleMarkerClick.bind(this)}
-                />
-              </div>
-            </div>
             <div className="listContainer">
               <List
                 handleClick={this.handleListClick.bind(this)}
