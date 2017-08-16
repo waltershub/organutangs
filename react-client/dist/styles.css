@@ -10,7 +10,10 @@ body {
     background-image: url(images/map.png);
     background-size: cover;
     background-position: center;
-    /*background-image: url(https://static.pexels.com/photos/5166/city-road-street-italy.jpg);*/
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding: 20px;
+    padding-top: 0px;
 }
 
 button {
@@ -43,7 +46,6 @@ button:focus {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    border: 1px dotted black;
     background-color: rgba(245, 248, 255, .85);
     padding: 8px;
     padding-left: 20px;

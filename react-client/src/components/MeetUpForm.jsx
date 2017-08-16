@@ -60,7 +60,13 @@ class MeetUpForm extends React.Component {
   }
 
   handleFriendChange(event) {
-    this.setState({ friendId: event.target.value });
+    if (event.target.value === 'no friends ') {
+      this.setState({ friendId: this.state.userLocationAddress });
+      this.setState({ query: 'bars' });
+      this.handleSubmitFriendOrAddress();
+    } else {
+      this.setState({ friendId: event.target.value });
+    }
   }
 
   handleAddressChange(event) {
