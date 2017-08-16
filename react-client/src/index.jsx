@@ -93,6 +93,11 @@ class App extends React.Component {
     this.setState({center: {"lat": item.coordinates.latitude, "lng": item.coordinates.longitude} })
   };
 
+  componentWillMount() {
+    axios.get('/users/loggedin')
+      .then(res => this.setAuth(res.data));
+  }
+
   componentDidMount() {
     socket.on('meeting locations', (data) => {
       this.setState({ meetingLocations: data });
