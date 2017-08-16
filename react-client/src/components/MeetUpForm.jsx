@@ -14,7 +14,7 @@ class MeetUpForm extends React.Component {
       userLocationAddress: '',
       status: '',
       mode: 'walking',
-      query: '',
+      query: 'food',
       autoCompleteArray: ['ball','bag'],
     };
 
@@ -146,17 +146,20 @@ class MeetUpForm extends React.Component {
 
   render(){
     return (
-      <div>
-        <div className="search">
-          <p>Your name</p>
-          <p>{this.props.userId}</p>
+      <div className="meetCard">
+        <div className="flex-row-center">
+          <p className="meet-card-header">Logged in as:
+            <span className="bold">{` ${this.props.userId}`}</span>
+          </p>
         </div>
         <form
+          className="loginForm"
           onSubmit={this.handleSubmitFriendOrAddress}
         >
-          <div className="search">
-            <p>Enter your location</p>
+
+            <p className="inputLable">Enter your location</p>
             <select
+              className="mode"
               name="mode"
               onChange={this.handleMode}
               value={this.state.mode}
@@ -173,15 +176,15 @@ class MeetUpForm extends React.Component {
               types={['address']}
               onChange={ this.handleAddressChange }
             />
-          </div>
-          <div className="search">
-            <p>Your friend's name or address</p>
+
+
+            <p className="inputLable2">Your friend's name or address</p>
             <input type="text" value={ this.state.friendId } onChange={ this.handleFriendChange } />
-          </div>
-          <div className="search">
-            <p>What would you like to do </p>
+
+
+            <p className="inputLable2">What would you like to do </p>
             <input type="text" options ={this.state.autoCompleteArray} value={ this.state.query }  onChange={ this.handleQueryChange }/>
-          </div>
+
           <button className="submit" type="submit">Join</button>
         </form>
         <p className="messageText">{ this.state.status }</p>

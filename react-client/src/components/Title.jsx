@@ -1,8 +1,9 @@
 import React from 'react';
 
 const Title = () => (
-  <div id='title'>
-    Halfwaze
+  <div className='title'>
+    HALFWAZE
+    <img className="logo" src="images/icon.png"/>
   </div>
 )
 
