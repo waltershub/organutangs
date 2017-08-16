@@ -97,12 +97,7 @@ class MeetUpForm extends React.Component {
   }
 
   getSuggestionValue(suggestion){
-<<<<<<< HEAD
-    this.setState({query:suggestion}).bind(this);
-=======
     console.log('SUGEST', suggestion);
-    this.setState({query:suggestion});
->>>>>>> polishAuto
     return suggestion;
   }
 
