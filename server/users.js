@@ -91,9 +91,9 @@ router.post('/login',
 
 router.get('/loggedin', (req, res) => {
   if (req.session.user) {
-    res.send(true);
+    res.send({ auth: true, user: req.session.user});
   } else {
-    res.send(false);
+    res.send({ auth: false, user: null });
   }
 });
 
