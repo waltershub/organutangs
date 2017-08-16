@@ -271,7 +271,7 @@ class MeetUpForm extends React.Component {
               <span className="bold">{` ${this.props.userId}`}</span>
             </p>
           </div>
-          {this.displayPopUp()}
+          {this.displayPopUp.bind(this)()}
 
           <p className="messageText">{ this.state.status }</p>
         </div>
