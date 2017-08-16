@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Weather extends React.Component {  
+class Weather extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -27,6 +27,7 @@ class Weather extends React.Component {
   render() {
     return (
       <div>
+        <p>Weather n' Shit</p>
         <div>{this.state.displayMessage}</div>
       </div>
     );

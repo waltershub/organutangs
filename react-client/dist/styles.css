@@ -1,38 +1,51 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+html {
+    height: 100%;
+}
+
 body {
     font-family: 'Source Sans Pro';
-    font-smoothing: antialiased;
-    -moz-font-smoothing: antialiased;
-    -webkit-font-smoothing: antialiased;
-    -webkit-font-smoothing: subpixel-antialiased;
     background-color: aliceblue;
-    background-image: url(https://cdn.vox-cdn.com/uploads/chorus_image/image/50521143/pourcoffeehouse.0.0.jpg);
+    background-image: url(images/map.png);
     background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     /*background-image: url(https://static.pexels.com/photos/5166/city-road-street-italy.jpg);*/
 }
 
 button {
-    padding: 3px 15px;
-    background-color: #e0e0e0;
-    border: 1px solid rgb(175, 175, 175);
-    color: #696969;
+    background-color: #FFFFFF;
+    border: 0.1px solid #cccccc;
+    color: black;
+    margin-top: 25px;
+    padding: 10px;
+    box-shadow: 2px 2px 5px lightgrey;
+    outline: none;
+    font-size: 15px;
 }
 
-#container{
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-    width: 85%;
-    padding-bottom: 30px;
+button:hover {
+    box-shadow: none;
+    background-color: #FAF6F4;
 }
 
-table{
-    padding-bottom: 15px;
+button:active {
+    background-color: #F0ECEA;
+    box-shadow: none;
 }
 
-#title{
-    font-size: 26px;
-    margin-bottom: 15px;
+button:focus {
+    background-color: #F0ECEA;
+}
+
+.title{
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    font-size: 35px;
+    font-family: Raleway;
 }
 
 .search > p {
@@ -42,24 +55,19 @@ table{
 }
 
 input{
-    display: inline-block;
     width: 420px;
     font-size: 16px;
     padding: 6px 6px 6px 8px;
     outline: none;
-    background-color: #fafafc;
-    border: 1px solid #cccccc;
+    background-color: #FFFFFF;
+    border: 0.1px solid #cccccc;
     border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 2px 2px 8px lightgrey;
 }
 
-/*#search > input {*/
-     /*display: inline-block;*/
-     /*width: 490px;*/
-     /*font-size: 18px;*/
-     /*padding: 3px 3px 3px 5px;*/
-     /*outline: none;*/
- /*}*/
+input:focus {
+    box-shadow: none;
+}
 
 img.listing-object {
     height: 90px;
@@ -181,45 +189,27 @@ img.listing-object {
     /*color: #c3c3c3;*/
 }
 
-form.loginForm {
+.loginForm {
     display: flex;
     justify-content: space-around;
     flex-direction: column;
 }
-form.registerForm {
+.registerForm {
     display: flex;
     justify-content: space-around;
     flex-direction: column;
 }
 
-div.mapBox > div > div > div > div > div > div > div > div > div > div > div > div {
+.mapBox {
     padding-top: 66px;
 }
 
 .signInForms {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
     height: 100%;
-}
-
-input.submit, button.submit {
-    width: 70px;
-    border-radius: 5px;
-    display: inline-block;
-    font-size: 16px;
-    padding: 6px 6px 6px 8px;
-    outline: none;
-    background-color: #fafafc;
-    border: 1px solid #cccccc;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.title {
-    font-size: 2em;
-    padding: .2em .2em .2em 0;
-    /* align-items: center; */
 }
 
 .top {
@@ -233,17 +223,50 @@ input.submit, button.submit {
 
 .signInContainer {
     align-items: center;
-    height: 620px;
+    height: 800px;
 }
 
-.card {
+.loginCard {
     border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(245, 248, 255, .85);
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-top: 0px;
+    padding-bottom: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    box-shadow: 0px 0px 8px grey;
+}
+
+.regCard {
+    border-radius: 5px;
+    background-color: rgba(245, 248, 255, .85);
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-top: 0px;
+    padding-bottom: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    box-shadow: 0px 0px 8px grey;
 }
 
 .formWeather {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
+
+.inputLable {
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 23px;
+}
+
+//F5F8FF

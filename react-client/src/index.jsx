@@ -29,7 +29,7 @@ class App extends React.Component {
       weather: {
         currently: {
           summary: '',
-          temperature: ''   
+          temperature: ''
         }
       }
     };
@@ -133,12 +133,12 @@ class App extends React.Component {
       ) : (
         <div className="signInContainer">
           <div className="signInForms">
-            <div className="card">
-              <div className="title">Login Here!</div>
+            <div className="loginCard">
+              <p className="title">Login</p>
               <Login setAuth={this.setAuth} setuserId={this.setuserId}/>
             </div>
-            <div className="card">
-              <div className="title">New User? Register here!</div>
+            <div className="regCard">
+              <p className="title">Sign Up</p>
               <Register/>
             </div>
           </div>
