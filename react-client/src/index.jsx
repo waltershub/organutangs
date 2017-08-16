@@ -23,7 +23,7 @@ class App extends React.Component {
       auth: false,
       userId:'',
       // meetingLocations: [],
-      meetingLocations: sampleData.sampleData,
+      meetingLocations: [],
       midpoint: { "lat": 40.751094, "lng": -73.987597 },
       center: { "lat": 40.751094, "lng": -73.987597 },
       userLocation: {},
@@ -32,9 +32,10 @@ class App extends React.Component {
         currently: {
           summary: 'Summary loading',
           temperature: 'Temperature loading',
-          icon: 'Icon loading'
+          icon: "../images/weather/loading.png"
         }
       },
+      weatherScale: .65,
     };
 
     this.setAuth = this.setAuth.bind(this);
@@ -54,6 +55,9 @@ class App extends React.Component {
     navigator.geolocation.getCurrentPosition((loc) => {
       console.log('THE CURRENT LOCATION IS ', loc.coords.latitude, ' ', loc.coords.longitude);
       this.setState({userLocation: { latitude: loc.coords.latitude, longitude: loc.coords.longitude }});
+      this.setState({midpoint: { lat: loc.coords.latitude, lng: loc.coords.longitude }});
+      this.setState({center: { lat: loc.coords.latitude, lng: loc.coords.longitude }});
+
       //send to backend to grab weather data
       socket.emit('initLocation', this.state.userLocation);
     })
@@ -66,6 +70,7 @@ class App extends React.Component {
       // this.setState({displayWeather: this.state.initialWeather.currently.temperature})
       // this.setState({displayWeather: this.state.initialWeather.currently.icon})
       console.log('DISPLAY WEATHER ', this.state.displayWeather)
+      this.setState({weatherScale: 1})
     })
       //set displayWeather variable. This variable will be passed in as a prop to Weather.jsx
   }
@@ -113,6 +118,7 @@ class App extends React.Component {
     socket.on('weather', (data) => {
       console.log('the weather data is ', data);
       //this.setState({displayWeather: data})
+      this.setState({weatherScale: 1})
       this.setState({displayWeather: {currently: {icon: this.convertIcon(data.currently.icon), temperature: data.currently.temperature, summary: data.currently.summary}}})
     })
 
@@ -138,6 +144,7 @@ class App extends React.Component {
               summary={this.state.displayWeather.currently.summary}
               temp={this.state.displayWeather.currently.temperature}
               icon={this.state.displayWeather.currently.icon}
+              scale={this.state.weatherScale}
             />
             <LogoutButton setuserId={this.setuserId} setAuth={this.setAuth}/>
           </div>
