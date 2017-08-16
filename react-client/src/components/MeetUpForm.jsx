@@ -226,16 +226,8 @@ class MeetUpForm extends React.Component {
 
             <p className="inputLable2">Your friend's name or address</p>
             <input type="text" value={ this.state.friendId } onChange={ this.handleFriendChange } />
-<<<<<<< HEAD
-
-
-            <p className="inputLable2">What would you like to do </p>
-            <input type="text" options ={this.state.autoCompleteArray} value={ this.state.query }  onChange={ this.handleQueryChange }/>
-
-=======
-          </div>
           <div className="search">
-            <p>What would you like to do </p>
+            <p className="inputLable2">What would you like to do </p>
             <Autosuggest
               suggestions={ this.state.autoCompleteArray }
               onSuggestionsFetchRequested={ this.recalculateSuggestions }
@@ -249,7 +241,6 @@ class MeetUpForm extends React.Component {
 
               />
           </div>
->>>>>>> autoC
           <button className="submit" type="submit">Join</button>
         </form>
         <p className="messageText">{ this.state.status }</p>
