@@ -1,4 +1,6 @@
 import React from 'react';
+import Skycons from 'react-skycons';
+import convertIcons from '../convertIcons.js'
 
 class Weather extends React.Component {
   constructor(props){
@@ -37,9 +39,9 @@ class Weather extends React.Component {
       <div className="weatherBox">
         <h1 className="sub-title">WEATHER DATA</h1>
         <div className="weatherData">
+          <img src={this.props.icon} />
           <div>{this.props.temp}</div>
           <div>{this.props.summary}</div>
-          <div>{this.props.icon}</div>
         </div>
       </div>
     );
