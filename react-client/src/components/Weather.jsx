@@ -1,15 +1,16 @@
 import React from 'react';
 
 class Weather extends React.Component {  
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       displayMessage: '',
-      currentTemp: props.temp,
-      currentSummary: props.summary,
-      currentIcon: props.icon,
-    }
+      // currentTemp: this.props.initTemp,
+      // currentSummary: this.props.initSummary,
+      // currentIcon: this.props.initIcon,
+    };
     //this.displayWeatherData = this.displayWeatherData.bind(this)
+    this.handleWeather = this.handleWeather.bind(this);
   }
 
   // displayWeatherData() {
@@ -19,15 +20,25 @@ class Weather extends React.Component {
   //   }
   //   return display
   // }
-
-  // componentDidMount() {
-  //   this.displayWeatherData();
-  // }
+  
+  handleWeather() {
+    console.log("The state is ", this.state.currentTemp)
+    // this.setState({currentTemp: this.props.initTemp})
+    // this.setState({currentSummary: this.props.initSummary})
+    // this.setState({currentIcon: this.props.initIcon})
+  }
+  componentDidMount() {
+    //this.displayWeatherData();
+    // this.handleWeather();
+  }
 
   render() {
     return (
       <div>
-        <div>{this.state.displayMessage}</div>
+        <h1>WEATHER DATA</h1>
+        <div>hi{this.props.temp}</div>
+        <div>hi{this.props.summary}</div>
+        <div>hi{this.props.icon}</div>
       </div>
     );
   }

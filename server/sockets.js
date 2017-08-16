@@ -1,6 +1,8 @@
 //Models
 var Meeting = require('../database-mongo/models/meeting.js');
 var Match = require('../database-mongo/models/match.js');
+const forecast = require('./weather.js')
+
 
 //APIs
 const gmaps = require('./google-maps.js');
@@ -9,6 +11,12 @@ const yelp = require('./yelp.js');
 var socketInstance = function(io){
   io.on('connection', function (socket) {
     console.log('a user connected');
+
+    socket.on('initLocation', function (locationObj) {
+      forecast.forecastRequest(locationObj, (err, weather) => {
+        io.sockets.emit('initWeather', weather);
+      })
+    })
 
     socket.on('user looking for friend', function (meeting) {
       // Room set-up (rooms are naively set as sorted and joined names e.g. 'alicebob')
