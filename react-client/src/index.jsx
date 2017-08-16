@@ -35,7 +35,8 @@ class App extends React.Component {
           icon: "../images/weather/loading.png"
         }
       },
-      weatherScale: .65,
+      weatherScale: 0,
+      loginForm: '-1000px'
     };
 
     this.setAuth = this.setAuth.bind(this);
@@ -130,6 +131,8 @@ class App extends React.Component {
         startPoint: data.location1
       });
     });
+    
+    this.setState({loginForm: '60px'})
   }
 
 //this render method renders title,meetup,map if you're logged in, else it renders login/register components
@@ -173,13 +176,13 @@ class App extends React.Component {
           </div>
         </div>
       ) : (
-        <div className="signInContainer">
+        <div className="signInContainer" >
           <div className="signInForms">
-            <div className="loginCard">
+            <div className="loginCard" style={{transition: 'all .3s ease-in', transform: 'translateY(' + this.state.loginForm + ')'}}>
               <p className="title">Login</p>
               <Login setAuth={this.setAuth} setuserId={this.setuserId}/>
             </div>
-            <div className="regCard">
+            <div className="regCard" style={{transition: 'all .3s ease-in', transform: 'translateY(' + this.state.loginForm + ')'}}>
               <p className="title">Sign Up</p>
               <Register
                 setAuth={this.setAuth}
