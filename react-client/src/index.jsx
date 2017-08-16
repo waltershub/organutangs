@@ -26,10 +26,25 @@ class App extends React.Component {
       center: { "lat": 40.751094, "lng": -73.987597 },
       userLocation: {},
       startPoint: {},
+      initialWeather: {
+        currently: {
+          summary: '',
+          temperature: '',
+          icon: ''
+        }
+      },
+      displayWeather: {
+        currently: {        
+          summary: 'Summary loading',
+          temperature: 'Temperature loading',
+          icon: 'Icon loading'
+        }
+      },
       weather: {
         currently: {
           summary: '',
-          temperature: ''   
+          temperature: '',
+          icon: '' 
         }
       }
     };
@@ -41,10 +56,23 @@ class App extends React.Component {
   }
 
   getLocation() {
+    //get the users initial location
     navigator.geolocation.getCurrentPosition((loc) => {
       console.log('THE CURRENT LOCATION IS ', loc.coords.latitude, ' ', loc.coords.longitude);
-      this.setState({userLocatoin: { lat: loc.coords.latitude, lng: loc.coords.longitude }});
+      this.setState({userLocation: { latitude: loc.coords.latitude, longitude: loc.coords.longitude }});
+      //send to backend to grab weather data
+      socket.emit('initLocation', this.state.userLocation);
     })
+    //get the weather data for current location
+    socket.on('initWeather', (data) => {
+      this.setState({initialWeather: data});
+      console.log('WEATHER BEEEEEOOCHCHH', this.state.initialWeather)
+      this.setState({displayWeather: data})
+      // this.setState({displayWeather: this.state.initialWeather.currently.temperature})
+      // this.setState({displayWeather: this.state.initialWeather.currently.icon})
+      console.log('DISPLAY WEATHER ', this.state.displayWeather)
+    })
+      //set displayWeather variable. This variable will be passed in as a prop to Weather.jsx
   }
 
   setuserId(input) {
@@ -82,6 +110,7 @@ class App extends React.Component {
     socket.on('weather', (data) => {
       console.log('the weather data is ', data);
       this.setState({ weather: data});
+      this.setState({displayWeather: data})
     })
 
     //chetan - grab users location
@@ -106,7 +135,10 @@ class App extends React.Component {
           </div>
           <div className="formWeather">
             <MeetUpForm userId={this.state.userId}/>
-            <Weather summary={this.state.weather.currently.summary} temp={this.state.weather.currently.temperature} icon={this.state.weather.currently.icon}/>
+            <Weather 
+              summary={this.state.displayWeather.currently.summary}
+              temp={this.state.displayWeather.currently.temperature}
+              icon={this.state.displayWeather.currently.icon} />
           </div>
           <div className="resultsContainer">
             <div className= "mapBox" >
