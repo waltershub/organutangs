@@ -95,7 +95,10 @@ class App extends React.Component {
 
   componentWillMount() {
     axios.get('/users/loggedin')
-      .then(res => this.setAuth(res.data));
+      .then(({data}) => {
+        this.setAuth(data.auth);
+        this.setuserId(data.user);
+      });
   }
 
   componentDidMount() {

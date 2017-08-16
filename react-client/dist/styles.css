@@ -123,7 +123,6 @@ img.listing-object {
     /*padding-top: 3px;*/
     display: flex;
     justify-content: space-around;
-    flex-direction: row-reverse;
     flex-wrap: wrap;
 }
 
