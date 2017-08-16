@@ -4,6 +4,7 @@ import Title from './Title.jsx';
 const io = require('socket.io-client');
 const socket = io();
 import Autocomplete from 'react-google-autocomplete';
+import YelpAutoComplete from 'react-autocomplete-component';
 
 class MeetUpForm extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class MeetUpForm extends React.Component {
       status: '',
       mode: 'walking',
       query: '',
+      autoCompleteArray: ['ball','bag'],
     };
 
     this.handleUserChange = this.handleUserChange.bind(this);
@@ -59,6 +61,11 @@ class MeetUpForm extends React.Component {
 
   handleQueryChange(event) {
     this.setState({query: event.target.value});
+    axios.post('autoComplete',{ text:event.target.value })
+     .then((res) => {
+       console.log('data!!!!!!!',res.data);
+       this.setState({autoCompleteArray: res.data});
+     });
   }
 
   handleSubmitFriendOrAddress(e) {
@@ -173,7 +180,7 @@ class MeetUpForm extends React.Component {
           </div>
           <div className="search">
             <p>What would you like to do </p>
-            <input type="text" placeholder='what would you like to do' value={ this.state.query }  onChange={ this.handleQueryChange }/>
+            <input type="text" options ={this.state.autoCompleteArray} value={ this.state.query }  onChange={ this.handleQueryChange }/>
           </div>
           <button className="submit" type="submit">Join</button>
         </form>
