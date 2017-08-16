@@ -6,7 +6,8 @@ class Login extends React.Component {
     super(props);
     this.state = {
       userName: '',
-      password: ''
+      password: '',
+      loginForm: 1
     };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -32,29 +33,32 @@ class Login extends React.Component {
     })
     .then((response) =>{
       console.log("responsefrom login ", response);
-      this.props.setAuth(response.data[1]); //FUCK FUCK FUCK
+      this.props.setAuth(response.data[1]);
       this.props.setuserId(response.data[0]);
     })
     .catch(function (error) {
       console.log("error logging in ", error);
     });
+    this.setState({loginForm: 0})
   }
 
   render() {
     return (
-    <form className="loginForm" onSubmit={(event)=>{this.loggingIn(event, this.state.userName, this.state.password)}}>
-      <p className="inputLable">Username:</p>
-      <input
-        autoFocus
-        className="username"
-        type="text"
-        value={this.state.userName}
-        onChange={this.handleChangeName}
-      />
-      <p className="inputLable">Password:</p>
-      <input className="password" type="password" value={this.state.password} onChange={this.handleChangePassword}/>
-      <button type="submit">Submit</button>
-    </form>
+    <div>
+      <form className="loginForm" onSubmit={(event)=>{this.loggingIn(event, this.state.userName, this.state.password)}}>
+        <p className="inputLable">Username:</p>
+        <input
+          autoFocus
+          className="username"
+          type="text"
+          value={this.state.userName}
+          onChange={this.handleChangeName}
+        />
+        <p className="inputLable">Password:</p>
+        <input className="password" type="password" value={this.state.password} onChange={this.handleChangePassword}/>
+        <button type="submit">Submit</button>
+      </form>
+    </div>  
     );
   }
 }

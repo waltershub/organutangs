@@ -2,10 +2,6 @@ import React from 'react';
 //import Skycons from 'react-skycons';
 import convertIcons from '../convertIcons.js';
 
-const styles = {
-  transition: 'all 0.5s ease-out'
-};
-
 class Weather extends React.Component {
   constructor(props){
     super(props);
@@ -40,12 +36,14 @@ class Weather extends React.Component {
 
   render() {
     return (
-      <div className="weatherBox slideIn" style={{transition: 'all 1s ease-out', transform: 'scale(' + this.props.scale + ')'}}>
+      <div className="weatherBox slideIn" style={{transition: 'all .3s ease-out', transform: 'scale(' + this.props.scale + ')'}}>
         <h1 className="sub-title">WEATHER</h1>
         <div className="weatherData">
-          <img src={this.props.icon} />
-          <div>{this.props.temp}</div>
-          <div>{this.props.summary}</div>
+          <div className="weatherNumerical">
+            <img src={this.props.icon} />
+            <div>{this.props.summary}</div>
+          </div>
+            <div>{this.props.temp}</div>
         </div>
       </div>
     );
