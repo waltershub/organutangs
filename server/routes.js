@@ -3,7 +3,7 @@ var Meeting = require('../database-mongo/models/meeting.js');
 const router = express.Router();
 const config = require('./config.js');
 var axios = require('axios');
-const forecast = require('./weather.js')
+const forecast = require('./weather.js');
 
 // APIs
 const gmaps = require('./google-maps.js');
@@ -25,6 +25,7 @@ var routerInstance = function(io) {
   });
 
   router.post('/two-locations', function(req, res) {
+    
     const { userId, location1, location2, mode, query} = req.body;
     const catergory = query || 'food';
 
@@ -58,7 +59,7 @@ var routerInstance = function(io) {
                 // Put midpoint in Forecast API
                 forecast.forecastRequest(midpoint, (err, weather) => {
                   io.sockets.emit('weather', weather);
-                })
+                });
 
                 // Put midpoint in Yelp API
                 yelp.yelpRequest(midpoint,catergory)
@@ -86,7 +87,12 @@ var routerInstance = function(io) {
   // TODO Getting the results of the match
   // router.get('/matches', function (req, res) {
   // });
-
+  router.post('/autoComplete' , (req , res) =>{
+      yelp.yelpAutoComplete(req.body)
+        .then((words) => {
+          res.send(words);
+        });
+  });
   return router;
 };
 
