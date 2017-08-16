@@ -11,6 +11,8 @@ import LogoutButton from './components/LogoutButton.jsx';
 import Login from './components/Login.jsx';
 import Register from './components/Register.jsx';
 import Weather from './components/Weather.jsx';
+import convertIcons from './convertIcons.js'
+
 const io = require('socket.io-client');
 const socket = io();
 
@@ -26,13 +28,6 @@ class App extends React.Component {
       center: { "lat": 40.751094, "lng": -73.987597 },
       userLocation: {},
       startPoint: {},
-      initialWeather: {
-        currently: {
-          summary: '',
-          temperature: '',
-          icon: ''
-        }
-      },
       displayWeather: {
         currently: {        
           summary: 'Summary loading',
@@ -40,19 +35,18 @@ class App extends React.Component {
           icon: 'Icon loading'
         }
       },
-      weather: {
-        currently: {
-          summary: '',
-          temperature: '',
-          icon: '' 
-        }
-      }
     };
 
     this.setAuth = this.setAuth.bind(this);
     this.setuserId = this.setuserId.bind(this);
     // this.handleClick = this.handleClick.bind(this);
     this.getLocation = this.getLocation.bind(this);
+    this.convertIcon = this.convertIcon.bind(this);
+  }
+
+  convertIcon(icon) {
+    //console.log('converted ', icon, 'to ', convertIcons.translate(icon))
+    return convertIcons.translate(icon);
   }
 
   getLocation() {
@@ -65,9 +59,10 @@ class App extends React.Component {
     })
     //get the weather data for current location
     socket.on('initWeather', (data) => {
-      this.setState({initialWeather: data});
-      console.log('WEATHER BEEEEEOOCHCHH', this.state.initialWeather)
-      this.setState({displayWeather: data})
+      //this.setState({displayWeather: data})
+      //console.log('WEATHER BEEEEEOOCHCHH', this.state.displayWeather)
+      this.setState({displayWeather: {currently: {icon: this.convertIcon(data.currently.icon), temperature: data.currently.temperature, summary: data.currently.summary}}})
+      // console.log('displayWeather currently icon', this.state.displayWeather.currently.icon)
       // this.setState({displayWeather: this.state.initialWeather.currently.temperature})
       // this.setState({displayWeather: this.state.initialWeather.currently.icon})
       console.log('DISPLAY WEATHER ', this.state.displayWeather)
@@ -109,8 +104,8 @@ class App extends React.Component {
 
     socket.on('weather', (data) => {
       console.log('the weather data is ', data);
-      this.setState({ weather: data});
-      this.setState({displayWeather: data})
+      //this.setState({displayWeather: data})
+      this.setState({displayWeather: {currently: {icon: this.convertIcon(data.currently.icon), temperature: data.currently.temperature, summary: data.currently.summary}}})
     })
 
     //chetan - grab users location
