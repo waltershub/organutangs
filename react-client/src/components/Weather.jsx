@@ -1,5 +1,5 @@
 import React from 'react';
-import Skycons from 'react-skycons';
+//import Skycons from 'react-skycons';
 import convertIcons from '../convertIcons.js';
 
 const styles = {
@@ -28,7 +28,7 @@ class Weather extends React.Component {
   // }
 
   handleWeather() {
-    console.log("The state is ", this.state.currentTemp)
+    console.log("The state is ", this.state.currentTemp);
     // this.setState({currentTemp: this.props.initTemp})
     // this.setState({currentSummary: this.props.initSummary})
     // this.setState({currentIcon: this.props.initIcon})
