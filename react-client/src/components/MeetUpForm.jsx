@@ -184,6 +184,7 @@ class MeetUpForm extends React.Component {
             friendId,
             userLocation,
             mode,
+            query,
           });
       })
       .catch(function (error) {
