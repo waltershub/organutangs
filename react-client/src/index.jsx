@@ -55,7 +55,6 @@ class App extends React.Component {
   getLocation() {
     //get the users initial location
     navigator.geolocation.getCurrentPosition((loc) => {
-      console.log('THE CURRENT LOCATION IS ', loc.coords.latitude, ' ', loc.coords.longitude);
       this.setState({userLocation: { latitude: loc.coords.latitude, longitude: loc.coords.longitude }});
       this.setState({midpoint: { lat: loc.coords.latitude, lng: loc.coords.longitude }});
       this.setState({center: { lat: loc.coords.latitude, lng: loc.coords.longitude }});
@@ -66,7 +65,6 @@ class App extends React.Component {
     socket.on('initWeather', (data) => {
       //console.log('WEATHER BEEEEEOOCHCHH', this.state.displayWeather)
       this.setState({displayWeather: {currently: {icon: this.convertIcon(data.currently.icon), temperature: data.currently.temperature, summary: data.currently.summary}}})
-      console.log('DISPLAY WEATHER ', this.state.displayWeather)
       this.setState({weatherScale: 1})
     })
   }
@@ -82,12 +80,10 @@ class App extends React.Component {
   }
 
   handleListClick(item, key) {
-    console.log("item:", item, ", key:", key);
     this.setState({center: {"lat": item.coordinates.latitude, "lng": item.coordinates.longitude} })
   }
 
   handleMarkerClick(item, key) {
-    console.log("item:", item, ", key:", key);
     this.setState({center: {"lat": item.coordinates.latitude, "lng": item.coordinates.longitude} })
   };
 
@@ -151,7 +147,7 @@ class App extends React.Component {
         startPoint: data.location1
       });
     });
-    
+
   }
 
 //this render method renders title,meetup,map if you're logged in, else it renders login/register components
@@ -169,10 +165,16 @@ class App extends React.Component {
               icon={this.state.displayWeather.currently.icon}
               scale={this.state.weatherScale}
             />
-            <LogoutButton setuserId={this.setuserId} setAuth={this.setAuth}/>
+            <LogoutButton
+              setuserId={this.setuserId}
+              setAuth={this.setAuth}
+              resetLoginForm={this.resetLoginForm.bind(this)}
+            />
           </div>
           <div className="searchBox">
-            <MeetUpForm userId={this.state.userId}/>
+            <MeetUpForm
+              userId={this.state.userId}
+            />
             <div className= "mapBox" >
               <Map
                 markers={ this.state.meetingLocations }
@@ -199,12 +201,14 @@ class App extends React.Component {
           <div className="signInForms">
             <div className="loginCard" style={{transition: 'all .3s ease-in', transform: 'translateY(' + this.state.loginForm + ')'}}>
               <p className="title">Login</p>
-              <Login setAuth={this.setAuth} setuserId={this.setuserId}/>
+              <Login
+                checkLogin={this.checkLogin.bind(this)}
+              />
             </div>
             <div className="regCard" style={{transition: 'all .3s ease-in', transform: 'translateY(' + this.state.loginForm + ')'}}>
               <p className="title">Sign Up</p>
               <Register
-                setAuth={this.setAuth}
+                checkLogin={this.checkLogin.bind(this)}
               />
             </div>
           </div>

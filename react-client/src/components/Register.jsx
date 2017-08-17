@@ -38,7 +38,9 @@ class Register extends React.Component {
       password2: pw2
     })
     .then((res) =>{
-      if (res) this.props.setAuth(res);
+      if (res) {
+        this.props.checkLogin();
+      }
     })
     .catch(function (error) {
       console.log("error response registering from axios");
