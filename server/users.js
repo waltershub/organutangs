@@ -100,13 +100,6 @@ var userInstance = function(io) {
     }
   });
 
-<<<<<<< HEAD
-router.get('/logout', function(req, res){
-  req.session.destroy();
-  res.status(201).send(false);
-  //res.redirect('/users/login');
-});
-=======
   router.get('/logout', function(req, res){
     req.logout();
     io.emit('loginFalse', false);
@@ -115,6 +108,5 @@ router.get('/logout', function(req, res){
   });
   return router;
 }
->>>>>>> added sockets that lets the front end know when a user is logged in/out. cleaned up some commented code
 
 module.exports = userInstance;
