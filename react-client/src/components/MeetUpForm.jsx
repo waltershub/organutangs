@@ -16,7 +16,7 @@ class MeetUpForm extends React.Component {
       status: '',
       mode: 'walking',
       query: '',
-      autoCompleteArray: ['ball','bag'],
+      autoCompleteArray: [],
       displayPopUp: false,
       popUpResult: null,
       modeMessage: 'none',
@@ -97,7 +97,7 @@ class MeetUpForm extends React.Component {
   }
 
   getSuggestionValue(suggestion){
-    console.log('SUGEST', suggestion); 
+    console.log('SUGEST', suggestion);
     return suggestion;
   }
 
