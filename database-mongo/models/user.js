@@ -10,7 +10,8 @@ var UserSchema = mongoose.Schema({
   },
   password: {
     type: String
-  }
+  },
+  friends: [String],
 });
 
 var User = module.exports = mongoose.model('User', UserSchema);

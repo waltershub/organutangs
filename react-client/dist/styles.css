@@ -212,9 +212,7 @@ img.listing-object {
     display: flex;
     justify-content: space-around;
     width: 100%;
-    height: 500px;
     /*border: 1px solid black;*/
-    overflow: auto;
     border-radius: 5px;
     /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
     /*margin: 2px;*/
@@ -229,7 +227,6 @@ img.listing-object {
     display: flex;
     justify-content: space-around;
     flex-direction: column;
-    margin-bottom: 10px;
 }
 
 .registerForm {
@@ -256,9 +253,28 @@ img.listing-object {
     margin: 0;
 }
 
+.friendList {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.friendListItem {
+    margin: 10px;
+    width: 197px;
+    box-shadow: 2px 2px 2px lightgreen;
+}
+
+.friendListItems {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 40px;
+}
+
 .mapBox {
     width: 765px;
-    min-height: 450px;
+    min-height: 500px;
     background-color: #eee;
     border-radius: 50px;
     box-shadow: 0px 0px 8px grey;
@@ -336,7 +352,8 @@ img.listing-object {
 .meetCard {
     border-radius: 5px;
     background-color: rgba(245, 248, 255, .85);
-    min-height: 450px;
+    min-height: 500px;
+    min-width: 420px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
