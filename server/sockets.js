@@ -1,7 +1,7 @@
 //Models
 var Meeting = require('../database-mongo/models/meeting.js');
 var Match = require('../database-mongo/models/match.js');
-const forecast = require('./weather.js')
+const forecast = require('./weather.js');
 
 
 //APIs
@@ -15,8 +15,8 @@ var socketInstance = function(io){
     socket.on('initLocation', function (locationObj) {
       forecast.forecastRequest(locationObj, (err, weather) => {
         io.sockets.emit('initWeather', weather);
-      })
-    })
+      });
+    });
 
     socket.on('user looking for friend', function (meeting) {
       // Room set-up (rooms are naively set as sorted and joined names e.g. 'alicebob')
@@ -58,7 +58,7 @@ var socketInstance = function(io){
                   gmaps.generateMidpoint(userLocation.coordinates, friendLocation.coordinates)
                     .then((midpoint) => {
                       // console.log('Midpoint generated:', midpoint);
-                      const query = doc.query || 'food';
+                      const query = meeting.query || 'food';
                       yelp.yelpRequest(midpoint, query)
                         .then((yelpLocations) => {
                           // Re-render client
