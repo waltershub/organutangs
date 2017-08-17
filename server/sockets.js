@@ -64,18 +64,23 @@ var socketInstance = function(io){
                             console.log("locations",yelpLocations);
                           yelp.yelpRequest(midpoint , prevQuery ,5)
                             .then((otherYelpLocs) => {
-                              console.log("locations",yelpLocations);
-                              console.log("otherYelpLocs",otherYelpLocs);
-                              yelpLocations = yelpLocations.concat(otherYelpLocs);
-                          // Re-render client
-                          // push to the beginning of yelpLocations
-                          // var md = { coordinates: midpoint };
-                          // yelpLocations.unshift(md);
-                              io.sockets.emit('midpoint', { lat: midpoint.latitude, lng: midpoint.longitude });
-                              io.sockets.emit('meeting locations', yelpLocations);
-                              io.sockets.emit('user locations', {
-                              location1: { lat: userLocation.coordinates[0], lng: userLocation.coordinates[1] },
-                              location2: { lat: friendLocation.coordinates[0], lng: friendLocation.coordinates[1] }
+                              yelp.yelpRequest(midpoint,`${query} ${prevQuery}`,5)
+                                .then((mixedLocs) => {
+                                    console.log("locations",yelpLocations);
+                                    console.log("otherYelpLocs",otherYelpLocs);
+                                    yelpLocations = yelpLocations.concat(otherYelpLocs);
+                                    yelpLocations = yelpLocations.concat(mixedLocs);
+
+                                // Re-render client
+                                // push to the beginning of yelpLocations
+                                // var md = { coordinates: midpoint };
+                                // yelpLocations.unshift(md);
+                                    io.sockets.emit('midpoint', { lat: midpoint.latitude, lng: midpoint.longitude });
+                                    io.sockets.emit('meeting locations', yelpLocations);
+                                    io.sockets.emit('user locations', {
+                                    location1: { lat: userLocation.coordinates[0], lng: userLocation.coordinates[1] },
+                                    location2: { lat: friendLocation.coordinates[0], lng: friendLocation.coordinates[1] }
+                                  });
                             });
                           });
                         });
