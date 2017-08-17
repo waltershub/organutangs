@@ -26,7 +26,10 @@ router.post('/register', function(req, res) {
       if (err) {
         throw err;
       } else {
-        res.status(201).send();
+        req.session.regenerate((err) => {
+          req.session.user = username;
+        });
+        res.status(201).send(true);
       }
     });
 
@@ -36,7 +39,7 @@ router.post('/register', function(req, res) {
   // all good here
   }, function(errors) {
     console.log("ERRR", errors);
-    res.status(404).send("Not found");
+    res.status(404).send(false);
     // damn, validation errors!
   });
 });
@@ -79,9 +82,20 @@ passport.deserializeUser(function(id, done) {
 router.post('/login',
   passport.authenticate('local'),
   function(req, res) {
-    res.status(201).send([req.user.username, req.isAuthenticated()]);
-    res.redirect('/');
-  });
+    req.session.regenerate((err) => {
+      req.session.user = req.user.username;
+      res.send([req.user.username, req.isAuthenticated()]);
+    });
+  }
+);
+
+router.get('/loggedin', (req, res) => {
+  if (req.session.user) {
+    res.send({ auth: true, user: req.session.user});
+  } else {
+    res.send({ auth: false, user: null });
+  }
+});
 
 router.get('/logout', function(req, res){
   req.logout();

@@ -3,6 +3,7 @@ var Meeting = require('../database-mongo/models/meeting.js');
 const router = express.Router();
 const config = require('./config.js');
 var axios = require('axios');
+const forecast = require('./weather.js');
 
 // APIs
 const gmaps = require('./google-maps.js');
@@ -24,7 +25,10 @@ var routerInstance = function(io) {
   });
 
   router.post('/two-locations', function(req, res) {
-    const { userId, location1, location2 } = req.body;
+    
+    const { userId, location1, location2, mode, query} = req.body;
+    const catergory = query || 'food';
+
     var APIKEY = config.google.APIKEY;
 
     var address1 = encodeURIComponent((location1.address).trim()); // Replaces spaces in path with %20
@@ -45,15 +49,20 @@ var routerInstance = function(io) {
             var lng2 = geocode2.data.results[0].geometry.location.lng;
             var coordinates2 = [ lat2, lng2 ];
 
-            console.log('coordinates1', coordinates1);
-            console.log('coordinates2', coordinates2);
+            // console.log('coordinates1', coordinates1);
+            // console.log('coordinates2', coordinates2);
 
             // get midpoint
-            gmaps.generateMidpoint(coordinates1, coordinates2)
+            gmaps.generateMidpoint(coordinates1, coordinates2, mode)
               .then((midpoint) => {
-                console.log('Midpoint generated:', midpoint);
+                //console.log('Midpoint generated:', midpoint);
+                // Put midpoint in Forecast API
+                forecast.forecastRequest(midpoint, (err, weather) => {
+                  io.sockets.emit('weather', weather);
+                });
+
                 // Put midpoint in Yelp API
-                yelp.yelpRequest(midpoint)
+                yelp.yelpRequest(midpoint,catergory)
                   .then((yelpLocations) => {
                     // Re-render client
                     io.sockets.emit('midpoint', { lat: midpoint.latitude, lng: midpoint.longitude });
@@ -63,7 +72,7 @@ var routerInstance = function(io) {
                     io.sockets.emit('user locations', {
                       location1: { lat: coordinates1[0], lng: coordinates1[1] },
                       location2: { lat: coordinates2[0], lng: coordinates2[1] }
-                    })
+                    });
                   });
               });
 
@@ -78,7 +87,12 @@ var routerInstance = function(io) {
   // TODO Getting the results of the match
   // router.get('/matches', function (req, res) {
   // });
-
+  router.post('/autoComplete' , (req , res) =>{
+      yelp.yelpAutoComplete(req.body)
+        .then((words) => {
+          res.send(words);
+        });
+  });
   return router;
 };
 
