@@ -57,7 +57,7 @@ button:focus {
 .weatherData {
     font-size: 23px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
 }
 

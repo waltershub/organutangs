@@ -6,8 +6,7 @@ class Login extends React.Component {
     super(props);
     this.state = {
       userName: '',
-      password: '',
-      loginForm: 1
+      password: ''
     };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -39,7 +38,6 @@ class Login extends React.Component {
     .catch(function (error) {
       console.log("error logging in ", error);
     });
-    this.setState({loginForm: 0})
   }
 
   render() {

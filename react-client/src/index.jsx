@@ -22,7 +22,6 @@ class App extends React.Component {
     this.state = {
       auth: 'none',
       userId:'',
-      // meetingLocations: [],
       meetingLocations: [],
       midpoint: { "lat": 40.751094, "lng": -73.987597 },
       center: { "lat": 40.751094, "lng": -73.987597 },
@@ -36,18 +35,20 @@ class App extends React.Component {
         }
       },
       weatherScale: 0,
-      loginForm: '-1000px'
+      loginForm: '-1000px',
+      cssLoginCheck: false
     };
 
     this.setAuth = this.setAuth.bind(this);
     this.setuserId = this.setuserId.bind(this);
-    // this.handleClick = this.handleClick.bind(this);
     this.getLocation = this.getLocation.bind(this);
     this.convertIcon = this.convertIcon.bind(this);
+    this.checkLogin = this.checkLogin.bind(this);
+    this.resetLoginForm = this.resetLoginForm.bind(this);
+    this.socketLoggedIn = this.socketLoggedIn.bind(this);
   }
 
   convertIcon(icon) {
-    //console.log('converted ', icon, 'to ', convertIcons.translate(icon))
     return convertIcons.translate(icon);
   }
 
@@ -58,29 +59,25 @@ class App extends React.Component {
       this.setState({userLocation: { latitude: loc.coords.latitude, longitude: loc.coords.longitude }});
       this.setState({midpoint: { lat: loc.coords.latitude, lng: loc.coords.longitude }});
       this.setState({center: { lat: loc.coords.latitude, lng: loc.coords.longitude }});
-
       //send to backend to grab weather data
       socket.emit('initLocation', this.state.userLocation);
     })
     //get the weather data for current location
     socket.on('initWeather', (data) => {
-      //this.setState({displayWeather: data})
       //console.log('WEATHER BEEEEEOOCHCHH', this.state.displayWeather)
       this.setState({displayWeather: {currently: {icon: this.convertIcon(data.currently.icon), temperature: data.currently.temperature, summary: data.currently.summary}}})
-      // console.log('displayWeather currently icon', this.state.displayWeather.currently.icon)
-      // this.setState({displayWeather: this.state.initialWeather.currently.temperature})
-      // this.setState({displayWeather: this.state.initialWeather.currently.icon})
       console.log('DISPLAY WEATHER ', this.state.displayWeather)
       this.setState({weatherScale: 1})
     })
-      //set displayWeather variable. This variable will be passed in as a prop to Weather.jsx
   }
 
   setuserId(input) {
+    this.socketLoggedIn();
     this.setState({userId: input});
   }
 
   setAuth(input) {
+    this.socketLoggedIn();
     this.setState({auth: input});
   }
 
@@ -95,11 +92,35 @@ class App extends React.Component {
   };
 
   componentWillMount() {
+    this.checkLogin();
+  }
+
+  checkLogin() {
     axios.get('/users/loggedin')
-      .then(({data}) => {
-        this.setAuth(data.auth);
-        this.setuserId(data.user);
-      });
+    .then(({data}) => {
+      this.setAuth(data.auth);
+      this.setuserId(data.user);
+      if(!data.auth){
+        this.setState({loginForm: '60px'});
+      } else if (data.auth){
+        this.setState({weatherScale: 1});
+      }
+    });
+  }
+
+  socketLoggedIn() {
+    socket.on('loginTrue', (bool) => {
+      this.setState({cssLoginCheck: bool})
+      console.log('cssLoginCheck state was set', this.state.cssLoginCheck)
+    })
+    socket.on('loginFalse', (bool) => {
+      this.setState({cssLoginCheck: bool})
+      console.log('cssLoginCheck state was set', this.state.cssLoginCheck)
+    })
+  }
+
+  resetLoginForm() {
+    this.setState({loginForm: '-1000px'})
   }
 
   componentDidMount() {
@@ -119,7 +140,6 @@ class App extends React.Component {
     socket.on('weather', (data) => {
       console.log('the weather data is ', data);
       //this.setState({displayWeather: data})
-      this.setState({weatherScale: 1})
       this.setState({displayWeather: {currently: {icon: this.convertIcon(data.currently.icon), temperature: data.currently.temperature, summary: data.currently.summary}}})
     })
 
@@ -132,7 +152,6 @@ class App extends React.Component {
       });
     });
     
-    this.setState({loginForm: '60px'})
   }
 
 //this render method renders title,meetup,map if you're logged in, else it renders login/register components
