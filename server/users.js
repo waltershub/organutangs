@@ -106,6 +106,24 @@ var userInstance = function(io) {
       res.status(201).send(false);
     });
   });
+
+  router.get('/friends', (req, res) => {
+    User.findOne({ username: req.session.user })
+    .then(({ friends }) => {
+      res.send(friends);
+    })
+  });
+
+  router.post('/friends', (req, res) => {
+    User.findOne({ username: req.session.user })
+    .then(user => {
+      console.log(user);
+      const friends = user.friends.slice();
+      friends.push(req.body.friend)
+      return User.findOneAndUpdate({ _id: user._id }, { friends });
+    })
+    .then(() => res.send('friend added'));
+  })
   return router;
 }
 

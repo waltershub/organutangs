@@ -6,6 +6,7 @@ const socket = io();
 import Autocomplete from 'react-google-autocomplete';
 import Autosuggest from 'react-autosuggest';
 import PopUp from './PopUp.jsx';
+import FriendList from './FriendList.jsx';
 
 class MeetUpForm extends React.Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class MeetUpForm extends React.Component {
       mode: 'walking',
       query: '',
       autoCompleteArray: [],
-      displayPopUp: false,
+      display: 'form',
       popUpResult: null,
       modeMessage: 'none',
     };
@@ -50,7 +51,7 @@ class MeetUpForm extends React.Component {
         bicycling: 'Bike',
       };
       if (mode !== this.state.mode) {
-        this.setState({ displayPopUp: true, modeMessage: modes[mode] });
+        this.setState({ display: 'mode', modeMessage: modes[mode] });
       }
     });
   }
@@ -192,8 +193,8 @@ class MeetUpForm extends React.Component {
       });
   }
 
-  togglePopUp() {
-    this.setState({ displayPopUp: !this.state.displayPopUp });
+  toggleDisplay() {
+    this.setState({ display: 'form' });
   }
 
   setPopUpResult(bool, mode) {
@@ -207,14 +208,20 @@ class MeetUpForm extends React.Component {
     else this.handleSubmitFriendOrAddress();
   }
 
-  displayPopUp() {
-    return this.state.displayPopUp ? (
+  display() {
+    return this.state.display === 'mode' ? (
       <PopUp
-        display={this.togglePopUp.bind(this)}
+        display={this.toggleDisplay.bind(this)}
         cb={this.setPopUpResult.bind(this)}
         getMode={() => this.state.modeMessage}
       />
+    ) : this.state.display === 'friend' ? (
+      <FriendList
+        setFriend={this.handleFriendChange}
+        toggleDisplay={this.toggleDisplay.bind(this)}
+      />
     ) : (
+      <div>
       <form
         className="loginForm"
         onSubmit={this.handleSubmitFriendOrAddress}
@@ -263,7 +270,15 @@ class MeetUpForm extends React.Component {
           />
         </div>
         <button className="submit" type="submit">Join</button>
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          this.setState({ display: 'friend' });
+        }}
+      >
+      Friend List</button>
       </form>
+      </div>
     );
   }
 
@@ -276,7 +291,7 @@ class MeetUpForm extends React.Component {
               <span className="bold">{` ${this.props.userId}`}</span>
             </p>
           </div>
-          {this.displayPopUp.bind(this)()}
+          {this.display.bind(this)()}
           <p className="messageText">{ this.state.status }</p>
         </div>
       </div>
