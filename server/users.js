@@ -98,7 +98,7 @@ router.get('/loggedin', (req, res) => {
 });
 
 router.get('/logout', function(req, res){
-  req.logout();
+  req.session.destroy();
   res.status(201).send(false);
   //res.redirect('/users/login');
 });
