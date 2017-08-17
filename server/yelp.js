@@ -9,6 +9,7 @@ const yelp = new Yelp({
 });
 
 var yelpRequest = (location, term = 'food', dist = 500) => {
+  // console.log("herenow");
   const long = location.longitude;
   const lat = location.latitude;
 
@@ -33,5 +34,16 @@ var yelpRequest = (location, term = 'food', dist = 500) => {
 
 // var newYork = {latitude: 40.751094, longitude: -73.987597};
 // yelpRequest(newYork);
+const yelpAutoComplete = (params) =>{
+  // console.log("here yelp");
+  return yelp.autoComplete( params)
+    .then((results)=>{
+      const autoArray = results.terms.map((term)=>{
+        return term.text;
+      });
 
+      return autoArray;
+    });
+};
 module.exports.yelpRequest = yelpRequest;
+module.exports.yelpAutoComplete = yelpAutoComplete;

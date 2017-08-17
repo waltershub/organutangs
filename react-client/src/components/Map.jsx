@@ -38,7 +38,7 @@ class Map extends React.Component {
               <Marker
                 key={ marker.key }
                 position={ marker.position }
-                label={ marker.label }
+                label={ `${index + 1}` }
                 onClick={(e)=> this.props.handleMarkerClick(marker.data, marker.key)}
               />
             )
@@ -47,7 +47,7 @@ class Map extends React.Component {
         <Marker
           key="midpoint"
           position={ this.props.midpoint }
-          label="Midpoint"
+          label=""
           icon={{ url: "./images/midPointIcon.png" }}
           />
         <Marker
