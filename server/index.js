@@ -15,7 +15,7 @@ var io = require('socket.io')(http);
 var socket = require('./sockets.js')(io);
 
 //Routes
-var users = require('./users.js');
+var users = require('./users.js')(io);
 var routes = require('./routes.js')(io);
 
 //Middleware
