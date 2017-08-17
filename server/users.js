@@ -28,8 +28,8 @@ var userInstance = function(io) {
         } else {
           req.session.regenerate((err) => {
             req.session.user = username;
+            res.send(true);
           });
-          res.status(201).send(true);
         }
       });
 
@@ -101,10 +101,10 @@ var userInstance = function(io) {
   });
 
   router.get('/logout', function(req, res){
-    req.logout();
-    io.emit('loginFalse', false);
-    res.status(201).send(false);
-    //res.redirect('/users/login');
+    req.session.destroy(() => {
+      io.emit('loginFalse', false);
+      res.status(201).send(false);
+    });
   });
   return router;
 }

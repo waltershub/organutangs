@@ -14,6 +14,7 @@ class LogoutButton extends React.Component {
     e.preventDefault();
     axios.get('/users/logout')
     .then((res)=>{
+      this.props.resetLoginForm();
       this.props.setAuth(res.data[1]);
       this.props.setuserId(res.data[0]);
     }).catch((err)=>{
