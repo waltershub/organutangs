@@ -2,7 +2,7 @@
 var Meeting = require('../database-mongo/models/meeting.js');
 var Match = require('../database-mongo/models/match.js');
 const forecast = require('./weather.js');
-
+let prevQuery = '';
 
 //APIs
 const gmaps = require('./google-maps.js');
@@ -59,18 +59,24 @@ var socketInstance = function(io){
                     .then((midpoint) => {
                       // console.log('Midpoint generated:', midpoint);
                       const query = meeting.query || 'food';
-                      yelp.yelpRequest(midpoint, query)
+                      yelp.yelpRequest(midpoint, query ,5 )
                         .then((yelpLocations) => {
+                            console.log("locations",yelpLocations);
+                          yelp.yelpRequest(midpoint , prevQuery ,5)
+                            .then((otherYelpLocs) => {
+                              console.log("locations",yelpLocations);
+                              console.log("otherYelpLocs",otherYelpLocs);
+                              yelpLocations = yelpLocations.concat(otherYelpLocs);
                           // Re-render client
-
                           // push to the beginning of yelpLocations
                           // var md = { coordinates: midpoint };
                           // yelpLocations.unshift(md);
-                          io.sockets.emit('midpoint', { lat: midpoint.latitude, lng: midpoint.longitude });
-                          io.sockets.emit('meeting locations', yelpLocations);
-                          io.sockets.emit('user locations', {
-                            location1: { lat: userLocation.coordinates[0], lng: userLocation.coordinates[1] },
-                            location2: { lat: friendLocation.coordinates[0], lng: friendLocation.coordinates[1] }
+                              io.sockets.emit('midpoint', { lat: midpoint.latitude, lng: midpoint.longitude });
+                              io.sockets.emit('meeting locations', yelpLocations);
+                              io.sockets.emit('user locations', {
+                              location1: { lat: userLocation.coordinates[0], lng: userLocation.coordinates[1] },
+                              location2: { lat: friendLocation.coordinates[0], lng: friendLocation.coordinates[1] }
+                            });
                           });
                         });
                     });
@@ -80,6 +86,7 @@ var socketInstance = function(io){
               // console.log(`User ${meeting.friendId} and Friend ${meeting.userId} match not found in db.`);
               // TODO somehow print "Looking for your friend"
               // console.log('room', room);
+              prevQuery = meeting.query;
               socket.to(room).emit('match status', 'Looking for your friend.');
             }
           }); // End meeting.findOne
