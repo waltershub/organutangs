@@ -38,10 +38,10 @@ const yelpAutoComplete = (params) =>{
   // console.log("here yelp");
   return yelp.autoComplete( params)
     .then((results)=>{
-      const autoArray = results.terms.map((term)=>{
-        return term.text;
-      });
-
+      console.log(results);
+      let autoArray = results.terms.map((term)=> (term.text));
+      autoArray = autoArray.concat(results.businesses.map((business) =>(business.text)));
+      autoArray = autoArray.concat(results.categories.map((category)=>(category.title)));
       return autoArray;
     });
 };
