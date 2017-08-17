@@ -38,6 +38,7 @@ var socketInstance = function(io){
               // console.log('socket.rooms', socket.rooms);
               socket.emit('match status', 'Your match was found!');
               socket.to(room).emit('match status', 'Your match was found!');
+              socket.to(room).emit('mode', meeting.mode);
 
               var newMatch = new Match({
                 userId1: meeting.userId,

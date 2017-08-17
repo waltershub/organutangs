@@ -239,6 +239,7 @@ class MeetUpForm extends React.Component {
             types={['address']}
             onChange={ this.handleAddressChange }
             placeholder="Ex. 369 Lexintgon, New York, NY"
+            value={ this.state.userLocationAddress }
           />
 
 
