@@ -59,7 +59,10 @@ var socketInstance = function(io){
                     .then((midpoint) => {
                       // console.log('Midpoint generated:', midpoint);
                       const query = meeting.query || 'food';
-                      yelp.yelpRequest(midpoint, query ,5 )
+                      let sameQuery = query === prevQuery;
+                      let amount = sameQuery ? 10 : 5 ;
+
+                      yelp.yelpRequest(midpoint, query , amount )
                         .then((yelpLocations) => {
                             console.log("locations",yelpLocations);
                           yelp.yelpRequest(midpoint , prevQuery ,5)
@@ -68,8 +71,10 @@ var socketInstance = function(io){
                                 .then((mixedLocs) => {
                                     console.log("locations",yelpLocations);
                                     console.log("otherYelpLocs",otherYelpLocs);
-                                    yelpLocations = yelpLocations.concat(otherYelpLocs);
-                                    yelpLocations = yelpLocations.concat(mixedLocs);
+                                    if (!sameQuery){
+                                      yelpLocations = yelpLocations.concat(otherYelpLocs);
+                                      yelpLocations = yelpLocations.concat(mixedLocs);
+                                    }
 
                                 // Re-render client
                                 // push to the beginning of yelpLocations
