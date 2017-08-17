@@ -16,7 +16,7 @@ class MeetUpForm extends React.Component {
       status: '',
       mode: 'walking',
       query: '',
-      autoCompleteArray: ['ball','bag'],
+      autoCompleteArray: [],
       displayPopUp: false,
       popUpResult: null,
       modeMessage: 'none',
