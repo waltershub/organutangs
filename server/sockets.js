@@ -50,6 +50,11 @@ var socketInstance = function(io){
                 matchFulfilled: true
               });
 
+              socket.to(room).emit('match data', {
+                userId1: meeting.userId,
+                userId2: meeting.friendId
+              });
+
               // Get location 1
               var friendLocation = doc.userLocation;
 

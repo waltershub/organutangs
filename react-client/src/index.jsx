@@ -184,6 +184,10 @@ class App extends React.Component {
       });
     });
 
+    socket.on('match data', (data) => {
+      console.log(data);
+    });
+
   }
 
 //this render method renders title,meetup, map if you're logged in, else it renders login/register components
