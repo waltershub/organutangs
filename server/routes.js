@@ -12,16 +12,19 @@ const yelp = require('./yelp.js');
 var routerInstance = function(io) {
   router.post('/meetings', function (req, res) {
     const { userId, userLocation, friendId } = req.body;
-    var newMeeting = new Meeting({ userId, userLocation, friendId });
-    newMeeting.save((err) => {
-      if (err) {
-        console.error("unicorn", err);
-        res.status(401).send('User already exists!');
-      } else {
-        console.log('New meeting saved!');
-        res.send();
-      }
-    });
+    Meeting.remove({ userId })
+    .then(() => {
+      var newMeeting = new Meeting({ userId, userLocation, friendId });
+      newMeeting.save((err) => {
+        if (err) {
+          console.error("unicorn", err);
+          res.status(401).send('User already exists!');
+        } else {
+          console.log('New meeting saved!');
+          res.send();
+        }
+      });
+    })
   });
 
   router.post('/two-locations', function(req, res) {
