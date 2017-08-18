@@ -261,20 +261,22 @@ class MeetUpForm extends React.Component {
             <option value="transit">Public Transit</option>
             <option value="bicycling">Bike</option>
           </select>
-          <Autocomplete
-            autoFocus
-            onPlaceSelected={ (place) => {
-              this.setState({ userLocationAddress: place.formatted_address });
-            } }
-            types={['address']}
-            onChange={ this.handleAddressChange }
-            placeholder="Ex. 369 Lexintgon, New York, NY"
-            value={ this.state.userLocationAddress }
-          />
-          <div>
-            <button onClick= { this.mylocationBtn }>
-              <img src="../images/loc16.png"/>
-              </button>
+          <div className="inputWButton">
+            <Autocomplete
+              autoFocus
+              onPlaceSelected={ (place) => {
+                this.setState({ userLocationAddress: place.formatted_address });
+              } }
+              types={['address']}
+              onChange={ this.handleAddressChange }
+              placeholder="Ex. 369 Lexintgon, New York, NY"
+              value={ this.state.userLocationAddress }
+            />
+            <div className="loc">
+              <button className="locbtn" onClick= { this.mylocationBtn }>
+                <img src="../images/loc16.png"/>
+                </button>
+            </div>
           </div>
 
           <p className="inputLable2">Your friend's name or address</p>

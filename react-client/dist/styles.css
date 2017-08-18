@@ -55,6 +55,21 @@ button:focus {
     margin-top: 0px;
 }
 
+.logoutButton:hover {
+    box-shadow: none;
+    font-weight: 900;
+    background-color: transparent;
+}
+
+.logoutButton:active {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.logoutButton:focus {
+    background-color: transparent;
+}
+
 .weatherBox {
     font-size: 16px;
     font-weight: 300;
@@ -83,6 +98,7 @@ button:focus {
 }
 
 .weatherIS {
+    text-align: center;
     display: flex;
     margin-left: 10px;
     margin-right: 10px;
@@ -97,12 +113,19 @@ button:focus {
 }
 
 .weatherNumerical {
-    font-weight: 300;
     display: flex;
     width: 190px;
     flex-direction: column;
     justify-content: space-around;
     white-space: nowrap;
+}
+
+.weatherNumericalEntry {
+    font-weight: 300;
+}
+
+.weatherNumericalEntry:hover {
+    text-decoration: underline;
 }
 
 .title{
@@ -512,5 +535,45 @@ img.listing-object {
 .footer {
   font-size: 10px;
 }
+
+.locbtn {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    font-size: 30px;
+    box-shadow: none;
+    font-family: Raleway;
+    padding: 0px;
+    margin-top: 0px;
+    margin-left: -25px;
+    margin-top: -2px;
+}
+
+.inputWButton {
+    display: flex;
+    flex-direction: row;
+}
+
+.locbtn:hover {
+    box-shadow: none;
+    background-color: transparent;
+}
+
+.locbtn:active {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.locbtn:focus {
+    background-color: transparent;
+}
+
+.logo:hover {
+    transition: all .4s ease-out;
+    transform: rotateZ(360deg);
+}
+
 //F5F8FF
 
