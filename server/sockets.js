@@ -35,9 +35,13 @@ var socketInstance = function(io){
               // Match found! Insert match into the db.
               // socket.broadcast.emit('match status', 'found');
               console.log('Found a match');
+              const query = meeting.query || 'food';
+              let sameQuery = query === prevQuery;
+              let amount = sameQuery ? 10 : 5 ;
+              const message = sameQuery ? 'Your match was found!' : 'places found matching both of your searches';
               // console.log('socket.rooms', socket.rooms);
-              socket.emit('match status', 'Your match was found!');
-              socket.to(room).emit('match status', 'Your match was found!');
+              socket.emit('match status', message);
+              socket.to(room).emit('match status', message);
               socket.to(room).emit('mode', meeting.mode);
 
               var newMatch = new Match({
@@ -58,9 +62,7 @@ var socketInstance = function(io){
                   gmaps.generateMidpoint(userLocation.coordinates, friendLocation.coordinates)
                     .then((midpoint) => {
                       // console.log('Midpoint generated:', midpoint);
-                      const query = meeting.query || 'food';
-                      let sameQuery = query === prevQuery;
-                      let amount = sameQuery ? 10 : 5 ;
+
 
                       yelp.yelpRequest(midpoint, query , amount )
                         .then((yelpLocations) => {

@@ -25,7 +25,7 @@ var routerInstance = function(io) {
   });
 
   router.post('/two-locations', function(req, res) {
-    
+
     const { userId, location1, location2, mode, query} = req.body;
     const catergory = query || 'food';
 
@@ -92,6 +92,15 @@ var routerInstance = function(io) {
         .then((words) => {
           res.send(words);
         });
+  });
+
+  router.post('/friends',(req ,res) => {
+    console.log('here');
+    Meeting.find(req.body.userId)
+      .then((meetings)=>{
+        var friends = [...new Set(meetings.map(meeting=>meeting.friendId))];
+        res.send(friends);
+      });
   });
   return router;
 };
