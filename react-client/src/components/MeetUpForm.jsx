@@ -7,6 +7,7 @@ import Autocomplete from 'react-google-autocomplete';
 import Autosuggest from 'react-autosuggest';
 import PopUp from './PopUp.jsx';
 import FriendList from './FriendList.jsx';
+const _ = require('lodash');
 
 class MeetUpForm extends React.Component {
   constructor(props) {
@@ -37,6 +38,7 @@ class MeetUpForm extends React.Component {
     this.getSuggestions =this.getSuggestions.bind(this);
     this.onChange = this.onChange.bind(this);
     this.mylocationBtn = this.mylocationBtn.bind(this);
+    this.feelingLucky = this.feelingLucky.bind(this);
 
   }
 
@@ -78,14 +80,13 @@ class MeetUpForm extends React.Component {
 
 
   getSuggestions(value){
-    return axios.post('autoComplete',{ text: this.state.query })
+    return axios.post('autoComplete',{ text: value })
      .then((res) => {
        return res.data;
      })
      .catch((err) => console.error('error fetching suggestions: ', err));
   }
   recalculateSuggestions({value}){
-
       this.getSuggestions(value)
       .then(suggestions =>{        this.setState({autoCompleteArray: suggestions} ,()=>{
         });
@@ -130,6 +131,20 @@ class MeetUpForm extends React.Component {
         }
       });
     });
+  }
+
+  feelingLucky(){
+    console.log("clicked feelingLucky");
+    const alphabet = 'bcdfghjklmnpqrstvwxyz'.split('');
+    const vowels = 'aeiou'.split('');
+    const randomLetters = _.sample(alphabet) + _.sample(vowels);
+    console.log(randomLetters);
+    this.getSuggestions(randomLetters)
+      .then((suggestions)=>{
+        console.log('then');
+        console.log(suggestions);
+        this.setState({query: _.sample(suggestions)});
+      });
   }
 
 
@@ -288,6 +303,11 @@ class MeetUpForm extends React.Component {
             }}
             highlightFirstSuggestion = {false}
           />
+        <div>
+          <button onClick={this.feelingLucky}>
+              feeling lucky
+          </button>
+        </div>
         </div>
         <button className="submit" type="submit">Join</button>
       <button
