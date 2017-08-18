@@ -31,11 +31,11 @@ class Weather extends React.Component {
             <div>{this.props.summary}</div>
           </div>
           <div className="weatherNumerical">
-            <div>Temperature: {this.props.temp}°F</div>
-            <div>Humidity: {Math.round(this.props.humidity * 100)}%</div>
-            <div>Precipitation: {this.props.precipProbability}%</div>
-            <div>Wind Speed: {this.props.windSpeed} mph</div>
-            <div>UV Index: {this.props.uv} of 10</div>
+            <div className="weatherNumericalEntry">Temperature: {this.props.temp}°F</div>
+            <div className="weatherNumericalEntry">Humidity: {Math.round(this.props.humidity * 100)}%</div>
+            <div className="weatherNumericalEntry">Precipitation: {this.props.precipProbability}%</div>
+            <div className="weatherNumericalEntry">Wind Speed: {this.props.windSpeed} mph</div>
+            <div className="weatherNumericalEntry">UV Index: {this.props.uv} of 10</div>
           </div>
         </div>
       </div>
