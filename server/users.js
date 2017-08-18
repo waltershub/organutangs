@@ -106,6 +106,31 @@ var userInstance = function(io) {
       res.status(201).send(false);
     });
   });
+
+  router.get('/friends', (req, res) => {
+    User.findOne({ username: req.session.user })
+    .then(({ friends }) => {
+      res.send(friends);
+    })
+  });
+
+  router.post('/friends', (req, res) => {
+    req.body.friend === req.session.user ? res.send('You Must Be Lonely :\'(') :
+    User.findOne({ username: req.session.user })
+    .then((user) => {
+      User.findOne({ username: req.body.friend })
+      .then((match) => {
+        if (match) {
+          const friends = user.friends.slice();
+          friends.push(req.body.friend)
+          User.findOneAndUpdate({ _id: user._id }, { friends })
+          .then(() => res.send('Added!'));
+        } else {
+          res.send('That User Doesn\'t Exist!');
+        }
+      })
+    })
+  })
   return router;
 }
 
