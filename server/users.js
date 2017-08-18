@@ -92,17 +92,17 @@ var userInstance = function(io) {
 
   router.get('/loggedin', (req, res) => {
     if (req.session.user) {
-      io.emit('loginTrue', true);
+      //io.emit('loginTrue', true);
       res.send({ auth: true, user: req.session.user});
     } else {
-      io.emit('loginFalse', false);
+      //io.emit('loginFalse', false);
       res.send({ auth: false, user: null });
     }
   });
 
   router.get('/logout', function(req, res){
     req.session.destroy(() => {
-      io.emit('loginFalse', false);
+      //io.emit('loginFalse', false);
       res.status(201).send(false);
     });
   });
