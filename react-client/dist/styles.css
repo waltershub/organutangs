@@ -178,6 +178,7 @@ img.listing-object {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 
 .yelp-list-entry-address{
@@ -506,6 +507,10 @@ img.listing-object {
 
 .react-autosuggest__suggestion--highlighted {
   background-color: #ddd;
+}
+
+.footer {
+  font-size: 10px;
 }
 //F5F8FF
 
