@@ -40,7 +40,7 @@ var socketInstance = function(io){
               let amount = sameQuery ? 10 : 5 ;
               const message = sameQuery ? 'Your match was found!' : 'places found matching both of your searches';
               // console.log('socket.rooms', socket.rooms);
-              socket.emit('match status', message);
+              // socket.emit('match status', message);
               socket.to(room).emit('match status', message);
               socket.to(room).emit('mode', meeting.mode);
 
@@ -104,6 +104,10 @@ var socketInstance = function(io){
           }); // End meeting.findOne
       }); // End socket.join room
     }); // End socket on
+
+    socket.on('result click', ({ key, user }) => {
+      io.sockets.emit('result click', {key, user});
+    });
 
     socket.on('disconnect', function () {
       // TODO update socket_id db

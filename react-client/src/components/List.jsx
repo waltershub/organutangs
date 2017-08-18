@@ -5,7 +5,7 @@ const List = (props) => (
   <div>
     <div className="yelp-list">
       {props.items.map((item, index) =>
-      	<ListItem startPoint={props.startPoint} listKey={index} handleClick={props.handleClick} item={item}/>)
+      	<ListItem startPoint={props.startPoint} listkey={index} handleClick={props.handleClick} item={item}/>)
       }
     </div>
   </div>

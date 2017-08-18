@@ -73,12 +73,12 @@ class App extends React.Component {
       this.setState({
         displayWeather: {
           currently: {
-            icon: this.convertIcon(data.currently.icon), 
-            temperature: data.currently.temperature, 
-            summary: data.minutely.summary.slice(0, -1), 
-            humidity: data.currently.humidity, 
-            precipProbability: data.currently.precipProbability, 
-            windSpeed: data.currently.windSpeed, 
+            icon: this.convertIcon(data.currently.icon),
+            temperature: data.currently.temperature,
+            summary: data.minutely.summary.slice(0, -1),
+            humidity: data.currently.humidity,
+            precipProbability: data.currently.precipProbability,
+            windSpeed: data.currently.windSpeed,
             uv: data.currently.uvIndex
           }
         }
@@ -97,7 +97,8 @@ class App extends React.Component {
   }
 
   handleListClick(item, key) {
-    this.setState({center: {"lat": item.coordinates.latitude, "lng": item.coordinates.longitude} })
+    this.setState({center: {"lat": item.coordinates.latitude, "lng": item.coordinates.longitude} });
+    socket.emit('result click', { key, user: this.state.userId });
   }
 
   handleMarkerClick(item, key) {
@@ -145,7 +146,7 @@ class App extends React.Component {
   componentDidMount() {
     this.socketLoggedIn();
     socket.on('meeting locations', (data) => {
-      this.setState({ meetingLocations: data }); 
+      this.setState({ meetingLocations: data });
     });
 
     socket.on('match status', (data) => {
@@ -163,12 +164,12 @@ class App extends React.Component {
       this.setState({
         displayWeather: {
           currently: {
-            icon: this.convertIcon(data.currently.icon), 
-            temperature: data.currently.temperature, 
-            summary: data.minutely.summary.slice(0, -1), 
-            humidity: data.currently.humidity, 
-            precipProbability: data.currently.precipProbability, 
-            windSpeed: data.currently.windSpeed, 
+            icon: this.convertIcon(data.currently.icon),
+            temperature: data.currently.temperature,
+            summary: data.minutely.summary.slice(0, -1),
+            humidity: data.currently.humidity,
+            precipProbability: data.currently.precipProbability,
+            windSpeed: data.currently.windSpeed,
             uv: data.currently.uvIndex
           }
         }
