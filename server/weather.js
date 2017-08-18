@@ -9,7 +9,7 @@ const forecast = new Forecast({
 });
 
 var forecastRequest = (midpoint, callback) => {
-  return forecast.get([midpoint.latitude, midpoint.longitude], callback); 
+  return forecast.get([midpoint.latitude, midpoint.longitude], callback);
 }
 
 

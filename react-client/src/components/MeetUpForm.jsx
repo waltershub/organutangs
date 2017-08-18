@@ -12,7 +12,7 @@ class MeetUpForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      friendId: "",
+      friendId: '',
       userLocationAddress: '',
       status: '',
       mode: 'walking',
@@ -116,8 +116,6 @@ class MeetUpForm extends React.Component {
 
   }
 
-
-
   handleSubmitFriendOrAddress(e) {
     if (e) {
       e.preventDefault();
@@ -162,6 +160,12 @@ class MeetUpForm extends React.Component {
       e.preventDefault();
       e.stopPropagation();
     }
+
+    if (this.state.newFriend === 'alice') alert('window says hi');
+    axios.post('users/friends', {
+      friend: this.state.friendId,
+    });
+
     var userId = this.props.userId;
     var friendId = this.state.friendId;
     var userLocation = {
