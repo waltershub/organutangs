@@ -17,7 +17,8 @@ var MeetingSchema = schema({
 // pre save hook
 MeetingSchema.pre('save', function(next) {
   var APIKEY = config.google.APIKEY;
-  var address = encodeURIComponent((this.userLocation.address).trim()); // Replaces spaces in path with %20
+  let address = this.userLocation.address || '';
+  address = encodeURIComponent((address).trim()); // Replaces spaces in path with %20
   var geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${APIKEY}`;
 
   axios.get(geocodeUrl)
