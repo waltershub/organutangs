@@ -122,9 +122,12 @@ var userInstance = function(io) {
       .then((match) => {
         if (match) {
           const friends = user.friends.slice();
-          friends.push(req.body.friend)
-          User.findOneAndUpdate({ _id: user._id }, { friends })
-          .then(() => res.send('Added!'));
+          if (friends.includes(req.body.friend)) res.send('Already added!');
+          else {
+            friends.push(req.body.friend)
+            User.findOneAndUpdate({ _id: user._id }, { friends })
+            .then(() => res.send('Added!'));
+          }
         } else {
           res.send('That User Doesn\'t Exist!');
         }
