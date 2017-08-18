@@ -96,9 +96,8 @@ class App extends React.Component {
     this.setState({auth: input});
   }
 
-  handleListClick(item, key) {
+  handleListClick(item) {
     this.setState({center: {"lat": item.coordinates.latitude, "lng": item.coordinates.longitude} });
-    socket.emit('result click', { key, user: this.state.userId });
   }
 
   handleMarkerClick(item, key) {

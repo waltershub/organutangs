@@ -110,8 +110,8 @@ var socketInstance = function(io){
       }); // End socket.join room
     }); // End socket on
 
-    socket.on('result click', ({ key, user }) => {
-      io.sockets.emit('result click', {key, user});
+    socket.on('result click', ({ key, value }) => {
+      io.sockets.emit('result click', {key, value});
     });
 
     socket.on('disconnect', function () {

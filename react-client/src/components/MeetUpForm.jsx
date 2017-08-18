@@ -45,6 +45,9 @@ class MeetUpForm extends React.Component {
 
     socket.on('match status', (data) => {
       this.setState({ status : data });
+      if (data === 'places found matching both of your searches') {
+        socket
+      }
     });
 
     socket.on('mode', (mode) => {

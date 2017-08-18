@@ -42,6 +42,20 @@ button:focus {
     background-color: #F0ECEA;
 }
 
+.listItemBtn {
+    font-size: 10px;
+    margin: 2px;
+    padding: 2px;
+    width: 45px;
+}
+
+.listItemBtns {
+    display: flex;
+    justify-content: center;
+    align-items: bottom;
+    flex-wrap: wrap;
+}
+
 .logoutButton {
     background-color: Transparent;
     background-repeat:no-repeat;
@@ -182,6 +196,10 @@ img.listing-object {
 }
 
 .yelp-list-entry-address{
+    display: flex;
+    flex-direction: column;
+    align-items: : top;
+    justify-content: space-between;
     color: #8a8a8a;
     font-size: 11px;
 }
