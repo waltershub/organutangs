@@ -29,14 +29,20 @@ class App extends React.Component {
       startPoint: {},
       displayWeather: {
         currently: {
-          summary: 'Summary loading',
-          temperature: 'Temperature loading',
-          icon: "../images/weather/loading.png"
+          summary: '',
+          temperature: '',
+          icon: "../images/weather/clear-day.png",
+          precipProbability: '',
+          windSpeed: '',
+          humidity: '',
+          uv: ''
         }
       },
-      weatherScale: 0,
+      weatherScale: 1,
       loginForm: '-1000px',
-      cssLoginCheck: false
+      cssLoginCheck: false, //not needed but may be handy
+      formBoxSlide: '-1000px',
+      mapBoxSlide: '1000px'
     };
 
     this.setAuth = this.setAuth.bind(this);
@@ -63,19 +69,30 @@ class App extends React.Component {
     })
     //get the weather data for current location
     socket.on('initWeather', (data) => {
-      //console.log('WEATHER BEEEEEOOCHCHH', this.state.displayWeather)
-      this.setState({displayWeather: {currently: {icon: this.convertIcon(data.currently.icon), temperature: data.currently.temperature, summary: data.currently.summary}}})
-      this.setState({weatherScale: 1})
+      console.log('WEATHER BEEEEEOOCHCHH', data)
+      this.setState({
+        displayWeather: {
+          currently: {
+            icon: this.convertIcon(data.currently.icon), 
+            temperature: data.currently.temperature, 
+            summary: data.minutely.summary.slice(0, -1), 
+            humidity: data.currently.humidity, 
+            precipProbability: data.currently.precipProbability, 
+            windSpeed: data.currently.windSpeed, 
+            uv: data.currently.uvIndex
+          }
+        }
+      })
     })
   }
 
   setuserId(input) {
-    this.socketLoggedIn();
+    // this.socketLoggedIn();
     this.setState({userId: input});
   }
 
   setAuth(input) {
-    this.socketLoggedIn();
+    // this.socketLoggedIn();
     this.setState({auth: input});
   }
 
@@ -97,19 +114,25 @@ class App extends React.Component {
       this.setAuth(data.auth);
       this.setuserId(data.user);
       if(!data.auth){
-        this.setState({loginForm: '60px'});
+        // this.setState({loginForm: '0px'});
       } else if (data.auth){
-        this.setState({weatherScale: 1});
+        // this.setState({weatherScale: 1});
       }
     });
   }
 
   socketLoggedIn() {
     socket.on('loginTrue', (bool) => {
+      this.setState({loginForm: '-1000px'})
+      this.setState({mapBoxSlide: '0px'})
+      this.setState({formBoxSlide: '0px'})
       this.setState({cssLoginCheck: bool})
       console.log('cssLoginCheck state was set', this.state.cssLoginCheck)
     })
     socket.on('loginFalse', (bool) => {
+      this.setState({mapBoxSlide: '1000px'})
+      this.setState({formBoxSlide: '-1000px'})
+      this.setState({loginForm: '0px'})
       this.setState({cssLoginCheck: bool})
       console.log('cssLoginCheck state was set', this.state.cssLoginCheck)
     })
@@ -120,8 +143,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    this.socketLoggedIn();
     socket.on('meeting locations', (data) => {
-      this.setState({ meetingLocations: data });
+      this.setState({ meetingLocations: data }); 
     });
 
     socket.on('match status', (data) => {
@@ -136,10 +160,21 @@ class App extends React.Component {
     socket.on('weather', (data) => {
       console.log('the weather data is ', data);
       //this.setState({displayWeather: data})
-      this.setState({displayWeather: {currently: {icon: this.convertIcon(data.currently.icon), temperature: data.currently.temperature, summary: data.currently.summary}}})
+      this.setState({
+        displayWeather: {
+          currently: {
+            icon: this.convertIcon(data.currently.icon), 
+            temperature: data.currently.temperature, 
+            summary: data.minutely.summary.slice(0, -1), 
+            humidity: data.currently.humidity, 
+            precipProbability: data.currently.precipProbability, 
+            windSpeed: data.currently.windSpeed, 
+            uv: data.currently.uvIndex
+          }
+        }
+      })
     })
-
-    //chetan - grab users location
+    //get user location on start
     this.getLocation();
 
     socket.on('user locations', (data) => {
@@ -150,7 +185,7 @@ class App extends React.Component {
 
   }
 
-//this render method renders title,meetup,map if you're logged in, else it renders login/register components
+//this render method renders title,meetup, map if you're logged in, else it renders login/register components
   render () {
     return (
       <div>
@@ -163,7 +198,11 @@ class App extends React.Component {
               summary={this.state.displayWeather.currently.summary}
               temp={this.state.displayWeather.currently.temperature}
               icon={this.state.displayWeather.currently.icon}
-              scale={this.state.weatherScale}
+              humidity={this.state.displayWeather.currently.humidity}
+              precipProbability={this.state.displayWeather.currently.precipProbability}
+              windSpeed={this.state.displayWeather.currently.windSpeed}
+              scale={this.state.displayWeather.currently.weatherScale}
+              uv={this.state.displayWeather.currently.uv}
             />
             <LogoutButton
               setuserId={this.setuserId}
@@ -174,8 +213,9 @@ class App extends React.Component {
           <div className="searchBox">
             <MeetUpForm
               userId={this.state.userId}
+              translate={this.state.formBoxSlide}
             />
-            <div className= "mapBox" >
+            <div className= "mapBox" style={{transition: 'all .5s ease-in', transform: 'translateX(' + this.state.mapBoxSlide + ')'}}>
               <Map
                 markers={ this.state.meetingLocations }
                 midpoint={ this.state.midpoint }

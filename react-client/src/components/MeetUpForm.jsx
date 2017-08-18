@@ -268,8 +268,8 @@ class MeetUpForm extends React.Component {
 
   render(){
     return (
-      <div>
-        <div className="meetCard">
+      <div style={{transition: 'all .5s ease-in', transform: 'translateX(' + this.props.translate + ')'}}>
+        <div className="meetCard" >
           <div className="flex-row-center">
             <p className="meet-card-header">Logged in as:
               <span className="bold">{` ${this.props.userId}`}</span>
