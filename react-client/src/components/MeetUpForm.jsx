@@ -17,6 +17,7 @@ class MeetUpForm extends React.Component {
       mode: 'walking',
       query: '',
       autoCompleteArray: [],
+      friendsAuto: [],
       displayPopUp: false,
       popUpResult: null,
       modeMessage: 'none',
@@ -97,7 +98,6 @@ class MeetUpForm extends React.Component {
   }
 
   getSuggestionValue(suggestion){
-    console.log('SUGEST', suggestion);
     return suggestion;
   }
 
