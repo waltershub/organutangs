@@ -37,6 +37,7 @@ class MeetUpForm extends React.Component {
     this.renderSuggestion = this.renderSuggestion.bind(this);
     this.getSuggestions =this.getSuggestions.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.mylocationBtn = this.mylocationBtn.bind(this);
 
   }
 
@@ -116,6 +117,21 @@ class MeetUpForm extends React.Component {
       {suggestion}
   </strong>);
 
+  }
+
+  mylocationBtn() {
+    navigator.geolocation.getCurrentPosition((loc) => {
+      console.log("here");
+      var geocoder  = new google.maps.Geocoder();
+      var location  = new google.maps.LatLng(loc.coords.latitude, loc.coords.longitude);
+        geocoder.geocode({'latLng': location},  (results, status) => {
+        if(status == google.maps.GeocoderStatus.OK) {
+         const add = results[0].formatted_address;
+         console.log(add);
+         this.setState({userLocationAddress: add});
+        }
+      });
+    });
   }
 
   handleSubmitFriendOrAddress(e) {
@@ -255,7 +271,11 @@ class MeetUpForm extends React.Component {
             placeholder="Ex. 369 Lexintgon, New York, NY"
             value={ this.state.userLocationAddress }
           />
-
+          <div>
+            <button onClick= { this.mylocationBtn }>
+              <img src="../images/loc16.png"/>
+              </button>
+          </div>
 
           <p className="inputLable2">Your friend's name or address</p>
           <input type="text" value={ this.state.friendId } onChange={ this.handleFriendChange } />

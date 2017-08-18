@@ -30,12 +30,12 @@ class App extends React.Component {
       displayWeather: {
         currently: {
           summary: '',
-          temperature: '',
+          temperature: '0',
           icon: "../images/weather/clear-day.png",
-          precipProbability: '',
-          windSpeed: '',
+          precipProbability: '0',
+          windSpeed: '0',
           humidity: '',
-          uv: ''
+          uv: '0'
         }
       },
       weatherScale: 1,
