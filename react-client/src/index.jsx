@@ -11,7 +11,7 @@ import LogoutButton from './components/LogoutButton.jsx';
 import Login from './components/Login.jsx';
 import Register from './components/Register.jsx';
 import Weather from './components/Weather.jsx';
-import convertIcons from './convertIcons.js'
+import convertIcons from './convertIcons.js';
 
 const io = require('socket.io-client');
 const socket = io();
@@ -66,24 +66,24 @@ class App extends React.Component {
       this.setState({center: { lat: loc.coords.latitude, lng: loc.coords.longitude }});
       //send to backend to grab weather data
       socket.emit('initLocation', this.state.userLocation);
-    })
+    });
     //get the weather data for current location
     socket.on('initWeather', (data) => {
-      console.log('WEATHER BEEEEEOOCHCHH', data)
+      console.log('WEATHER BEEEEEOOCHCHH', data);
       this.setState({
         displayWeather: {
           currently: {
-            icon: this.convertIcon(data.currently.icon), 
-            temperature: data.currently.temperature, 
-            summary: data.minutely.summary.slice(0, -1), 
-            humidity: data.currently.humidity, 
-            precipProbability: data.currently.precipProbability, 
-            windSpeed: data.currently.windSpeed, 
+            icon: this.convertIcon(data.currently.icon),
+            temperature: data.currently.temperature,
+            summary: data.minutely.summary.slice(0, -1),
+            humidity: data.currently.humidity,
+            precipProbability: data.currently.precipProbability,
+            windSpeed: data.currently.windSpeed,
             uv: data.currently.uvIndex
           }
         }
-      })
-    })
+      });
+    });
   }
 
   setuserId(input) {
@@ -95,25 +95,25 @@ class App extends React.Component {
     // this.socketLoggedIn();
     this.setState({auth: input});
     if (this.state.auth) {
-      this.setState({loginForm: '-1000px'})
-      this.setState({mapBoxSlide: '0px'})
-      this.setState({formBoxSlide: '0px'})
-      this.setState({cssLoginCheck: bool})
+      this.setState({loginForm: '-1000px'});
+      this.setState({mapBoxSlide: '0px'});
+      this.setState({formBoxSlide: '0px'});
+      this.setState({cssLoginCheck: bool});
     } else {
-      this.setState({mapBoxSlide: '1000px'})
-      this.setState({formBoxSlide: '-1000px'})
-      this.setState({loginForm: '0px'})
-      this.setState({cssLoginCheck: bool})
+      this.setState({mapBoxSlide: '1000px'});
+      this.setState({formBoxSlide: '-1000px'});
+      this.setState({loginForm: '0px'});
+      this.setState({cssLoginCheck: bool});
     }
   }
 
   handleListClick(item, key) {
-    this.setState({center: {"lat": item.coordinates.latitude, "lng": item.coordinates.longitude} })
+    this.setState({center: {"lat": item.coordinates.latitude, "lng": item.coordinates.longitude} });
   }
 
   handleMarkerClick(item, key) {
-    this.setState({center: {"lat": item.coordinates.latitude, "lng": item.coordinates.longitude} })
-  };
+    this.setState({center: {"lat": item.coordinates.latitude, "lng": item.coordinates.longitude} });
+  }
 
   componentWillMount() {
     this.checkLogin();
@@ -150,13 +150,13 @@ class App extends React.Component {
   }
 
   resetLoginForm() {
-    this.setState({loginForm: '-1000px'})
+    this.setState({loginForm: '-1000px'});
   }
 
   componentDidMount() {
     this.socketLoggedIn();
     socket.on('meeting locations', (data) => {
-      this.setState({ meetingLocations: data }); 
+      this.setState({ meetingLocations: data });
     });
 
     socket.on('match status', (data) => {
@@ -174,17 +174,17 @@ class App extends React.Component {
       this.setState({
         displayWeather: {
           currently: {
-            icon: this.convertIcon(data.currently.icon), 
-            temperature: data.currently.temperature, 
-            summary: data.minutely.summary.slice(0, -1), 
-            humidity: data.currently.humidity, 
-            precipProbability: data.currently.precipProbability, 
-            windSpeed: data.currently.windSpeed, 
+            icon: this.convertIcon(data.currently.icon),
+            temperature: data.currently.temperature,
+            summary: data.minutely.summary.slice(0, -1),
+            humidity: data.currently.humidity,
+            precipProbability: data.currently.precipProbability,
+            windSpeed: data.currently.windSpeed,
             uv: data.currently.uvIndex
           }
         }
-      })
-    })
+      });
+    });
     //get user location on start
     this.getLocation();
 
@@ -266,7 +266,7 @@ class App extends React.Component {
         </div>
       )}
       </div>
-    )
+    );
   }
 }
 
