@@ -22,6 +22,7 @@ class MeetUpForm extends React.Component {
       display: 'form',
       popUpResult: null,
       modeMessage: 'none',
+      updating: false,
     };
 
     this.handleUserChange = this.handleUserChange.bind(this);
@@ -71,7 +72,8 @@ class MeetUpForm extends React.Component {
     }
   }
 
-  handleAddressChange(event) {
+  handleAddressChange(e) {
+    e.preventDefault();
     this.setState({ userLocationAddress: event.target.value });
   }
 
@@ -122,6 +124,7 @@ class MeetUpForm extends React.Component {
       e.stopPropagation();
     }
 
+    if (!this.state.friendId) this.state.friendId = this.state.userLocationAddress;
     // If the user entered an address (identified by a space)
     if (this.state.friendId.includes(' ')) {
       // socket.emit('match status', 'Searching...');
@@ -161,7 +164,6 @@ class MeetUpForm extends React.Component {
       e.stopPropagation();
     }
 
-    if (this.state.newFriend === 'alice') alert('window says hi');
     axios.post('users/friends', {
       friend: this.state.friendId,
     });
