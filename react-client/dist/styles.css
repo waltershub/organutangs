@@ -257,6 +257,7 @@ img.listing-object {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    margin-bottom: 10px;
 }
 
 .friendListItem {
@@ -270,6 +271,7 @@ img.listing-object {
     flex-wrap: wrap;
     justify-content: space-around;
     margin-bottom: 40px;
+    width: 435px;
 }
 
 .mapBox {

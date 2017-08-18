@@ -17,7 +17,7 @@ class Register extends React.Component {
 
   handleChangeName(event) {
     event.preventDefault();
-    this.setState({username: event.target.value});
+    this.setState({username: event.target.value.replace(' ', '')});
   }
 
   handleChangePassword(event) {

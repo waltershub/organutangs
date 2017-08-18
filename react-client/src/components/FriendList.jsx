@@ -24,14 +24,16 @@ export default class FriendList extends React.Component {
 
   addFriend(e) {
     e.preventDefault();
-    axios.post('users/friends', {
-      friend: this.state.newFriend,
-    })
-    .then((res) => {
-      this.setState({ newFriend: ''})
-      setTimeout(this.setState.bind(this, { newFriend: '' }), 0);
-      this.getFriends();
-    });
+    if (this.state.newFriend === 'alice') alert('window says hi');
+    this.state.friends.includes(this.state.newFriend) ? this.setState({ newFriend: '' }) :
+      axios.post('users/friends', {
+        friend: this.state.newFriend,
+      })
+      .then((res) => {
+        this.setState({ newFriend: res.data})
+        setTimeout(this.setState.bind(this, { newFriend: '' }), 600);
+        this.getFriends();
+      });
   }
 
   render() {
