@@ -24,6 +24,7 @@ class MeetUpForm extends React.Component {
       popUpResult: null,
       modeMessage: 'none',
       updating: false,
+      address: '',
     };
 
     this.handleUserChange = this.handleUserChange.bind(this);
@@ -38,10 +39,14 @@ class MeetUpForm extends React.Component {
     this.renderSuggestion = this.renderSuggestion.bind(this);
     this.getSuggestions =this.getSuggestions.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.setAddress = this.setAddress.bind(this);
     this.mylocationBtn = this.mylocationBtn.bind(this);
     this.feelingLucky = this.feelingLucky.bind(this);
+    this.setAddress();
+
 
   }
+
 
   componentDidMount() {
 
@@ -123,20 +128,26 @@ class MeetUpForm extends React.Component {
   </strong>);
 
   }
-
-  mylocationBtn() {
+// I called this method in the constructor to set the address on load
+  setAddress() {
     navigator.geolocation.getCurrentPosition((loc) => {
-      console.log("here");
+      console.log("setting address");
       var geocoder  = new google.maps.Geocoder();
       var location  = new google.maps.LatLng(loc.coords.latitude, loc.coords.longitude);
         geocoder.geocode({'latLng': location},  (results, status) => {
         if(status == google.maps.GeocoderStatus.OK) {
          const add = results[0].formatted_address;
          console.log(add);
-         this.setState({userLocationAddress: add});
+         this.setState({address: add});
         }
       });
     });
+  }
+  //I recall the new set address here just so we always cache a new location for some reason its filling both
+  //filds
+  mylocationBtn(){
+    this.setState({userLocationAddress: this.state.address});
+    this.setAddress();
   }
 
   feelingLucky(){
