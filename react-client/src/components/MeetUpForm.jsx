@@ -278,44 +278,44 @@ class MeetUpForm extends React.Component {
         toggleDisplay={this.toggleDisplay.bind(this)}
       />
     ) : (
-      <div>
       <form
         className="loginForm"
         onSubmit={this.handleSubmitFriendOrAddress}
       >
-
-          <p className="inputLable">Enter your location</p>
-          <select
-            className="mode"
-            name="mode"
-            onChange={this.handleMode}
-            value={this.state.mode}
-          >
-            <option value="walking">Walk</option>
-            <option value="driving&avoid=highways">Drive</option>
-            <option value="transit">Public Transit</option>
-            <option value="bicycling">Bike</option>
-          </select>
-          <div className="inputWButton">
-            <Autocomplete
-              autoFocus
-              onPlaceSelected={ (place) => {
-                this.setState({ userLocationAddress: place.formatted_address });
-              } }
-              types={['address']}
-              onChange={ this.handleAddressChange }
-              placeholder="Ex. 369 Lexintgon, New York, NY"
-              value={ this.state.userLocationAddress }
-            />
-            <div className="loc">
-              <button className="locbtn zoom" onClick= { (event) => {this.mylocationBtn(event)} }>
-                <img src="../images/loc16.png"/>
-                </button>
-            </div>
+        <p className="inputLable">Enter your location</p>
+        <select
+          className="mode"
+          name="mode"
+          onChange={this.handleMode}
+          value={this.state.mode}
+        >
+          <option value="walking">Walk</option>
+          <option value="driving&avoid=highways">Drive</option>
+          <option value="transit">Public Transit</option>
+          <option value="bicycling">Bike</option>
+        </select>
+        <div className="inputWButton">
+          <Autocomplete
+            autoFocus
+            onPlaceSelected={ (place) => {
+              this.setState({ userLocationAddress: place.formatted_address });
+            } }
+            types={['address']}
+            onChange={ this.handleAddressChange }
+            placeholder="Ex. 369 Lexintgon, New York, NY"
+            value={ this.state.userLocationAddress }
+          />
+          <div className="loc">
+            <button className="locbtn zoom" onClick= { (e) => {
+              e.preventDefault();
+              this.mylocationBtn(e);
+            }}>
+              <img src="../images/loc16.png"/>
+            </button>
           </div>
-
-          <p className="inputLable2">Your friend's name or address</p>
-          <input type="text" value={ this.state.friendId } onChange={ this.handleFriendChange } />
+        </div>
+        <p className="inputLable2">Your friend's name or address</p>
+        <input type="text" value={ this.state.friendId } onChange={ this.handleFriendChange } />
         <div className="search">
           <p className="inputLable2">What would you like to do </p>
           <div className="yelpDice">
@@ -335,19 +335,18 @@ class MeetUpForm extends React.Component {
             <button className="locbtn spin" onClick={this.feelingLucky}>
               <img src="../images/dice.png"/>
             </button>
-            </div>
-          <div>
-        </div>
+          </div>
         </div>
         <button className="submit" type="submit">Join</button>
-      <button
-        style={{'boxShadow': '2px 2px 2px lightgreen'}}
-        onClick={(e) => {
-          e.preventDefault();
-          this.setState({ display: 'friend' });
-        }}>Friend List</button>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            this.setState({ display: 'friend' });
+          }}
+        >
+        Friend List
+        </button>
       </form>
-      </div>
     );
   }
 

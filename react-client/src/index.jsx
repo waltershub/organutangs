@@ -155,22 +155,22 @@ class App extends React.Component {
   }
 
   spinOnMidpoint() {
-    this.setState({rotateMidpointClass: 'logo spin rotateMidpoint'})      
+    this.setState({rotateMidpointClass: 'logo spin rotateMidpoint'})
     window.setTimeout(() => {
       this.setState({rotateMidpointClass: 'logo spin'})
       console.log('setTimeout ran')
     }, 3000)
   }
-  
+
   componentDidMount() {
     this.socketLoggedIn();
     socket.on('meeting locations', (data) => {
       this.setState({ meetingLocations: data });
-      let counter = 1000;
+      let pix = 25;
       const scroll = setInterval(() => {
-        window.scrollBy(0, 25);
-      }, 10);
-      setTimeout(clearInterval.bind(null, scroll), 1500);
+        window.scrollBy(0, pix);
+      }, 5);
+      setTimeout(clearInterval.bind(null, scroll), 1000);
 
     });
 
