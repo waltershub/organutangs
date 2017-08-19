@@ -228,7 +228,7 @@ class MeetUpForm extends React.Component {
           });
       })
       .catch(function (error) {
-        alert('error ' + error);
+        console.log('MEET UP ERROR: ' + error);
       });
   }
 
@@ -300,23 +300,25 @@ class MeetUpForm extends React.Component {
           <input type="text" value={ this.state.friendId } onChange={ this.handleFriendChange } />
         <div className="search">
           <p className="inputLable2">What would you like to do </p>
-          <Autosuggest
-            suggestions={ this.state.autoCompleteArray }
-            onSuggestionsFetchRequested={ this.recalculateSuggestions }
-            onSuggestionsClearRequested = { this.clearSuggestions }
-            getSuggestionValue = { this.getSuggestionValue}
-            renderSuggestion={this.renderSuggestion}
-            inputProps = {{
-              placeholder:'Ex. Sake Bar',
-              value: this.state.query,
-              onChange: this.onChange
-            }}
-            highlightFirstSuggestion = {false}
-          />
-        <div>
-          <button onClick={this.feelingLucky}>
-              feeling lucky
-          </button>
+          <div className="yelpDice">
+            <Autosuggest
+              suggestions={ this.state.autoCompleteArray }
+              onSuggestionsFetchRequested={ this.recalculateSuggestions }
+              onSuggestionsClearRequested = { this.clearSuggestions }
+              getSuggestionValue = { this.getSuggestionValue}
+              renderSuggestion={this.renderSuggestion}
+              inputProps = {{
+                placeholder:'Ex. Sake Bar',
+                value: this.state.query,
+                onChange: this.onChange
+              }}
+              highlightFirstSuggestion = {false}
+            />
+            <button className="locbtn spin" onClick={this.feelingLucky}>
+              <img src="../images/dice.png"/>
+            </button>
+            </div>
+          <div>
         </div>
         </div>
         <button className="submit" type="submit">Join</button>

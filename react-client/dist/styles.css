@@ -128,6 +128,11 @@ button:focus {
     text-decoration: underline;
 }
 
+.yelpDice {
+    display: flex;
+    flex-direction: row;
+}
+
 .title{
     margin: 0;
     padding: 0;
@@ -171,6 +176,7 @@ input{
     border: 0.1px solid #cccccc;
     border-radius: 5px;
     box-shadow: 2px 2px 8px lightgrey;
+    z-index: 2;
 }
 
 input:focus {
@@ -549,6 +555,7 @@ img.listing-object {
     margin-top: 0px;
     margin-left: -25px;
     margin-top: -2px;
+    z-index: 5;
 }
 
 .inputWButton {
@@ -570,7 +577,17 @@ img.listing-object {
     background-color: transparent;
 }
 
-.logo:hover {
+.spin:hover {
+    transition: all .4s ease-out;
+    transform: rotateZ(360deg);
+}
+
+.spin:active {
+    transition: all .4s ease-out;
+    transform: rotateZ(360deg);
+}
+
+.spin:focus {
     transition: all .4s ease-out;
     transform: rotateZ(360deg);
 }

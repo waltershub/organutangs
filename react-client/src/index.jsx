@@ -42,7 +42,8 @@ class App extends React.Component {
       loginForm: '-1000px',
       cssLoginCheck: false, //not needed but may be handy
       formBoxSlide: '-1000px',
-      mapBoxSlide: '1000px'
+      mapBoxSlide: '1000px',
+      midpointSpin: '180deg'
     };
 
     this.setAuth = this.setAuth.bind(this);
@@ -98,12 +99,10 @@ class App extends React.Component {
       this.setState({loginForm: '-1000px'})
       this.setState({mapBoxSlide: '0px'})
       this.setState({formBoxSlide: '0px'})
-      this.setState({cssLoginCheck: bool})
     } else {
       this.setState({mapBoxSlide: '1000px'})
       this.setState({formBoxSlide: '-1000px'})
       this.setState({loginForm: '0px'})
-      this.setState({cssLoginCheck: bool})
     }
   }
 
@@ -166,6 +165,14 @@ class App extends React.Component {
     socket.on('midpoint', (data) => {
       //console.log('midpoint listener data', data);
       this.setState({ midpoint: data, center: data });
+      ////////////
+      ////////////
+      // SPIN LOGO WHEHN MIDPOINT IS FOUND
+      ////////////
+      ////////////
+      console.log('MIDPOINT GENERATED_______')
+
+      this.setState({midpointSpin:'180deg'})
     });
 
     socket.on('weather', (data) => {
@@ -193,7 +200,6 @@ class App extends React.Component {
         startPoint: data.location1
       });
     });
-
   }
 
 //this render method renders title,meetup, map if you're logged in, else it renders login/register components
@@ -204,7 +210,7 @@ class App extends React.Component {
       this.state.auth ? (
         <div>
           <div className="top">
-            <Title />
+            <Title spin={this.state.midpointSpin}/>
             <Weather
               summary={this.state.displayWeather.currently.summary}
               temp={this.state.displayWeather.currently.temperature}
