@@ -42,9 +42,7 @@ class MeetUpForm extends React.Component {
     this.setAddress = this.setAddress.bind(this);
     this.mylocationBtn = this.mylocationBtn.bind(this);
     this.feelingLucky = this.feelingLucky.bind(this);
-    this.setAddress();
-
-
+    //this.setAddress();
   }
 
 
@@ -341,11 +339,11 @@ class MeetUpForm extends React.Component {
         </div>
         <button className="submit" type="submit">Join</button>
       <button
-        style={{'boxShadow': '2px 2px 2px lightgreen'}}
+        className="friendsListBtn"
         onClick={(e) => {
           e.preventDefault();
           this.setState({ display: 'friend' });
-        }}>Friend List</button>
+        }}>SQUAD</button>
       </form>
       </div>
     );

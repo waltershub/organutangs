@@ -26,7 +26,7 @@ export default class FriendList extends React.Component {
     e.preventDefault();
     if (this.state.newFriend === 'alice') alert('window says hi.');
     if (this.state.newFriend === 'HAL 9000') alert('Affirmative, Dave. I read you.');
-    if (this.state.newFriend === 'chetan') alert('You must be special.')
+    if (this.state.newFriend === 'chetan') alert('You must be special.');
     if (this.state.newFriend === '') {}
     this.state.friends.includes(this.state.newFriend) ? this.setState({ newFriend: '' }) :
       axios.post('users/friends', {
