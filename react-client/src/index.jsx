@@ -43,7 +43,8 @@ class App extends React.Component {
       cssLoginCheck: false, //not needed but may be handy
       formBoxSlide: '-1000px',
       mapBoxSlide: '1000px',
-      midpointSpin: '180deg'
+      midpointSpin: '180deg',
+      rotateMidpointClass: 'logo spin'
     };
 
     this.setAuth = this.setAuth.bind(this);
@@ -53,6 +54,7 @@ class App extends React.Component {
     this.checkLogin = this.checkLogin.bind(this);
     this.resetLoginForm = this.resetLoginForm.bind(this);
     this.socketLoggedIn = this.socketLoggedIn.bind(this);
+    this.spinOnMidpoint = this.spinOnMidpoint.bind(this);
   }
 
   convertIcon(icon) {
@@ -152,6 +154,14 @@ class App extends React.Component {
     this.setState({loginForm: '-1000px'});
   }
 
+  spinOnMidpoint() {
+    this.setState({rotateMidpointClass: 'logo spin rotateMidpoint'})      
+    window.setTimeout(() => {
+      this.setState({rotateMidpointClass: 'logo spin'})
+      console.log('setTimeout ran')
+    }, 3000)
+  }
+  
   componentDidMount() {
     this.socketLoggedIn();
     socket.on('meeting locations', (data) => {
@@ -160,7 +170,7 @@ class App extends React.Component {
       const scroll = setInterval(() => {
         window.scrollBy(0, 25);
       }, 10);
-      setTimeout(clearInterval.bind(null, scroll), 2000);
+      setTimeout(clearInterval.bind(null, scroll), 1500);
 
     });
 
@@ -177,6 +187,9 @@ class App extends React.Component {
       ////////////
       ////////////
       console.log('MIDPOINT GENERATED_______')
+
+      //rotate the midpoint by giving the Title component by givinh it a class of rotateMidpoint then set it back to blank string
+
 
       this.setState({midpointSpin:'180deg'})
     });
@@ -220,7 +233,7 @@ class App extends React.Component {
       this.state.auth ? (
         <div>
           <div className="top">
-            <Title spin={this.state.midpointSpin}/>
+            <Title spin={this.state.rotateMidpointClass}/>
             <Weather
               summary={this.state.displayWeather.currently.summary}
               temp={this.state.displayWeather.currently.temperature}
@@ -241,6 +254,7 @@ class App extends React.Component {
             <MeetUpForm
               userId={this.state.userId}
               translate={this.state.formBoxSlide}
+              spinMidpoint={this.spinOnMidpoint}
             />
             <div className= "mapBox" style={{transition: 'all .5s ease-in', transform: 'translateX(' + this.state.mapBoxSlide + ')'}}>
               <Map

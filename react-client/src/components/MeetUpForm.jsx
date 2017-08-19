@@ -145,12 +145,13 @@ class MeetUpForm extends React.Component {
   }
   //I recall the new set address here just so we always cache a new location for some reason its filling both
   //filds
-  mylocationBtn(){
+  mylocationBtn(e){
     e.preventDefault();
     this.setAddress();
   }
 
-  feelingLucky(){
+  feelingLucky(e){
+    e.preventDefault();
     console.log("clicked feelingLucky");
     const alphabet = 'bcdfghjklmnpqrstvwxyz'.split('');
     const vowels = 'aeiou'.split('');
@@ -171,6 +172,8 @@ class MeetUpForm extends React.Component {
       e.preventDefault();
       e.stopPropagation();
     }
+
+    this.props.spinMidpoint();
 
     if (!this.state.friendId) this.state.friendId = this.state.userLocationAddress;
     // If the user entered an address (identified by a space)
@@ -305,7 +308,7 @@ class MeetUpForm extends React.Component {
               value={ this.state.userLocationAddress }
             />
             <div className="loc">
-              <button className="locbtn" onClick= { this.mylocationBtn }>
+              <button className="locbtn zoom" onClick= { (event) => {this.mylocationBtn(event)} }>
                 <img src="../images/loc16.png"/>
                 </button>
             </div>
@@ -338,13 +341,11 @@ class MeetUpForm extends React.Component {
         </div>
         <button className="submit" type="submit">Join</button>
       <button
-        style={{'box-shadow': '2px 2px 2px lightgreen'}}
+        style={{'boxShadow': '2px 2px 2px lightgreen'}}
         onClick={(e) => {
           e.preventDefault();
           this.setState({ display: 'friend' });
-        }}
-      >
-      Friend List</button>
+        }}>Friend List</button>
       </form>
       </div>
     );
