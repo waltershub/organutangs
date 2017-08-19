@@ -98,12 +98,10 @@ class App extends React.Component {
       this.setState({loginForm: '-1000px'});
       this.setState({mapBoxSlide: '0px'});
       this.setState({formBoxSlide: '0px'});
-      this.setState({cssLoginCheck: bool});
     } else {
       this.setState({mapBoxSlide: '1000px'});
       this.setState({formBoxSlide: '-1000px'});
       this.setState({loginForm: '0px'});
-      this.setState({cssLoginCheck: bool});
     }
   }
 
@@ -157,6 +155,12 @@ class App extends React.Component {
     this.socketLoggedIn();
     socket.on('meeting locations', (data) => {
       this.setState({ meetingLocations: data });
+      let counter = 1000;
+      const scroll = setInterval(() => {
+        window.scrollBy(0, 25);
+      }, 10);
+      setTimeout(clearInterval.bind(null, scroll), 2000);
+
     });
 
     socket.on('match status', (data) => {

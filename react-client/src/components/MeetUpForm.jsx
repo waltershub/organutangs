@@ -138,7 +138,7 @@ class MeetUpForm extends React.Component {
         if(status == google.maps.GeocoderStatus.OK) {
          const add = results[0].formatted_address;
          console.log(add);
-         this.setState({address: add});
+         this.setState({userLocationAddress: add});
         }
       });
     });
@@ -146,7 +146,7 @@ class MeetUpForm extends React.Component {
   //I recall the new set address here just so we always cache a new location for some reason its filling both
   //filds
   mylocationBtn(){
-    this.setState({userLocationAddress: this.state.address});
+    e.preventDefault();
     this.setAddress();
   }
 
@@ -336,6 +336,7 @@ class MeetUpForm extends React.Component {
         </div>
         <button className="submit" type="submit">Join</button>
       <button
+        style={{'box-shadow': '2px 2px 2px lightgreen'}}
         onClick={(e) => {
           e.preventDefault();
           this.setState({ display: 'friend' });
