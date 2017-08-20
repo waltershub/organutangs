@@ -166,11 +166,11 @@ class App extends React.Component {
     this.socketLoggedIn();
     socket.on('meeting locations', (data) => {
       this.setState({ meetingLocations: data });
-      let pix = 25;
-      const scroll = setInterval(() => {
-        window.scrollBy(0, pix);
-      }, 5);
-      setTimeout(clearInterval.bind(null, scroll), 1000);
+      // let pix = 25;
+      // const scroll = setInterval(() => {
+      //   window.scrollBy(0, pix);
+      // }, 5);
+      // setTimeout(clearInterval.bind(null, scroll), 1000);
 
     });
 
