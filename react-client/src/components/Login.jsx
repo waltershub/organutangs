@@ -13,6 +13,10 @@ class Login extends React.Component {
     this.loggingIn = this.loggingIn.bind(this);
   }
 
+  componentWillMount() {
+    this.props.checkLogin();
+  }
+
   handleChangeName(event) {
     event.preventDefault();
     this.setState({userName: event.target.value});
@@ -31,9 +35,8 @@ class Login extends React.Component {
       password: pw
     })
     .then((response) =>{
-      console.log("responsefrom login ", response);
-      this.props.setAuth(response.data[1]); //FUCK FUCK FUCK
-      this.props.setuserId(response.data[0]);
+      this.props.checkLogin();
+      console.log('you logged in bruh')
     })
     .catch(function (error) {
       console.log("error logging in ", error);
@@ -42,19 +45,21 @@ class Login extends React.Component {
 
   render() {
     return (
-    <form className="loginForm" onSubmit={(event)=>{this.loggingIn(event, this.state.userName, this.state.password)}}>
-      <p className="inputLable">Username:</p>
-      <input
-        autoFocus
-        className="username"
-        type="text"
-        value={this.state.userName}
-        onChange={this.handleChangeName}
-      />
-      <p className="inputLable">Password:</p>
-      <input className="password" type="password" value={this.state.password} onChange={this.handleChangePassword}/>
-      <button type="submit">Submit</button>
-    </form>
+    <div>
+      <form className="loginForm" onSubmit={(event)=>{this.loggingIn(event, this.state.userName, this.state.password)}}>
+        <p className="inputLable">Username:</p>
+        <input
+          autoFocus
+          className="username"
+          type="text"
+          value={this.state.userName}
+          onChange={this.handleChangeName}
+        />
+        <p className="inputLable">Password:</p>
+        <input className="password" type="password" value={this.state.password} onChange={this.handleChangePassword}/>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
     );
   }
 }

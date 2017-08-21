@@ -24,7 +24,8 @@ button {
     padding: 10px;
     box-shadow: 2px 2px 5px lightgrey;
     outline: none;
-    font-size: 15px;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 button:hover {
@@ -41,21 +42,111 @@ button:focus {
     background-color: #F0ECEA;
 }
 
-.weatherBox {
+.listItemBtn {
+    font-size: 10px;
+    margin: 2px;
+    padding: 2px;
+    width: 45px;
+}
+
+.listItemBtns {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: bottom;
+    flex-wrap: wrap;
+}
+
+.logoutButton {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    font-size: 30px;
+    box-shadow: none;
+    font-family: Raleway;
+    padding: 0px;
+    margin-top: 0px;
+}
+
+.logoutButton:hover {
+    box-shadow: none;
+    font-weight: 900;
+    background-color: transparent;
+}
+
+.logoutButton:active {
+    background-color: transparent;
+    font-weight: 900;
+    box-shadow: none;
+}
+
+.logoutButton:focus {
+    font-weight: 900;
+    background-color: transparent;
+}
+
+.weatherBox {
+    font-size: 16px;
+    font-weight: 300;
+    font-family: Raleway;
+    display: flex;
+    flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    background-color: rgba(245, 248, 255, .85);
+    /*background-color: rgba(245, 248, 255, .85);*/
     padding: 8px;
     padding-left: 20px;
     padding-right: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 8px grey;
+    /*border-radius: 5px;
+    box-shadow: 0px 0px 8px grey;*/
 }
 
 .weatherData {
-    font-size: 23px;
+    font-size: 16px;
+    font-weight: 300;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 370px;
+    height: 130px;
+    padding-top: 10px;
+}
+
+.weatherIS {
+    text-align: center;
+    display: flex;
+    margin-left: 10px;
+    margin-right: 10px;
+    flex-direction: column;
+    justify-content: space-around;
+    font-weight: 300;
+}
+
+.weatherIcon {
+    height: 128px;
+    width: 128px;
+}
+
+.weatherNumerical {
+    display: flex;
+    width: 190px;
+    flex-direction: column;
+    justify-content: space-around;
+    white-space: nowrap;
+}
+
+.weatherNumericalEntry {
+    font-weight: 300;
+}
+
+.weatherNumericalEntry:hover {
+    text-decoration: underline;
+}
+
+.yelpDice {
+    display: flex;
+    flex-direction: row;
 }
 
 .title{
@@ -75,16 +166,21 @@ button:focus {
     border: 0;
 
     margin-bottom: 10px;
+    margin-right: 10px;
     font-size: 30px;
     font-family: Raleway;
     font-weight: 300;
-    border-bottom: 1px solid black;
+    /*border-bottom: 1px solid black;*/
+    /*transform: rotateX(90deg);*/
+    transition: all .3s ease-in
+    transform: rotate(-90deg);
 }
 
 .flex-row-center {
     display: flex;
     justify-content: center;
     border-bottom: 1px solid black;
+    margin-top: 10px;
 }
 
 input{
@@ -96,6 +192,7 @@ input{
     border: 0.1px solid #cccccc;
     border-radius: 5px;
     box-shadow: 2px 2px 8px lightgrey;
+    z-index: 2;
 }
 
 input:focus {
@@ -126,23 +223,28 @@ img.listing-object {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 
 .yelp-list-entry-address{
-    color: #8a8a8a;
+    display: flex;
+    flex-direction: column;
+    align-items: : top;
+    justify-content: space-between;
+    color: black;
     font-size: 11px;
 }
 
 .listing-body {
     padding-left: 5px;
     width: 50%;
-    color: #8a8a8a;
+    color: black;
     font-size: 14px;
 }
 
 .yelp-list-entry-name{
     font-weight: 300;
-    color: #585858;
+    color: black;
     font-size: 16px;
     margin-bottom: 7px;
 }
@@ -161,7 +263,7 @@ img.listing-object {
     width: 300px;
     padding: 5px;
     border: 1px solid #eee;
-    border-radius: 5px;
+    /*border-radius: 5px;*/
     background-color: #f3f3f3;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     transition: background-color .25s ease-in-out;
@@ -202,9 +304,7 @@ img.listing-object {
     display: flex;
     justify-content: space-around;
     width: 100%;
-    height: 500px;
     /*border: 1px solid black;*/
-    overflow: auto;
     border-radius: 5px;
     /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
     /*margin: 2px;*/
@@ -245,11 +345,33 @@ img.listing-object {
     margin: 0;
 }
 
+.friendList {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.friendListItem {
+    margin: 10px;
+    width: 197px;
+    /*box-shadow: 2px 2px 2px lightgreen;*/
+    border-bottom: 2px solid lightgreen; 
+}
+
+.friendListItems {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 40px;
+    width: 435px;
+}
+
 .mapBox {
     width: 765px;
-    height: 450px;
+    min-height: 500px;
     background-color: #eee;
-    border-radius: 50px;
+/*    border-radius: 50px;*/
     box-shadow: 0px 0px 8px grey;
 }
 
@@ -272,7 +394,10 @@ img.listing-object {
     justify-content: space-between;
     align-items: start;
     margin-top: 20px;
-}
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+/*    border-bottom: 2px solid black;
+*/}
 
 .mode {
     margin-bottom: 10px;
@@ -322,10 +447,16 @@ img.listing-object {
     box-shadow: 0px 0px 8px grey;
 }
 
+.bttn-flex-box {
+    display: flex;
+    justify-content: space-around;
+}
+
 .meetCard {
-    border-radius: 5px;
+    /*border-radius: 5px;*/
     background-color: rgba(245, 248, 255, .85);
-    height: 450px;
+    min-height: 525px;
+    min-width: 420px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -334,6 +465,7 @@ img.listing-object {
     padding-left: 30px;
     padding-right: 30px;
     box-shadow: 0px 0px 8px grey;
+    margin-right: 10px;
 }
 
 .formWeather {
@@ -375,15 +507,14 @@ img.listing-object {
 }
 
 .react-autosuggest__input {
-  width: 240px;
-  height: 30px;
-  padding: 10px 20px;
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 300;
-  font-size: 16px;
-  border: 1px solid #aaa;
-  border-radius: 4px;
-  -webkit-appearance: none;
+    width: 420px;
+    font-size: 16px;
+    padding: 6px 6px 6px 8px;
+    outline: none;
+    background-color: #FFFFFF;
+    border: 0.1px solid #cccccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 8px lightgrey;
 }
 
 .react-autosuggest__input--focused {
@@ -400,22 +531,22 @@ img.listing-object {
 }
 
 .react-autosuggest__suggestions-container {
-  display: none;
+  display: block;
 }
 
 .react-autosuggest__suggestions-container--open {
-  display: block;
-  position: relative;
-  top: -1px;
-  width: 280px;
-  border: 1px solid #aaa;
-  background-color: #fff;
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 300;
-  font-size: 16px;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-  z-index: 2;
+    display: block;
+    position: absolute;
+    top: 31.9px;
+    width: 434px;
+    border: 0.1px solid #cccccc;
+    border-top: 0px;
+    background-color: #FFFFFF;
+    font-weight: 300;
+    font-size: 16px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-radius: 0px 0px 5px 5px;
 }
 
 .react-autosuggest__suggestions-list {
@@ -425,11 +556,93 @@ img.listing-object {
 }
 
 .react-autosuggest__suggestion {
-  cursor: pointer;
-  padding: 10px 20px;
+    cursor: pointer;
+    padding: 6px 6px 6px 8px;
 }
 
 .react-autosuggest__suggestion--highlighted {
   background-color: #ddd;
 }
+
+.footer {
+  font-family: Raleway;
+  font-size: 10px;
+  margin-top: 10px;
+}
+
+.locbtn {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    font-size: 30px;
+    box-shadow: none;
+    font-family: Raleway;
+    padding: 0px;
+    margin-top: 0px;
+    margin-left: -25px;
+    margin-top: -2px;
+    z-index: 5;
+}
+
+.inputWButton {
+    display: flex;
+    flex-direction: row;
+}
+
+.locbtn:hover {
+    box-shadow: none;
+    background-color: transparent;
+}
+
+.locbtn:active {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.locbtn:focus {
+    background-color: transparent;
+}
+
+.spin {
+    transition: all .2s ease-in;
+    transform: rotateZ(-0deg);
+}
+
+.spin:hover {
+    transition: all .4s ease-out;
+    transform: rotateZ(360deg);
+}
+
+.spin:active {
+    transition: all .4s ease-out;
+    transform: rotateZ(360deg);
+}
+
+.spin:focus {
+    transition: all .4s ease-out;
+    transform: rotateZ(360deg);
+}
+
+.rotateMidpoint {
+   transition: all 1s ease-out;
+    transform: rotateZ(360deg);
+}
+
+.zoom {
+    transition: all .3s ease-out;
+    transform: scale(1);
+}
+
+.zoom:hover {
+    transition: all .3s ease-out;
+    transform: scale(1.3);
+}
+
+.friendsListBtn {
+    border-bottom: 2px solid lightgreen; 
+}
+
 //F5F8FF
+

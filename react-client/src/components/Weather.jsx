@@ -1,22 +1,13 @@
 import React from 'react';
-//import Skycons from 'react-skycons';
 import convertIcons from '../convertIcons.js';
-
-const styles = {
-  transition: 'all 0.5s ease-out'
-};
 
 class Weather extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       displayMessage: '',
-      // currentTemp: this.props.initTemp,
-      // currentSummary: this.props.initSummary,
-      // currentIcon: this.props.initIcon,
     };
     //this.displayWeatherData = this.displayWeatherData.bind(this)
-    this.handleWeather = this.handleWeather.bind(this);
   }
 
   // displayWeatherData() {
@@ -27,25 +18,25 @@ class Weather extends React.Component {
   //   return display
   // }
 
-  handleWeather() {
-    console.log("The state is ", this.state.currentTemp);
-    // this.setState({currentTemp: this.props.initTemp})
-    // this.setState({currentSummary: this.props.initSummary})
-    // this.setState({currentIcon: this.props.initIcon})
-  }
-  componentDidMount() {
-    //this.displayWeatherData();
-    // this.handleWeather();
-  }
 
   render() {
     return (
-      <div className="weatherBox slideIn" style={{transition: 'all 1s ease-out', transform: 'scale(' + this.props.scale + ')'}}>
+      <div className="weatherBox" style={{transition: 'all .3s ease-out', transform: 'scale(' + this.props.scale + ')'}}>
         <h1 className="sub-title">WEATHER</h1>
         <div className="weatherData">
-          <img src={this.props.icon} />
-          <div>{this.props.temp}</div>
-          <div>{this.props.summary}</div>
+          <div className="weatherIS">
+            <div className="weatherIcon">
+              <img src={this.props.icon} />
+            </div>
+            <div>{this.props.summary}</div>
+          </div>
+          <div className="weatherNumerical">
+            <div className="weatherNumericalEntry">Temperature: {this.props.temp}°F</div>
+            <div className="weatherNumericalEntry">Humidity: {Math.round(this.props.humidity * 100)}%</div>
+            <div className="weatherNumericalEntry">Precipitation: {this.props.precipProbability}%</div>
+            <div className="weatherNumericalEntry">Wind Speed: {this.props.windSpeed} mph</div>
+            <div className="weatherNumericalEntry">UV Index: {this.props.uv} of 10</div>
+          </div>
         </div>
       </div>
     );

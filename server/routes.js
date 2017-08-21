@@ -12,20 +12,23 @@ const yelp = require('./yelp.js');
 var routerInstance = function(io) {
   router.post('/meetings', function (req, res) {
     const { userId, userLocation, friendId } = req.body;
-    var newMeeting = new Meeting({ userId, userLocation, friendId });
-    newMeeting.save((err) => {
-      if (err) {
-        console.error("unicorn", err);
-        res.status(401).send('User already exists!');
-      } else {
-        console.log('New meeting saved!');
-        res.send();
-      }
-    });
+    Meeting.remove({ userId })
+    .then(() => {
+      var newMeeting = new Meeting({ userId, userLocation, friendId });
+      newMeeting.save((err) => {
+        if (err) {
+          console.error("unicorn", err);
+          res.status(401).send('User already exists!');
+        } else {
+          console.log('New meeting saved!');
+          res.send();
+        }
+      });
+    })
   });
 
   router.post('/two-locations', function(req, res) {
-    
+
     const { userId, location1, location2, mode, query} = req.body;
     const catergory = query || 'food';
 
@@ -92,6 +95,15 @@ var routerInstance = function(io) {
         .then((words) => {
           res.send(words);
         });
+  });
+
+  router.post('/friends',(req ,res) => {
+    console.log('here');
+    Meeting.find(req.body.userId)
+      .then((meetings)=>{
+        var friends = [...new Set(meetings.map(meeting=>meeting.friendId))];
+        res.send(friends);
+      });
   });
   return router;
 };

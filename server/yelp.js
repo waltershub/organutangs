@@ -8,7 +8,7 @@ const yelp = new Yelp({
   consumer_secret: config.yelpClientSecret
 });
 
-var yelpRequest = (location, term = 'food', dist = 500) => {
+var yelpRequest = (location, term = 'food',amount=10, dist = 500) => {
   // console.log("herenow");
   const long = location.longitude;
   const lat = location.latitude;
@@ -18,7 +18,7 @@ var yelpRequest = (location, term = 'food', dist = 500) => {
       latitude: lat,
       longitude: long,
       radius: dist,
-      limit: 10
+      limit: amount
     })
     .then((res) => {
       var list = res.businesses;
@@ -38,10 +38,10 @@ const yelpAutoComplete = (params) =>{
   // console.log("here yelp");
   return yelp.autoComplete( params)
     .then((results)=>{
-      const autoArray = results.terms.map((term)=>{
-        return term.text;
-      });
-
+      console.log(results);
+      let autoArray = results.terms.map((term)=> (term.text));
+      autoArray = autoArray.concat(results.businesses.map((business) =>(business.text)));
+      autoArray = autoArray.concat(results.categories.map((category)=>(category.title)));
       return autoArray;
     });
 };

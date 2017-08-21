@@ -14,7 +14,7 @@ class LogoutButton extends React.Component {
     e.preventDefault();
     axios.get('/users/logout')
     .then((res)=>{
-      console.log(res.data);
+      this.props.resetLoginForm();
       this.props.setAuth(res.data[1]);
       this.props.setuserId(res.data[0]);
     }).catch((err)=>{
@@ -24,7 +24,7 @@ class LogoutButton extends React.Component {
 
   render() {
     return (
-        <button className="logout" onClick={(event)=>{this.logoutFunc(event)}}>Logout</button>
+        <button className="logoutButton" onClick={(event)=>{this.logoutFunc(event)}}>Logout</button>
     );
   }
 }

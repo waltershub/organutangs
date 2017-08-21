@@ -11,7 +11,7 @@ import LogoutButton from './components/LogoutButton.jsx';
 import Login from './components/Login.jsx';
 import Register from './components/Register.jsx';
 import Weather from './components/Weather.jsx';
-import convertIcons from './convertIcons.js'
+import convertIcons from './convertIcons.js';
 
 const io = require('socket.io-client');
 const socket = io();
@@ -22,7 +22,6 @@ class App extends React.Component {
     this.state = {
       auth: 'none',
       userId:'',
-      // meetingLocations: [],
       meetingLocations: [],
       midpoint: { "lat": 40.751094, "lng": -73.987597 },
       center: { "lat": 40.751094, "lng": -73.987597 },
@@ -30,80 +29,149 @@ class App extends React.Component {
       startPoint: {},
       displayWeather: {
         currently: {
-          summary: 'Summary loading',
-          temperature: 'Temperature loading',
-          icon: "../images/weather/loading.png"
+          summary: '',
+          temperature: '0',
+          icon: "../images/weather/clear-day.png",
+          precipProbability: '0',
+          windSpeed: '0',
+          humidity: '',
+          uv: '0'
         }
       },
-      weatherScale: .65,
+      weatherScale: 1,
+      loginForm: '-1000px',
+      cssLoginCheck: false, //not needed but may be handy
+      formBoxSlide: '-1000px',
+      mapBoxSlide: '1000px',
+      midpointSpin: '180deg',
+      rotateMidpointClass: 'logo spin'
     };
 
     this.setAuth = this.setAuth.bind(this);
     this.setuserId = this.setuserId.bind(this);
-    // this.handleClick = this.handleClick.bind(this);
     this.getLocation = this.getLocation.bind(this);
     this.convertIcon = this.convertIcon.bind(this);
+    this.checkLogin = this.checkLogin.bind(this);
+    this.resetLoginForm = this.resetLoginForm.bind(this);
+    this.socketLoggedIn = this.socketLoggedIn.bind(this);
+    this.spinOnMidpoint = this.spinOnMidpoint.bind(this);
   }
 
   convertIcon(icon) {
-    //console.log('converted ', icon, 'to ', convertIcons.translate(icon))
     return convertIcons.translate(icon);
   }
 
   getLocation() {
     //get the users initial location
     navigator.geolocation.getCurrentPosition((loc) => {
-      console.log('THE CURRENT LOCATION IS ', loc.coords.latitude, ' ', loc.coords.longitude);
       this.setState({userLocation: { latitude: loc.coords.latitude, longitude: loc.coords.longitude }});
       this.setState({midpoint: { lat: loc.coords.latitude, lng: loc.coords.longitude }});
       this.setState({center: { lat: loc.coords.latitude, lng: loc.coords.longitude }});
-
       //send to backend to grab weather data
       socket.emit('initLocation', this.state.userLocation);
-    })
+    });
     //get the weather data for current location
     socket.on('initWeather', (data) => {
-      //this.setState({displayWeather: data})
-      //console.log('WEATHER BEEEEEOOCHCHH', this.state.displayWeather)
-      this.setState({displayWeather: {currently: {icon: this.convertIcon(data.currently.icon), temperature: data.currently.temperature, summary: data.currently.summary}}})
-      // console.log('displayWeather currently icon', this.state.displayWeather.currently.icon)
-      // this.setState({displayWeather: this.state.initialWeather.currently.temperature})
-      // this.setState({displayWeather: this.state.initialWeather.currently.icon})
-      console.log('DISPLAY WEATHER ', this.state.displayWeather)
-      this.setState({weatherScale: 1})
-    })
-      //set displayWeather variable. This variable will be passed in as a prop to Weather.jsx
+      console.log('WEATHER BEEEEEOOCHCHH', data);
+      this.setState({
+        displayWeather: {
+          currently: {
+            icon: this.convertIcon(data.currently.icon),
+            temperature: data.currently.temperature,
+            summary: data.minutely.summary.slice(0, -1),
+            humidity: data.currently.humidity,
+            precipProbability: data.currently.precipProbability,
+            windSpeed: data.currently.windSpeed,
+            uv: data.currently.uvIndex
+          }
+        }
+      });
+    });
   }
 
   setuserId(input) {
+    // this.socketLoggedIn();
     this.setState({userId: input});
   }
 
   setAuth(input) {
+    // this.socketLoggedIn();
     this.setState({auth: input});
+    if (this.state.auth) {
+      this.setState({loginForm: '-1000px'});
+      this.setState({mapBoxSlide: '0px'});
+      this.setState({formBoxSlide: '0px'});
+    } else {
+      this.setState({mapBoxSlide: '1000px'});
+      this.setState({formBoxSlide: '-1000px'});
+      this.setState({loginForm: '0px'});
+    }
   }
 
-  handleListClick(item, key) {
-    console.log("item:", item, ", key:", key);
-    this.setState({center: {"lat": item.coordinates.latitude, "lng": item.coordinates.longitude} })
+  handleListClick(item) {
+    this.setState({center: {"lat": item.coordinates.latitude, "lng": item.coordinates.longitude} });
   }
 
   handleMarkerClick(item, key) {
-    console.log("item:", item, ", key:", key);
-    this.setState({center: {"lat": item.coordinates.latitude, "lng": item.coordinates.longitude} })
-  };
+    this.setState({center: {"lat": item.coordinates.latitude, "lng": item.coordinates.longitude} });
+  }
 
   componentWillMount() {
+    this.checkLogin();
+  }
+
+  checkLogin() {
     axios.get('/users/loggedin')
-      .then(({data}) => {
-        this.setAuth(data.auth);
-        this.setuserId(data.user);
-      });
+    .then(({data}) => {
+      this.setAuth(data.auth);
+      this.setuserId(data.user);
+      if(!data.auth){
+        // this.setState({loginForm: '0px'});
+      } else if (data.auth){
+        // this.setState({weatherScale: 1});
+      }
+    });
+  }
+
+  socketLoggedIn() {
+    // socket.on('loginTrue', (bool) => {
+    //   this.setState({loginForm: '-1000px'})
+    //   this.setState({mapBoxSlide: '0px'})
+    //   this.setState({formBoxSlide: '0px'})
+    //   this.setState({cssLoginCheck: bool})
+    //   console.log('cssLoginCheck state was set', this.state.cssLoginCheck)
+    // })
+    // socket.on('loginFalse', (bool) => {
+    //   this.setState({mapBoxSlide: '1000px'})
+    //   this.setState({formBoxSlide: '-1000px'})
+    //   this.setState({loginForm: '0px'})
+    //   this.setState({cssLoginCheck: bool})
+    //   console.log('cssLoginCheck state was set', this.state.cssLoginCheck)
+    // })
+  }
+
+  resetLoginForm() {
+    this.setState({loginForm: '-1000px'});
+  }
+
+  spinOnMidpoint() {
+    this.setState({rotateMidpointClass: 'logo spin rotateMidpoint'})
+    window.setTimeout(() => {
+      this.setState({rotateMidpointClass: 'logo spin'})
+      console.log('setTimeout ran')
+    }, 3000)
   }
 
   componentDidMount() {
+    this.socketLoggedIn();
     socket.on('meeting locations', (data) => {
       this.setState({ meetingLocations: data });
+      let pix = 25;
+      const scroll = setInterval(() => {
+        window.scrollBy(0, pix);
+      }, 5);
+      setTimeout(clearInterval.bind(null, scroll), 1000);
+
     });
 
     socket.on('match status', (data) => {
@@ -113,16 +181,37 @@ class App extends React.Component {
     socket.on('midpoint', (data) => {
       //console.log('midpoint listener data', data);
       this.setState({ midpoint: data, center: data });
+      ////////////
+      ////////////
+      // SPIN LOGO WHEHN MIDPOINT IS FOUND
+      ////////////
+      ////////////
+      console.log('MIDPOINT GENERATED_______')
+
+      //rotate the midpoint by giving the Title component by givinh it a class of rotateMidpoint then set it back to blank string
+
+
+      this.setState({midpointSpin:'180deg'})
     });
 
     socket.on('weather', (data) => {
       console.log('the weather data is ', data);
       //this.setState({displayWeather: data})
-      this.setState({weatherScale: 1})
-      this.setState({displayWeather: {currently: {icon: this.convertIcon(data.currently.icon), temperature: data.currently.temperature, summary: data.currently.summary}}})
-    })
-
-    //chetan - grab users location
+      this.setState({
+        displayWeather: {
+          currently: {
+            icon: this.convertIcon(data.currently.icon),
+            temperature: data.currently.temperature,
+            summary: data.minutely.summary.slice(0, -1),
+            humidity: data.currently.humidity,
+            precipProbability: data.currently.precipProbability,
+            windSpeed: data.currently.windSpeed,
+            uv: data.currently.uvIndex
+          }
+        }
+      });
+    });
+    //get user location on start
     this.getLocation();
 
     socket.on('user locations', (data) => {
@@ -130,9 +219,13 @@ class App extends React.Component {
         startPoint: data.location1
       });
     });
+
+    socket.on('match data', (data) => {
+      console.log(data);
+    });
   }
 
-//this render method renders title,meetup,map if you're logged in, else it renders login/register components
+//this render method renders title,meetup, map if you're logged in, else it renders login/register components
   render () {
     return (
       <div>
@@ -140,18 +233,30 @@ class App extends React.Component {
       this.state.auth ? (
         <div>
           <div className="top">
-            <Title />
+            <Title spin={this.state.rotateMidpointClass}/>
             <Weather
               summary={this.state.displayWeather.currently.summary}
               temp={this.state.displayWeather.currently.temperature}
               icon={this.state.displayWeather.currently.icon}
-              scale={this.state.weatherScale}
+              humidity={this.state.displayWeather.currently.humidity}
+              precipProbability={this.state.displayWeather.currently.precipProbability}
+              windSpeed={this.state.displayWeather.currently.windSpeed}
+              scale={this.state.displayWeather.currently.weatherScale}
+              uv={this.state.displayWeather.currently.uv}
             />
-            <LogoutButton setuserId={this.setuserId} setAuth={this.setAuth}/>
+            <LogoutButton
+              setuserId={this.setuserId}
+              setAuth={this.setAuth}
+              resetLoginForm={this.resetLoginForm.bind(this)}
+            />
           </div>
           <div className="searchBox">
-            <MeetUpForm userId={this.state.userId}/>
-            <div className= "mapBox" >
+            <MeetUpForm
+              userId={this.state.userId}
+              translate={this.state.formBoxSlide}
+              spinMidpoint={this.spinOnMidpoint}
+            />
+            <div className= "mapBox" style={{transition: 'all .5s ease-in', transform: 'translateX(' + this.state.mapBoxSlide + ')'}}>
               <Map
                 markers={ this.state.meetingLocations }
                 midpoint={ this.state.midpoint }
@@ -173,23 +278,25 @@ class App extends React.Component {
           </div>
         </div>
       ) : (
-        <div className="signInContainer">
+        <div className="signInContainer" >
           <div className="signInForms">
-            <div className="loginCard">
+            <div className="loginCard" style={{transition: 'all .3s ease-in', transform: 'translateY(' + this.state.loginForm + ')'}}>
               <p className="title">Login</p>
-              <Login setAuth={this.setAuth} setuserId={this.setuserId}/>
+              <Login
+                checkLogin={this.checkLogin.bind(this)}
+              />
             </div>
-            <div className="regCard">
+            <div className="regCard" style={{transition: 'all .3s ease-in', transform: 'translateY(' + this.state.loginForm + ')'}}>
               <p className="title">Sign Up</p>
               <Register
-                setAuth={this.setAuth}
+                checkLogin={this.checkLogin.bind(this)}
               />
             </div>
           </div>
         </div>
       )}
       </div>
-    )
+    );
   }
 }
 
