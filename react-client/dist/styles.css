@@ -1,0 +1,643 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Source Sans Pro';
+    background-color: aliceblue;
+    background-image: url(images/map.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding: 20px;
+    padding-top: 0px;
+}
+
+button {
+    background-color: #FFFFFF;
+    border: 0.1px solid #cccccc;
+    color: black;
+    margin-top: 25px;
+    padding: 10px;
+    box-shadow: 2px 2px 5px lightgrey;
+    outline: none;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+button:hover {
+    box-shadow: none;
+    background-color: #FAF6F4;
+}
+
+button:active {
+    background-color: #F0ECEA;
+    box-shadow: none;
+}
+
+button:focus {
+    background-color: #F0ECEA;
+}
+
+.listItemBtn {
+    font-size: 10px;
+    margin: 2px;
+    padding: 2px;
+    width: 45px;
+}
+
+.listItemBtns {
+    display: flex;
+    justify-content: center;
+    align-items: bottom;
+    flex-wrap: wrap;
+}
+
+.logoutButton {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    font-size: 30px;
+    box-shadow: none;
+    font-family: Raleway;
+    padding: 0px;
+    margin-top: 0px;
+}
+
+.logoutButton:hover {
+    box-shadow: none;
+    font-weight: 900;
+    background-color: transparent;
+}
+
+.logoutButton:active {
+    background-color: transparent;
+    font-weight: 900;
+    box-shadow: none;
+}
+
+.logoutButton:focus {
+    font-weight: 900;
+    background-color: transparent;
+}
+
+.weatherBox {
+    font-size: 16px;
+    font-weight: 300;
+    font-family: Raleway;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    /*background-color: rgba(245, 248, 255, .85);*/
+    padding: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+    /*border-radius: 5px;
+    box-shadow: 0px 0px 8px grey;*/
+}
+
+.weatherData {
+    font-size: 16px;
+    font-weight: 300;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 370px;
+    height: 130px;
+    padding-top: 10px;
+}
+
+.weatherIS {
+    text-align: center;
+    display: flex;
+    margin-left: 10px;
+    margin-right: 10px;
+    flex-direction: column;
+    justify-content: space-around;
+    font-weight: 300;
+}
+
+.weatherIcon {
+    height: 128px;
+    width: 128px;
+}
+
+.weatherNumerical {
+    display: flex;
+    width: 190px;
+    flex-direction: column;
+    justify-content: space-around;
+    white-space: nowrap;
+}
+
+.weatherNumericalEntry {
+    font-weight: 300;
+}
+
+.weatherNumericalEntry:hover {
+    text-decoration: underline;
+}
+
+.yelpDice {
+    display: flex;
+    flex-direction: row;
+}
+
+.title{
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    font-size: 35px;
+    font-family: Raleway;
+    display: flex;
+    align-items: center;
+}
+
+.sub-title{
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    margin-bottom: 10px;
+    margin-right: 10px;
+    font-size: 30px;
+    font-family: Raleway;
+    font-weight: 300;
+    /*border-bottom: 1px solid black;*/
+    /*transform: rotateX(90deg);*/
+    transition: all .3s ease-in
+    transform: rotate(-90deg);
+}
+
+.flex-row-center {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid black;
+    margin-top: 10px;
+}
+
+input{
+    width: 420px;
+    font-size: 16px;
+    padding: 6px 6px 6px 8px;
+    outline: none;
+    background-color: #FFFFFF;
+    border: 0.1px solid #cccccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 8px lightgrey;
+    z-index: 2;
+}
+
+input:focus {
+    box-shadow: none;
+}
+
+.bold {
+    margin: 0;
+    border: 0;
+    font-weight: bold;
+}
+
+.searchBox {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+
+img.listing-object {
+    height: 90px;
+    width: 90px;
+    border-radius: 3px;
+}
+
+.yelp-list {
+    /*padding-top: 3px;*/
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.yelp-list-entry-address{
+    display: flex;
+    flex-direction: column;
+    align-items: : top;
+    justify-content: space-between;
+    color: black;
+    font-size: 11px;
+}
+
+.listing-body {
+    padding-left: 5px;
+    width: 50%;
+    color: black;
+    font-size: 14px;
+}
+
+.yelp-list-entry-name{
+    font-weight: 300;
+    color: black;
+    font-size: 16px;
+    margin-bottom: 7px;
+}
+
+.yelp-list-entry {
+    display: flex;
+    width: 99%;
+    height: 100px;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.yelp-list-entry-container {
+    display: inline-flex;
+    margin: 3px 3px 3px 5px;
+    width: 300px;
+    padding: 5px;
+    border: 1px solid #eee;
+    /*border-radius: 5px;*/
+    background-color: #f3f3f3;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: background-color .25s ease-in-out;
+    -moz-transition: background-color .25s ease-in-out;
+    -webkit-transition: background-color .25s ease-in-out;
+}
+
+.yelp-list-entry-container:hover{
+    /*box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 6px 10px 0 rgba(0, 0, 0, 0.19);*/
+    /*border: 1px solid #FA7070;*/
+    /*border: 1px solid #ccd8bf;*/
+    background-color: #dfe2dc;
+    transition: background-color .25s ease-in-out;
+    -moz-transition: background-color .25s ease-in-out;
+    -webkit-transition: background-color .25s ease-in-out;
+}
+
+.messageText{
+    margin: 3px 0px 0px 0px;
+    padding: 0;
+    color: #4E9DEA;
+    font-size: 11px;
+    vertical-align: top;
+    /*display: inline-block;*/
+}
+
+.resultsContainer {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row-reverse;
+}
+
+.media-left.media-middle {
+    height: 100px;
+}
+
+.listContainer {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    /*border: 1px solid black;*/
+    border-radius: 5px;
+    /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+    /*margin: 2px;*/
+}
+
+.yelp-list-entry-address {
+    padding-left: 5px;
+    /*color: #c3c3c3;*/
+}
+
+.loginForm {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.registerForm {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.popUp {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    min-width: 300px;
+}
+
+.popUpText {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+
+.logout {
+    margin: 0;
+}
+
+.friendList {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.friendListItem {
+    margin: 10px;
+    width: 197px;
+    box-shadow: 2px 2px 2px lightgreen;
+}
+
+.friendListItems {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 40px;
+    width: 435px;
+}
+
+.mapBox {
+    width: 765px;
+    min-height: 500px;
+    background-color: #eee;
+/*    border-radius: 50px;*/
+    box-shadow: 0px 0px 8px grey;
+}
+
+.signInForms {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+}
+
+.logo{
+    height: 45px;
+    width: 45px;
+    margin-left: 10px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+/*    border-bottom: 2px solid black;
+*/}
+
+.mode {
+    margin-bottom: 10px;
+    font-size: 15px;
+    padding: 2px 2px 2px 3px;
+    outline: none;
+    background-color: #FFFFFF;
+    border: 0.1px solid #cccccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 8px lightgrey;
+}
+
+.mode:focus {
+    box-shadow: none;
+}
+
+.signInContainer {
+    align-items: center;
+    height: 800px;
+}
+
+.loginCard {
+    border-radius: 5px;
+    background-color: rgba(245, 248, 255, .85);
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-top: 0px;
+    padding-bottom: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    box-shadow: 0px 0px 8px grey;
+}
+
+.regCard {
+    border-radius: 5px;
+    background-color: rgba(245, 248, 255, .85);
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-top: 0px;
+    padding-bottom: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    box-shadow: 0px 0px 8px grey;
+}
+
+.bttn-flex-box {
+    display: flex;
+    justify-content: space-around;
+}
+
+.meetCard {
+    /*border-radius: 5px;*/
+    background-color: rgba(245, 248, 255, .85);
+    min-height: 525px;
+    min-width: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 30px;
+    padding-right: 30px;
+    box-shadow: 0px 0px 8px grey;
+    margin-right: 10px;
+}
+
+.formWeather {
+    display: flex;
+    justify-content: space-between;
+}
+
+.inputLable {
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 23px;
+}
+
+.inputLable2 {
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    margin-top: 20px;
+    margin-bottom: 5px;
+    font-size: 23px;
+}
+
+.meet-card-header {
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    padding-bottom: 3px;
+    font-size: 23px;
+    font-family: Raleway;
+}
+.react-autosuggest__container {
+  position: relative;
+}
+
+.react-autosuggest__input {
+    width: 420px;
+    font-size: 16px;
+    padding: 6px 6px 6px 8px;
+    outline: none;
+    background-color: #FFFFFF;
+    border: 0.1px solid #cccccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 8px lightgrey;
+}
+
+.react-autosuggest__input--focused {
+  outline: none;
+}
+
+.react-autosuggest__input::-ms-clear {
+  display: none;
+}
+
+.react-autosuggest__input--open {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.react-autosuggest__suggestions-container {
+  display: block;
+}
+
+.react-autosuggest__suggestions-container--open {
+    display: block;
+    position: absolute;
+    top: 31.9px;
+    width: 434px;
+    border: 0.1px solid #cccccc;
+    border-top: 0px;
+    background-color: #FFFFFF;
+    font-weight: 300;
+    font-size: 16px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-radius: 0px 0px 5px 5px;
+}
+
+.react-autosuggest__suggestions-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.react-autosuggest__suggestion {
+    cursor: pointer;
+    padding: 6px 6px 6px 8px;
+}
+
+.react-autosuggest__suggestion--highlighted {
+  background-color: #ddd;
+}
+
+.footer {
+  font-family: Raleway;
+  font-size: 10px;
+  margin-top: 10px;
+}
+
+.locbtn {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    font-size: 30px;
+    box-shadow: none;
+    font-family: Raleway;
+    padding: 0px;
+    margin-top: 0px;
+    margin-left: -25px;
+    margin-top: -2px;
+    z-index: 5;
+}
+
+.inputWButton {
+    display: flex;
+    flex-direction: row;
+}
+
+.locbtn:hover {
+    box-shadow: none;
+    background-color: transparent;
+}
+
+.locbtn:active {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.locbtn:focus {
+    background-color: transparent;
+}
+
+.spin {
+    transition: all .2s ease-in;
+    transform: rotateZ(-0deg);
+}
+
+.spin:hover {
+    transition: all .4s ease-out;
+    transform: rotateZ(360deg);
+}
+
+.spin:active {
+    transition: all .4s ease-out;
+    transform: rotateZ(360deg);
+}
+
+.spin:focus {
+    transition: all .4s ease-out;
+    transform: rotateZ(360deg);
+}
+
+.rotateMidpoint {
+   transition: all 1s ease-out;
+    transform: rotateZ(360deg);
+}
+
+.zoom {
+    transition: all .3s ease-out;
+    transform: scale(1);
+}
+
+.zoom:hover {
+    transition: all .3s ease-out;
+    transform: scale(1.3);
+}
+
+//F5F8FF
+
