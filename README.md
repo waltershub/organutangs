@@ -68,15 +68,6 @@ npm run server-dev
 mongod
 ```
 
-### Roadmap
-
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
-
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
-
 ## Screenshot
 
 ![](images/halfwaze.png?raw=true)
