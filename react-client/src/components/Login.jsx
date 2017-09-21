@@ -36,7 +36,6 @@ class Login extends React.Component {
     })
     .then((response) =>{
       this.props.checkLogin();
-      console.log('you logged in bruh')
     })
     .catch(function (error) {
       console.log("error logging in ", error);
