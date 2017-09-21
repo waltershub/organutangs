@@ -5,12 +5,8 @@
 ## Team
 
   - __Development Team Members__: 
-    - Adrienne Tran - Full Stack Engineer
     - Alec Draymore - Full Stack Engineer
     - Chetanpreet Malhi - Full Stack Engineer
-    - Ed Sweezey - Full Stack Engineer
-    - Michael Lam - Full Stack Engineer
-    - Nick Powell - Full Stack Engineer
     - Walter Shub - Full Stack Engineer
 
 ## Table of Contents
