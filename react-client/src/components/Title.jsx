@@ -8,7 +8,6 @@ class Title extends React.Component {
   // componentWillReceiveProps() {
   // }
   componentDidMount() {
-    console.log('THE PROPS IN TITLE COMPONENT: ', this.props)
   }
 
   render() {

@@ -72,7 +72,6 @@ class App extends React.Component {
     });
     //get the weather data for current location
     socket.on('initWeather', (data) => {
-      console.log('WEATHER BEEEEEOOCHCHH', data);
       this.setState({
         displayWeather: {
           currently: {
@@ -158,7 +157,6 @@ class App extends React.Component {
     this.setState({rotateMidpointClass: 'logo spin rotateMidpoint'})
     window.setTimeout(() => {
       this.setState({rotateMidpointClass: 'logo spin'})
-      console.log('setTimeout ran')
     }, 3000)
   }
 
@@ -166,27 +164,23 @@ class App extends React.Component {
     this.socketLoggedIn();
     socket.on('meeting locations', (data) => {
       this.setState({ meetingLocations: data });
-      let pix = 25;
-      const scroll = setInterval(() => {
-        window.scrollBy(0, pix);
-      }, 5);
-      setTimeout(clearInterval.bind(null, scroll), 1000);
-
+      // let pix = 25;
+      // const scroll = setInterval(() => {
+      //   window.scrollBy(0, pix);
+      // }, 5);
+      // setTimeout(clearInterval.bind(null, scroll), 1000);
     });
 
     socket.on('match status', (data) => {
-      console.log('match status inside index.jsx');
     });
 
     socket.on('midpoint', (data) => {
-      //console.log('midpoint listener data', data);
       this.setState({ midpoint: data, center: data });
       ////////////
       ////////////
       // SPIN LOGO WHEHN MIDPOINT IS FOUND
       ////////////
       ////////////
-      console.log('MIDPOINT GENERATED_______')
 
       //rotate the midpoint by giving the Title component by givinh it a class of rotateMidpoint then set it back to blank string
 
@@ -195,7 +189,6 @@ class App extends React.Component {
     });
 
     socket.on('weather', (data) => {
-      console.log('the weather data is ', data);
       //this.setState({displayWeather: data})
       this.setState({
         displayWeather: {
@@ -221,7 +214,6 @@ class App extends React.Component {
     });
 
     socket.on('match data', (data) => {
-      console.log(data);
     });
   }
 
