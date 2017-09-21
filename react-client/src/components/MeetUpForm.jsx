@@ -129,13 +129,11 @@ class MeetUpForm extends React.Component {
 // I called this method in the constructor to set the address on load
   setAddress() {
     navigator.geolocation.getCurrentPosition((loc) => {
-      console.log("setting address");
       var geocoder  = new google.maps.Geocoder();
       var location  = new google.maps.LatLng(loc.coords.latitude, loc.coords.longitude);
         geocoder.geocode({'latLng': location},  (results, status) => {
         if(status == google.maps.GeocoderStatus.OK) {
          const add = results[0].formatted_address;
-         console.log(add);
          this.setState({userLocationAddress: add});
         }
       });
@@ -150,15 +148,11 @@ class MeetUpForm extends React.Component {
 
   feelingLucky(e){
     e.preventDefault();
-    console.log("clicked feelingLucky");
     const alphabet = 'bcdfghjklmnpqrstvwxyz'.split('');
     const vowels = 'aeiou'.split('');
     const randomLetters = _.sample(alphabet) + _.sample(vowels);
-    console.log(randomLetters);
     this.getSuggestions(randomLetters)
       .then((suggestions)=>{
-        console.log('then');
-        console.log(suggestions);
         this.setState({query: _.sample(suggestions)});
       });
   }
@@ -184,6 +178,7 @@ class MeetUpForm extends React.Component {
       var location2 = { "address": this.state.friendId, "coordinates": [0,0] };
       const mode = this.state.mode;
       const query = this.state.query;
+      console.log(location1, location2);
       axios.post('/two-locations', {
         userId,
         location1,
@@ -191,9 +186,7 @@ class MeetUpForm extends React.Component {
         mode,
         query,
       }).then((res) => {
-        // do something with the res
         this.setState({ status : 'Results found.' });
-        // console.log('res', res)
       });
     }
 
