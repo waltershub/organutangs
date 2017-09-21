@@ -25,6 +25,7 @@
 
 ## Usage
 
+- Try out the live demo of Halfwaze [here](https://halfwaze-v2.herokuapp.com/)!
 
 ## Requirements
 
