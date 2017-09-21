@@ -4,7 +4,7 @@
 
 ## Team
 
-  __Development Team Members__: 
+  - __Development Team Members__: 
     - Adrienne Tran - Full Stack Engineer
     - Alec Draymore - Full Stack Engineer
     - Chetanpreet Malhi - Full Stack Engineer
