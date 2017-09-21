@@ -1,10 +1,10 @@
 # Halfwaze
 
-> Find a restaurant or cafe to meet your friend half way.
+> Find activites for you and your friend half way between your locations!
 
 ## Team
 
-  - __Development Team Members__: 
+  __Development Team Members__: 
     - Adrienne Tran - Full Stack Engineer
     - Alec Draymore - Full Stack Engineer
     - Chetanpreet Malhi - Full Stack Engineer
@@ -52,7 +52,7 @@ Run ```npm start``` to start the server.
 
 In a separate terminal window, run ```webpack -d --watch``` to start webpack.
 
-* You may need to ```npm install -g webpack```.
+\*You may need to ```npm install -g webpack```.
 
 ### Installing Dependencies
 
